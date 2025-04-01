@@ -57,9 +57,8 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
           ScrollTrigger.create({
             trigger: document.body,
             start: "25% top",
-            end: "bottom-=20% bottom",
+            end: "center bottom",
             scrub: 0.5,
-            markers: process.env.NODE_ENV === "development",
             onUpdate: (self) => {
               // Capture the initial state for Flip
               const state = Flip.getState([...titleChars, ...subtitleChars]);
