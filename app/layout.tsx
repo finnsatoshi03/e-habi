@@ -68,9 +68,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${didactGothic.variable} antialiased min-h-screen flex flex-col`}
+        className={`${didactGothic.variable} antialiased bg-[#1e1e1e] text-white`}
       >
-        <div className="flex-1">{children}</div>
+        {children}
       </body>
     </html>
   );

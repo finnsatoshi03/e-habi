@@ -1,85 +1,44 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Header } from "./_components/Header";
+import React, { useRef } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Header } from "./_components/Header";
 
 import handLeft from "@/public/images/hand-left.png";
 import handRight from "@/public/images/hand-right.png";
-import walisTambo from "@/public/images/broom.png";
+import broom from "@/public/images/broom.png";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
-  const [animationComplete, setAnimationComplete] = useState(false);
-
-  useEffect(() => {
-    // Wait a moment for page to be fully loaded
-    const timer = setTimeout(() => {
-      setAnimationComplete(true);
-    }, 200);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
+  const parentRef = useRef(null);
+  const headerRef = useRef(null);
 
   return (
-    <div className="bg-[#1e1e1e] text-white h-screen relative overflow-x-hidden">
-      <AnimatePresence>
-        {animationComplete && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-            >
-              <Header title="E-Habi" subtitle="Walis Tambo" />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 2 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="absolute w-[22%] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-            >
-              <Image
-                src={walisTambo}
-                alt="Walis Tambo"
-                className="rotate-[158deg] object-cover w-full h-auto"
-                priority
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: -100 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.9, delay: 0.8 }}
-              className="absolute bottom-0 -left-[10%] w-1/2"
-            >
-              <Image
-                src={handLeft}
-                alt="Hand Left"
-                className="-rotate-[15deg] object-cover"
-                priority
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.9, delay: 0.8 }}
-              className="absolute bottom-1/4 -right-[10%] w-1/2"
-            >
-              <Image
-                src={handRight}
-                alt="Hand Right"
-                className="-rotate-[8deg] object-cover"
-                priority
-              />
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+    <div ref={parentRef} className="relative overflow-y-auto overflow-x-hidden">
+      <div className="relative h-screen">
+        <Header ref={headerRef} title="E-HABI" subtitle="Walis Tambo" />
+        <Image
+          src={handLeft}
+          alt="hand-left"
+          className="object-cover w-1/2 absolute bottom-0 -left-[10%] rotate-[-20deg]"
+        />
+        <Image
+          src={handRight}
+          alt="hand-right"
+          className="object-cover w-1/2 absolute bottom-1/4 -right-[10%] rotate-[10deg]"
+        />
+        <Image
+          src={broom}
+          alt="broom"
+          className="object-cover w-1/5 left-1/2 top-1/2 -translate-x-1/2 absolute -translate-y-1/2 rotate-[158deg]"
+        />
+      </div>
+      <div className="h-[200vh]">
+        <p>Scroll down</p>
+      </div>
     </div>
   );
 }
