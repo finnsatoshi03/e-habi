@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useLayoutEffect } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -46,39 +46,50 @@ export default function Home() {
   const sixthSectionTextRef = useRef(null);
   const sixthSectionLineRef = useRef(null);
   const sixthSectionBottomLineRef = useRef(null);
+  const seventhSectionTitleRef = useRef(null);
+  const seventhSectionBoxRef = useRef(null);
+  const seventhSectionNumberRef = useRef(null);
+  const seventhSectionTextRef = useRef(null);
+  const seventhSectionLineRef = useRef(null);
+  const seventhSectionBottomLineRef = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Images animation
     if (handLeftRef.current && handRightRef.current && broomRef.current) {
-      // Create a timeline for image animations
-
+      // Create a timeline for image animations with improved configuration
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: parentRef.current,
           start: "20% center",
-          end: "25% top",
-          scrub: 0.5,
+          end: "25% center",
+          scrub: 0.8,
+          preventOverlaps: true,
+          toggleActions: "play none none reverse",
+          id: "header-animations",
         },
       });
 
+      // Set initial states with smoother scaling
       gsap.set([handRightRef.current, broomRef.current], {
         scale: 1,
+        opacity: 0.8,
       });
 
-      // Make handLeft disappear
+      // Make handLeft disappear with smoother transition
       tl.to(
         handLeftRef.current,
         {
           opacity: 0,
           y: 150,
           x: "-10%",
+          scale: 0.8,
           duration: 1,
-          ease: "power1.out",
+          ease: "power2.inOut",
         },
         0
       );
 
-      // Rotate handRight and move to bottom
+      // Rotate handRight and move to bottom with smoother scaling
       tl.to(
         handRightRef.current,
         {
@@ -86,13 +97,14 @@ export default function Home() {
           y: "-25vh",
           x: "5vw",
           scale: 1.2,
+          opacity: 1,
           duration: 1,
-          ease: "power1.inOut",
+          ease: "power2.inOut",
         },
         0
       );
 
-      // Rotate broom and move to bottom center
+      // Rotate broom and move to bottom center with smoother scaling
       tl.to(
         broomRef.current,
         {
@@ -101,8 +113,9 @@ export default function Home() {
           bottom: "-10%",
           x: "70%",
           y: 250,
+          opacity: 1,
           duration: 1,
-          ease: "power1.inOut",
+          ease: "power2.inOut",
         },
         0
       );
@@ -187,16 +200,20 @@ export default function Home() {
         x: "-5%",
       });
 
-      // Create a dedicated ScrollTrigger just for map visibility with proper callbacks
+      // Create a dedicated ScrollTrigger for map visibility with improved configuration
       ScrollTrigger.create({
         trigger: ".third-section",
         start: "top+=20% 80%",
         end: "bottom-=30% 20%",
+        preventOverlaps: true,
+        toggleActions: "play none none reverse",
+        id: "map-visibility",
         onEnter: () => {
           gsap.to(mapRef.current, {
             opacity: 1,
             x: 0,
             duration: 0.5,
+            ease: "power2.inOut",
           });
         },
         onLeave: () => {
@@ -204,6 +221,7 @@ export default function Home() {
             opacity: 0,
             x: "-100%",
             duration: 0.5,
+            ease: "power2.inOut",
           });
         },
         onEnterBack: () => {
@@ -211,6 +229,7 @@ export default function Home() {
             opacity: 1,
             x: 0,
             duration: 0.5,
+            ease: "power2.inOut",
           });
         },
         onLeaveBack: () => {
@@ -218,17 +237,21 @@ export default function Home() {
             opacity: 0,
             x: "-5%",
             duration: 0.5,
+            ease: "power2.inOut",
           });
         },
       });
 
-      // Create a timeline for third section animations (keep existing animation for other elements)
+      // Create a timeline for third section animations with improved ScrollTrigger config
       const thirdSectionTl = gsap.timeline({
         scrollTrigger: {
           trigger: ".third-section",
           start: "top 80%",
           end: "top-=20% 30%",
           scrub: 0.8,
+          preventOverlaps: true,
+          toggleActions: "play none none reverse",
+          id: "third-section",
         },
       });
 
@@ -266,6 +289,42 @@ export default function Home() {
         },
         0
       );
+
+      // Add transition animation for map when entering fourth section
+      const mapTransitionTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".fourth-section",
+          start: "top 80%",
+          end: "top 30%",
+          scrub: 0.8,
+        },
+      });
+
+      // Fade out and slide map to the left
+      mapTransitionTl.to(
+        mapRef.current,
+        {
+          opacity: 0,
+          x: "-100%",
+          scale: 0.8,
+          duration: 1,
+          ease: "power2.inOut",
+        },
+        0
+      );
+
+      // Ensure map is properly hidden after transition
+      ScrollTrigger.create({
+        trigger: ".fourth-section",
+        start: "top 30%",
+        onEnter: () => {
+          gsap.set(mapRef.current, {
+            opacity: 0,
+            x: "-100%",
+            scale: 0.8,
+          });
+        },
+      });
     }
 
     // Third section text and horizontal line animations
@@ -427,7 +486,7 @@ export default function Home() {
     ) {
       // Set initial states
       gsap.set(fourthSectionBroomRef.current, {
-        y: "-100vh", // Start from way off the top
+        y: "-100vh",
         opacity: 0.3,
         scale: 0.8,
       });
@@ -453,13 +512,16 @@ export default function Home() {
         }
       );
 
-      // Create animation timeline for fourth section elements
+      // Create animation timeline for fourth section elements with improved ScrollTrigger config
       const fourthElementsTl = gsap.timeline({
         scrollTrigger: {
           trigger: ".fourth-section",
           start: "top 60%",
           end: "center center",
           scrub: 0.6,
+          preventOverlaps: true,
+          toggleActions: "play none none reverse",
+          id: "fourth-section",
         },
       });
 
@@ -593,13 +655,16 @@ export default function Home() {
         }
       );
 
-      // Create timeline for section transition animations (for text and other elements)
+      // Create timeline for section transition animations with improved ScrollTrigger config
       const sectionTransitionTl = gsap.timeline({
         scrollTrigger: {
           trigger: ".fifth-section",
           start: "top 80%",
           end: "top 30%",
           scrub: 0.8,
+          preventOverlaps: true,
+          toggleActions: "play none none reverse",
+          id: "fifth-section",
         },
       });
 
@@ -773,13 +838,16 @@ export default function Home() {
         }
       );
 
-      // Create timeline for section transition animations
+      // Create timeline for section transition animations with improved ScrollTrigger config
       const sectionTransitionTl = gsap.timeline({
         scrollTrigger: {
           trigger: ".sixth-section",
           start: "top 80%",
           end: "top 30%",
           scrub: 0.8,
+          preventOverlaps: true,
+          toggleActions: "play none none reverse",
+          id: "sixth-section",
         },
       });
 
@@ -898,6 +966,231 @@ export default function Home() {
           ease: "none",
         },
         0.9
+      );
+
+      // Create a separate timeline for sixth section exit animations with improved ScrollTrigger config
+      const sixthSectionExitTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".seventh-section",
+          start: "top 80%",
+          end: "top 30%",
+          scrub: 0.8,
+          preventOverlaps: true,
+          toggleActions: "play none none reverse",
+          id: "sixth-section-exit",
+        },
+      });
+
+      // Fade out sixth section elements with staggered timing
+      sixthSectionExitTl.to(
+        [sixthSectionTitleRef.current, sixthSectionTextRef.current],
+        {
+          opacity: 0,
+          y: -20,
+          duration: 0.3,
+          ease: "power2.inOut",
+        },
+        0
+      );
+
+      sixthSectionExitTl.to(
+        sixthSectionNumberRef.current,
+        {
+          opacity: 0,
+          y: -10,
+          duration: 0.3,
+          ease: "power2.inOut",
+        },
+        0.1
+      );
+
+      // Fix line animations to ensure they disappear properly
+      sixthSectionExitTl.to(
+        [sixthSectionLineRef.current, sixthSectionBottomLineRef.current],
+        {
+          scaleX: 0,
+          opacity: 0,
+          transformOrigin: "left center",
+          duration: 0.3,
+          ease: "power2.inOut",
+        },
+        0.2
+      );
+
+      sixthSectionExitTl.to(
+        sixthSectionBoxRef.current,
+        {
+          opacity: 0,
+          scale: 0.8,
+          duration: 0.3,
+          ease: "power2.inOut",
+        },
+        0.3
+      );
+
+      // Ensure lines are properly reset after animation
+      ScrollTrigger.create({
+        trigger: ".seventh-section",
+        start: "top 30%",
+        onLeave: () => {
+          gsap.set(
+            [sixthSectionLineRef.current, sixthSectionBottomLineRef.current],
+            {
+              scaleX: 0,
+              opacity: 0,
+              transformOrigin: "left center",
+            }
+          );
+        },
+      });
+
+      // Add a cleanup trigger to ensure lines stay hidden
+      ScrollTrigger.create({
+        trigger: ".seventh-section",
+        start: "top 30%",
+        end: "bottom bottom",
+        onEnter: () => {
+          gsap.set(
+            [sixthSectionLineRef.current, sixthSectionBottomLineRef.current],
+            {
+              scaleX: 0,
+              opacity: 0,
+              transformOrigin: "left center",
+            }
+          );
+        },
+      });
+    }
+
+    // Seventh section animations - transition from sixth section
+    if (
+      fifthSectionBroomRef.current &&
+      sixthSectionTitleRef.current &&
+      sixthSectionTextRef.current &&
+      sixthSectionNumberRef.current &&
+      sixthSectionBoxRef.current &&
+      sixthSectionLineRef.current &&
+      sixthSectionBottomLineRef.current &&
+      seventhSectionTitleRef.current &&
+      seventhSectionBoxRef.current &&
+      seventhSectionNumberRef.current &&
+      seventhSectionTextRef.current &&
+      seventhSectionLineRef.current &&
+      seventhSectionBottomLineRef.current
+    ) {
+      // Set initial states for seventh section
+      gsap.set(seventhSectionBoxRef.current, {
+        opacity: 0,
+        scale: 0.8,
+      });
+      gsap.set(
+        [
+          seventhSectionTitleRef.current,
+          seventhSectionTextRef.current,
+          seventhSectionNumberRef.current,
+        ],
+        {
+          opacity: 0,
+          y: 30,
+        }
+      );
+      gsap.set(
+        [seventhSectionLineRef.current, seventhSectionBottomLineRef.current],
+        {
+          scaleX: 0,
+          transformOrigin: "left center",
+        }
+      );
+
+      // Create timeline for section transition animations with improved ScrollTrigger config
+      const sectionTransitionTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".seventh-section",
+          start: "top 80%",
+          end: "top 30%",
+          scrub: 0.8,
+          preventOverlaps: true,
+          toggleActions: "play none none reverse",
+          id: "seventh-section",
+        },
+      });
+
+      // Scale down fifth section broom and center it with adjusted timing
+      sectionTransitionTl.to(
+        fifthSectionBroomRef.current,
+        {
+          y: "30%",
+          x: "-45%",
+          scale: 0.4,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0.4 // Start after sixth section elements fade out
+      );
+
+      // Animate seventh section elements with staggered timing
+      sectionTransitionTl.to(
+        seventhSectionTitleRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.4,
+          ease: "back.out(1.2)",
+        },
+        0.5 // Start after broom starts moving
+      );
+
+      sectionTransitionTl.to(
+        seventhSectionLineRef.current,
+        {
+          scaleX: 1,
+          duration: 0.4,
+          ease: "none",
+        },
+        0.6
+      );
+
+      sectionTransitionTl.to(
+        seventhSectionBoxRef.current,
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.4,
+          ease: "power1.out",
+        },
+        0.7
+      );
+
+      sectionTransitionTl.to(
+        seventhSectionNumberRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.4,
+          ease: "back.out(1.2)",
+        },
+        0.8
+      );
+
+      sectionTransitionTl.to(
+        seventhSectionTextRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.4,
+          ease: "back.out(1.2)",
+        },
+        0.9
+      );
+
+      sectionTransitionTl.to(
+        seventhSectionBottomLineRef.current,
+        {
+          scaleX: 1,
+          duration: 0.4,
+          ease: "none",
+        },
+        1.0
       );
     }
   }, []);
@@ -1087,6 +1380,36 @@ export default function Home() {
           <div
             ref={sixthSectionBottomLineRef}
             className="h-[1px] w-full bg-white col-start-2 col-span-2"
+          ></div>
+        </div>
+      </div>
+      <div className="h-[100vh] relative seventh-section">
+        <div className="fixed grid grid-cols-[auto_1fr] bottom-[25%] left-[10%] w-[42%] seventh-section-image">
+          <p
+            ref={seventhSectionTitleRef}
+            className="col-start-1 uppercase w-fit"
+          >
+            pagbibigkis
+          </p>
+          <div
+            ref={seventhSectionBoxRef}
+            className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2"
+          ></div>
+          <div
+            ref={seventhSectionLineRef}
+            className="h-[1px] w-full bg-white row-start-2 mt-[10vh]"
+          ></div>
+        </div>
+        <div className="fixed grid grid-cols-[1fr_1fr_auto] gap-x-8 gap-y-4 bottom-[15%] right-[10%] w-1/3 seventh-section-text text-right">
+          <p ref={seventhSectionNumberRef} className="row-start-1 col-start-3">
+            04.1
+          </p>
+          <p ref={seventhSectionTextRef} className="col-start-2 row-start-1">
+            Ang mga lalaki ang nagbibigkis ng tambo sa tangkay
+          </p>
+          <div
+            ref={seventhSectionBottomLineRef}
+            className="h-[1px] w-full bg-white col-start-1 col-span-2"
           ></div>
         </div>
       </div>
