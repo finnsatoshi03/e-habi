@@ -168,7 +168,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
         return () => ctx.revert(); // Clean up
       }
     }, [title, subtitle, secondTitle, secondSubtitle]);
-
+    
     // Function to split text into separate span elements
     const splitText = (parent: HTMLElement | null, text: string) => {
       if (!parent) return [];
