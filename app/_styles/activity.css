@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  scroll-behavior: smooth;
+  background-color: #f5e8c7; /* Beige color */
+}
+
+.bg-beige {
+  background-color: #f5e8c7;
+}
+
+button {
+  transition: background-color 0.3s;
+}
+
+button:hover:not(:disabled) {
+  background-color: #a3a3a3;
+}
