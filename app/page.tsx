@@ -40,6 +40,12 @@ export default function Home() {
   const fifthSectionTextRef = useRef(null);
   const fifthSectionLineRef = useRef(null);
   const fifthSectionBottomLineRef = useRef(null);
+  const sixthSectionTitleRef = useRef(null);
+  const sixthSectionBoxRef = useRef(null);
+  const sixthSectionNumberRef = useRef(null);
+  const sixthSectionTextRef = useRef(null);
+  const sixthSectionLineRef = useRef(null);
+  const sixthSectionBottomLineRef = useRef(null);
 
   useEffect(() => {
     // Images animation
@@ -558,40 +564,27 @@ export default function Home() {
       fourthSectionBottomLineRef.current &&
       fifthSectionBottomLineRef.current
     ) {
-      // Split text into characters for animation
-      const splitTextToChars = (
-        element: HTMLElement
-      ): NodeListOf<HTMLSpanElement> => {
-        const text = element.textContent || "";
-        element.innerHTML = "";
-        const chars = text.split("");
-
-        chars.forEach((char: string) => {
-          const span = document.createElement("span");
-          span.className = "char inline-block relative";
-          span.textContent = char === " " ? "\u00A0" : char;
-          element.appendChild(span);
-        });
-
-        return element.querySelectorAll<HTMLSpanElement>(".char");
-      };
-
-      // Split texts into characters
-      const fourthTitleChars = splitTextToChars(fourthSectionTitleRef.current);
-      const fourthTextChars = splitTextToChars(fourthSectionTextRef.current);
-      const fifthTitleChars = splitTextToChars(fifthSectionTitleRef.current);
-      const fifthTextChars = splitTextToChars(fifthSectionTextRef.current);
-      const fourthNumberChars = splitTextToChars(
-        fourthSectionNumberRef.current
-      );
-      const fifthNumberChars = splitTextToChars(fifthSectionNumberRef.current);
-
-      // Set initial states
-      gsap.set(fifthSectionBroomRef.current, { opacity: 0 });
-      gsap.set([...fifthTitleChars, ...fifthTextChars, ...fifthNumberChars], {
+      // Set initial states for fifth section
+      gsap.set(fifthSectionBroomRef.current, {
         opacity: 0,
+        y: -50,
+        scale: 0.8,
       });
-      gsap.set(fifthSectionBoxRef.current, { opacity: 0, scale: 0.8 });
+      gsap.set(fifthSectionBoxRef.current, {
+        opacity: 0,
+        scale: 0.8,
+      });
+      gsap.set(
+        [
+          fifthSectionTitleRef.current,
+          fifthSectionTextRef.current,
+          fifthSectionNumberRef.current,
+        ],
+        {
+          opacity: 0,
+          y: 30,
+        }
+      );
       gsap.set(
         [fifthSectionLineRef.current, fifthSectionBottomLineRef.current],
         {
@@ -599,82 +592,6 @@ export default function Home() {
           transformOrigin: "left center",
         }
       );
-
-      // Create a dedicated ScrollTrigger for fourth/fifth section transition
-      // This handles visibility of both boxes with proper enter/leave callbacks
-      ScrollTrigger.create({
-        trigger: ".fifth-section",
-        start: "top 80%",
-        end: "top 30%",
-        onEnter: () => {
-          // When entering fifth section, hide fourth section elements
-          gsap.to(fourthSectionBoxRef.current, {
-            opacity: 0,
-            scale: 0.8,
-            duration: 0.3,
-            ease: "power2.out",
-            overwrite: "auto",
-          });
-          gsap.to(fourthSectionBroomRef.current, {
-            opacity: 0,
-            duration: 0.3,
-            ease: "power2.out",
-            overwrite: "auto",
-          });
-
-          // Show fifth section elements
-          gsap.to(fifthSectionBoxRef.current, {
-            opacity: 1,
-            scale: 1,
-            duration: 0.5,
-            ease: "back.out(1.2)",
-            overwrite: "auto",
-          });
-          gsap.to(fifthSectionBroomRef.current, {
-            opacity: 1,
-            duration: 0.5,
-            ease: "power2.in",
-            overwrite: "auto",
-          });
-        },
-        onLeave: () => {
-          // Additional animations when leaving fifth section upward (if needed)
-        },
-        onEnterBack: () => {
-          // When entering fifth section from below (if needed)
-        },
-        onLeaveBack: () => {
-          // When leaving fifth section going up (back to fourth)
-          gsap.to(fourthSectionBoxRef.current, {
-            opacity: 1,
-            scale: 1,
-            duration: 0.5,
-            ease: "back.out(1.2)",
-            overwrite: "auto",
-          });
-          gsap.to(fourthSectionBroomRef.current, {
-            opacity: 1,
-            duration: 0.5,
-            ease: "power2.in",
-            overwrite: "auto",
-          });
-
-          // Hide fifth section elements
-          gsap.to(fifthSectionBoxRef.current, {
-            opacity: 0,
-            scale: 0.8,
-            duration: 0.3,
-            ease: "power2.out",
-            overwrite: "auto",
-          });
-          gsap.to(fifthSectionBroomRef.current, {
-            opacity: 0,
-            duration: 0.3,
-            ease: "power2.out",
-            overwrite: "auto",
-          });
-        },
-      });
 
       // Create timeline for section transition animations (for text and other elements)
       const sectionTransitionTl = gsap.timeline({
@@ -686,125 +603,301 @@ export default function Home() {
         },
       });
 
-      // Fade out fourth section characters randomly
-      fourthTitleChars.forEach((char: HTMLSpanElement) => {
-        sectionTransitionTl.to(
-          char,
-          {
-            opacity: 0,
-            duration: 0.3,
-            ease: "power1.out",
-          },
-          0.1 + Math.random() * 0.3
-        );
-      });
-
-      fourthTextChars.forEach((char: HTMLSpanElement) => {
-        sectionTransitionTl.to(
-          char,
-          {
-            opacity: 0,
-            duration: 0.3,
-            ease: "power1.out",
-          },
-          0.2 + Math.random() * 0.3
-        );
-      });
-
-      // Fade out fourth section number characters
-      fourthNumberChars.forEach((char: HTMLSpanElement) => {
-        sectionTransitionTl.to(
-          char,
-          {
-            opacity: 0,
-            y: -10,
-            duration: 0.3,
-            ease: "power1.out",
-          },
-          0.15 + Math.random() * 0.2
-        );
-      });
-
-      // Fade in fifth section characters randomly
-      fifthTitleChars.forEach((char: HTMLSpanElement) => {
-        sectionTransitionTl.to(
-          char,
-          {
-            opacity: 1,
-            duration: 0.3,
-            ease: "power1.in",
-          },
-          0.4 + Math.random() * 0.3
-        );
-      });
-
-      fifthTextChars.forEach((char: HTMLSpanElement) => {
-        sectionTransitionTl.to(
-          char,
-          {
-            opacity: 1,
-            duration: 0.3,
-            ease: "power1.in",
-          },
-          0.5 + Math.random() * 0.3
-        );
-      });
-
-      // Fade in fifth section number with a special effect
-      fifthNumberChars.forEach((char: HTMLSpanElement) => {
-        sectionTransitionTl.to(
-          char,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.4,
-            ease: "back.out(1.5)",
-          },
-          0.45 + Math.random() * 0.2
-        );
-      });
-
-      // Fade out fourth section lines
+      // Fade out fourth section broom
       sectionTransitionTl.to(
-        fourthSectionLineRef.current,
+        fourthSectionBroomRef.current,
         {
-          scaleX: 0,
-          duration: 0.4,
-          ease: "power1.in",
+          opacity: 0,
+          scale: 0.8,
+          duration: 0.5,
+          ease: "power2.inOut",
         },
-        0.1
+        0
+      );
+
+      // Fade out fourth section elements
+      sectionTransitionTl.to(
+        [fourthSectionTitleRef.current, fourthSectionTextRef.current],
+        {
+          opacity: 0,
+          y: -20,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0
       );
 
       sectionTransitionTl.to(
-        fourthSectionBottomLineRef.current,
+        fourthSectionNumberRef.current,
+        {
+          opacity: 0,
+          y: -10,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0
+      );
+
+      // Fade out fourth section lines
+      sectionTransitionTl.to(
+        [fourthSectionLineRef.current, fourthSectionBottomLineRef.current],
         {
           scaleX: 0,
-          duration: 0.4,
-          ease: "power1.in",
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0
+      );
+
+      // Animate fifth section broom
+      sectionTransitionTl.to(
+        fifthSectionBroomRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          ease: "back.out(1.2)",
         },
         0.2
       );
 
-      // Animate in fifth section horizontal line
+      // Animate fifth section title
+      sectionTransitionTl.to(
+        fifthSectionTitleRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "back.out(1.2)",
+        },
+        0.3
+      );
+
+      // Animate fifth section horizontal line
       sectionTransitionTl.to(
         fifthSectionLineRef.current,
         {
           scaleX: 1,
-          duration: 0.6,
-          ease: "power1.out",
+          duration: 1,
+          ease: "none",
         },
         0.5
       );
 
-      // Animate in fifth section bottom line
+      // Animate fifth section box
+      sectionTransitionTl.to(
+        fifthSectionBoxRef.current,
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.5,
+          ease: "power1.out",
+        },
+        0.6
+      );
+
+      // Animate fifth section number
+      sectionTransitionTl.to(
+        fifthSectionNumberRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "back.out(1.2)",
+        },
+        0.7
+      );
+
+      // Animate fifth section text
+      sectionTransitionTl.to(
+        fifthSectionTextRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "back.out(1.2)",
+        },
+        0.8
+      );
+
+      // Animate fifth section bottom line
       sectionTransitionTl.to(
         fifthSectionBottomLineRef.current,
         {
           scaleX: 1,
-          duration: 0.6,
+          duration: 0.8,
+          ease: "none",
+        },
+        0.9
+      );
+    }
+
+    // Sixth section animations - transition from fifth section
+    if (
+      fifthSectionBroomRef.current &&
+      fifthSectionTitleRef.current &&
+      fifthSectionTextRef.current &&
+      fifthSectionNumberRef.current &&
+      fifthSectionBoxRef.current &&
+      fifthSectionLineRef.current &&
+      fifthSectionBottomLineRef.current &&
+      sixthSectionTitleRef.current &&
+      sixthSectionBoxRef.current &&
+      sixthSectionNumberRef.current &&
+      sixthSectionTextRef.current &&
+      sixthSectionLineRef.current &&
+      sixthSectionBottomLineRef.current
+    ) {
+      // Set initial states for sixth section
+      gsap.set(sixthSectionBoxRef.current, {
+        opacity: 0,
+        scale: 0.8,
+      });
+      gsap.set(
+        [
+          sixthSectionTitleRef.current,
+          sixthSectionTextRef.current,
+          sixthSectionNumberRef.current,
+        ],
+        {
+          opacity: 0,
+          y: 30,
+        }
+      );
+      gsap.set(
+        [sixthSectionLineRef.current, sixthSectionBottomLineRef.current],
+        {
+          scaleX: 0,
+          transformOrigin: "left center",
+        }
+      );
+
+      // Create timeline for section transition animations
+      const sectionTransitionTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".sixth-section",
+          start: "top 80%",
+          end: "top 30%",
+          scrub: 0.8,
+        },
+      });
+
+      // Scale down fifth section broom instead of fading it out
+      sectionTransitionTl.to(
+        fifthSectionBroomRef.current,
+        {
+          y: "10%",
+          x: "-10%",
+          scale: 0.8,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0
+      );
+
+      // Fade out fifth section elements
+      sectionTransitionTl.to(
+        [fifthSectionTitleRef.current, fifthSectionTextRef.current],
+        {
+          opacity: 0,
+          y: -20,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0
+      );
+
+      sectionTransitionTl.to(
+        fifthSectionNumberRef.current,
+        {
+          opacity: 0,
+          y: -10,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0
+      );
+
+      // Fade out fifth section lines
+      sectionTransitionTl.to(
+        [fifthSectionLineRef.current, fifthSectionBottomLineRef.current],
+        {
+          scaleX: 0,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0
+      );
+
+      // Animate sixth section title
+      sectionTransitionTl.to(
+        sixthSectionTitleRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "back.out(1.2)",
+        },
+        0.3
+      );
+
+      // Animate sixth section horizontal line
+      sectionTransitionTl.to(
+        sixthSectionLineRef.current,
+        {
+          scaleX: 1,
+          duration: 1,
+          ease: "none",
+        },
+        0.5
+      );
+
+      // Animate sixth section box
+      sectionTransitionTl.to(
+        sixthSectionBoxRef.current,
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.5,
           ease: "power1.out",
         },
         0.6
+      );
+
+      // Animate sixth section number
+      sectionTransitionTl.to(
+        sixthSectionNumberRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "back.out(1.2)",
+        },
+        0.7
+      );
+
+      // Animate sixth section text
+      sectionTransitionTl.to(
+        sixthSectionTextRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "back.out(1.2)",
+        },
+        0.8
+      );
+
+      // Animate sixth section bottom line
+      sectionTransitionTl.to(
+        sixthSectionBottomLineRef.current,
+        {
+          scaleX: 1,
+          duration: 0.8,
+          ease: "none",
+        },
+        0.9
       );
     }
   }, []);
@@ -966,6 +1059,33 @@ export default function Home() {
           </p>
           <div
             ref={fifthSectionBottomLineRef}
+            className="h-[1px] w-full bg-white col-start-2 col-span-2"
+          ></div>
+        </div>
+      </div>
+      <div className="h-[100vh] relative sixth-section">
+        <div className="fixed grid grid-cols-[auto_1fr] bottom-[25%] left-[10%] w-1/2 sixth-section-image">
+          <p ref={sixthSectionTitleRef} className="col-start-1 uppercase w-fit">
+            pagsusuri
+          </p>
+          <div
+            ref={sixthSectionBoxRef}
+            className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2"
+          ></div>
+          <div
+            ref={sixthSectionLineRef}
+            className="h-[1px] w-full bg-white row-start-2 mt-[10vh]"
+          ></div>
+        </div>
+        <div className="fixed grid grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4 bottom-[15%] left-[35%] w-1/3 sixth-section-text">
+          <p ref={sixthSectionNumberRef} className="col-start-1">
+            03
+          </p>
+          <p ref={sixthSectionTextRef} className="col-start-2">
+            Pinipili ang tamang haba at kapal ng tambo.
+          </p>
+          <div
+            ref={sixthSectionBottomLineRef}
             className="h-[1px] w-full bg-white col-start-2 col-span-2"
           ></div>
         </div>
