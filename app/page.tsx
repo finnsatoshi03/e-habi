@@ -52,6 +52,12 @@ export default function Home() {
   const seventhSectionTextRef = useRef(null);
   const seventhSectionLineRef = useRef(null);
   const seventhSectionBottomLineRef = useRef(null);
+  const eighthSectionTitleRef = useRef(null);
+  const eighthSectionBoxRef = useRef(null);
+  const eighthSectionNumberRef = useRef(null);
+  const eighthSectionTextRef = useRef(null);
+  const eighthSectionLineRef = useRef(null);
+  const eighthSectionBottomLineRef = useRef(null);
 
   useLayoutEffect(() => {
     // Images animation
@@ -607,6 +613,28 @@ export default function Home() {
         },
         0.9
       );
+
+      // Add exit animation for fourth section elements
+      ScrollTrigger.create({
+        trigger: ".fifth-section",
+        start: "top 80%",
+        end: "top 30%",
+        scrub: 0.8,
+        onEnter: () => {
+          gsap.to(fourthSectionBoxRef.current, {
+            opacity: 0,
+            scale: 1,
+            duration: 0.5,
+            ease: "power2.inOut",
+          });
+        },
+        onLeave: () => {
+          gsap.set(fourthSectionBoxRef.current, {
+            opacity: 0,
+            scale: 0.8,
+          });
+        },
+      });
     }
 
     // Fifth section animations - transition from fourth section
@@ -796,6 +824,28 @@ export default function Home() {
         },
         0.9
       );
+
+      // Add exit animation for fifth section elements
+      ScrollTrigger.create({
+        trigger: ".sixth-section",
+        start: "top 80%",
+        end: "top 30%",
+        scrub: 0.8,
+        onEnter: () => {
+          gsap.to(fifthSectionBoxRef.current, {
+            opacity: 0,
+            scale: 0.8,
+            duration: 0.5,
+            ease: "power2.inOut",
+          });
+        },
+        onLeave: () => {
+          gsap.set(fifthSectionBoxRef.current, {
+            opacity: 0,
+            scale: 0.8,
+          });
+        },
+      });
     }
 
     // Sixth section animations - transition from fifth section
@@ -1192,6 +1242,193 @@ export default function Home() {
         },
         1.0
       );
+
+      // Add exit animation for seventh section elements
+      ScrollTrigger.create({
+        trigger: ".eighth-section",
+        start: "top 80%",
+        end: "top 30%",
+        scrub: 0.8,
+        onEnter: () => {
+          gsap.to(seventhSectionBoxRef.current, {
+            opacity: 0,
+            scale: 0.8,
+            duration: 0.5,
+            ease: "power2.inOut",
+          });
+        },
+        onLeave: () => {
+          gsap.set(seventhSectionBoxRef.current, {
+            opacity: 0,
+            scale: 0.8,
+          });
+        },
+      });
+    }
+
+    // Eighth section animations - transition from seventh section
+    if (
+      fifthSectionBroomRef.current &&
+      seventhSectionTitleRef.current &&
+      seventhSectionTextRef.current &&
+      seventhSectionNumberRef.current &&
+      seventhSectionBoxRef.current &&
+      seventhSectionLineRef.current &&
+      seventhSectionBottomLineRef.current &&
+      eighthSectionTitleRef.current &&
+      eighthSectionBoxRef.current &&
+      eighthSectionNumberRef.current &&
+      eighthSectionTextRef.current &&
+      eighthSectionLineRef.current &&
+      eighthSectionBottomLineRef.current
+    ) {
+      // Set initial states for eighth section
+      gsap.set(eighthSectionBoxRef.current, {
+        opacity: 0,
+        scale: 0.8,
+      });
+      gsap.set(
+        [
+          eighthSectionTitleRef.current,
+          eighthSectionTextRef.current,
+          eighthSectionNumberRef.current,
+        ],
+        {
+          opacity: 0,
+          y: 30,
+        }
+      );
+      gsap.set(
+        [eighthSectionLineRef.current, eighthSectionBottomLineRef.current],
+        {
+          scaleX: 0,
+          transformOrigin: "left center",
+        }
+      );
+
+      // Create timeline for section transition animations with improved ScrollTrigger config
+      const sectionTransitionTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".eighth-section",
+          start: "top 80%",
+          end: "top 30%",
+          scrub: 0.8,
+          preventOverlaps: true,
+          toggleActions: "play none none reverse",
+          id: "eighth-section",
+        },
+      });
+
+      // Scale down fifth section broom and move it up
+      sectionTransitionTl.to(
+        fifthSectionBroomRef.current,
+        {
+          y: "25%",
+          x: "-45%",
+          scale: 0.5,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0.4
+      );
+
+      // Fade out seventh section elements
+      sectionTransitionTl.to(
+        [seventhSectionTitleRef.current, seventhSectionTextRef.current],
+        {
+          opacity: 0,
+          y: -20,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0
+      );
+
+      sectionTransitionTl.to(
+        seventhSectionNumberRef.current,
+        {
+          opacity: 0,
+          y: -10,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0
+      );
+
+      sectionTransitionTl.to(
+        [seventhSectionLineRef.current, seventhSectionBottomLineRef.current],
+        {
+          scaleX: 0,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0
+      );
+
+      // Animate eighth section elements with staggered timing
+      sectionTransitionTl.to(
+        eighthSectionTitleRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.4,
+          ease: "back.out(1.2)",
+        },
+        0.5
+      );
+
+      sectionTransitionTl.to(
+        eighthSectionLineRef.current,
+        {
+          scaleX: 1,
+          duration: 0.4,
+          ease: "none",
+        },
+        0.6
+      );
+
+      sectionTransitionTl.to(
+        eighthSectionBoxRef.current,
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.4,
+          ease: "power1.out",
+        },
+        0.7
+      );
+
+      sectionTransitionTl.to(
+        eighthSectionNumberRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.4,
+          ease: "back.out(1.2)",
+        },
+        0.8
+      );
+
+      sectionTransitionTl.to(
+        eighthSectionTextRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.4,
+          ease: "back.out(1.2)",
+        },
+        0.9
+      );
+
+      sectionTransitionTl.to(
+        eighthSectionBottomLineRef.current,
+        {
+          scaleX: 1,
+          duration: 0.4,
+          ease: "none",
+        },
+        1.0
+      );
     }
   }, []);
 
@@ -1410,6 +1647,37 @@ export default function Home() {
           <div
             ref={seventhSectionBottomLineRef}
             className="h-[1px] w-full bg-white col-start-1 col-span-2"
+          ></div>
+        </div>
+      </div>
+      <div className="h-[100vh] relative eighth-section">
+        <div className="w-[35%] fixed grid grid-cols-[1fr_auto] bottom-[27%] right-[10%] eighth-section-image">
+          <p
+            ref={eighthSectionTitleRef}
+            className="col-start-2 uppercase w-fit justify-self-end"
+          >
+            pananahi
+          </p>
+          <div
+            ref={eighthSectionBoxRef}
+            className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] col-start-2 row-start-2"
+          ></div>
+          <div
+            ref={eighthSectionLineRef}
+            className="h-[1px] w-full bg-white mt-[10vh] row-start-2 col-start-1"
+          ></div>
+        </div>
+        <div className="fixed grid grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4 bottom-[15%] left-[10%] w-1/3 eighth-section-text">
+          <p ref={eighthSectionNumberRef} className="row-start-1 col-start-1">
+            04.2
+          </p>
+          <p ref={eighthSectionTextRef} className="col-start-2 row-start-1">
+            Habang ang mga babae ang nagtatahi gamit ang karayom at plastic
+            rattan.{" "}
+          </p>
+          <div
+            ref={eighthSectionBottomLineRef}
+            className="h-[1px] w-full bg-white col-start-2 col-span-2"
           ></div>
         </div>
       </div>
