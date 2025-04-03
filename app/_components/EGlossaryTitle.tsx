@@ -1,15 +1,42 @@
 import { forwardRef, ForwardedRef, useEffect, useRef } from "react";
-import Image from "next/image";
-import { Playfair_Display, Libre_Baskerville } from "next/font/google";
+import { Playfair_Display, Libre_Baskerville, Didact_Gothic } from "next/font/google";
 import { cn } from "../_lib/utils";
 import gsap from "gsap";
 import { Flip } from "gsap/Flip";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import tambo from "@/public/images/tambo.jpg";
-import abaka from "@/public/images/abaka.jpg";
-import hammer from "@/public/images/hammer.jpg";
-import berdengTambo from "@/public/images/berdeng-tambo.jpg";
+const characterData = {
+  T: { 
+    img: "/images/tambo.jpg", 
+    title: "Tambo", 
+    sub: "pangngalan", 
+    desc: "Isang halamang ginagamit sa paggawa ng walis tambo."
+  },
+  A: { 
+    img: "/images/abaka.jpg", 
+    title: "Abaká", 
+    sub: "pangngalan", 
+    desc: "Isang halamang hemp o napagkukunan ng himayma na berde ang mga dahon na kawangis ng dahon ng saging. Ito ay ginagamit bilang pantali at panahi sa walis tambo."
+  },
+  M: { 
+    img: "/images/hammer.jpg", 
+    title: "Martilyo", 
+    sub: "pangngalan", 
+    desc: "Gamit na ginagamit sa pagpukpok ng pako."
+  },
+  B: { 
+    img: "/images/berdeng-tambo.jpg", 
+    title: "Berdeng Tambo", 
+    sub: "pang-uri", 
+    desc: "Isang uri ng tambo na may berdeng kulay kapag sariwa."
+  },
+  O: { 
+    img: "", 
+    title: "Ordináryo", 
+    sub: "pang-uri", 
+    desc: "Manipis at karaniwang ginagamit na walis tambo."
+  }
+};
 
 gsap.registerPlugin(Flip, ScrollTrigger);
 
@@ -27,6 +54,12 @@ const playfairDisplayBlack = Playfair_Display({
   style: ["normal"],
 });
 
+const didactGothic = Didact_Gothic({
+  variable: "--font-didact-gothic",
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
 const libreBaskerville = Libre_Baskerville({
   subsets: ["latin"],
   weight: ["400", "700"],
@@ -35,7 +68,8 @@ const libreBaskerville = Libre_Baskerville({
 });
 
 type FirstHeaderProps = {
-  title: string;
+  title1: string;
+  title2: string;
   subtitle: string;
   className?: string;
   secondTitle?: string;
@@ -46,15 +80,13 @@ type SecondHeaderProps = {
   className?: string;
 };
 
-// Function to split text into separate span elements
-const splitText = (parent: HTMLElement | null, text: string) => {
+const splitTextWithImgDescription = (parent: HTMLElement | null, text: string) => {
   if (!parent) return [];
 
-  // Clear the parent element
-  parent.innerHTML = "";
-
-  // First, set proper spacing on the parent
+  parent.innerHTML = ""; // Clear the parent element
   parent.style.letterSpacing = "0.05em";
+
+  let toggle = true; // Used to alternate positions
 
   // Create spans for each character
   const chars = text.split("").map((char) => {
@@ -68,9 +100,80 @@ const splitText = (parent: HTMLElement | null, text: string) => {
       span.textContent = char;
     }
 
-    // Common styles for all characters
     span.style.display = "inline-block";
     span.style.position = "relative";
+
+    if (characterData[char]) {
+      const { img, title, sub, desc } = characterData[char];
+
+      // Tooltip container
+      const root = document.createElement("div");
+      root.style.position = "absolute";
+      root.style.left = "50%";
+      root.style.transform = "translateX(-50%)";
+      root.style.textAlign = "left";
+      root.style.fontSize = "15px";
+      root.style.letterSpacing = "0px";      
+      root.style.zIndex = "10";
+      root.style.width = "190px";
+      root.style.height = "150px";
+
+      // Alternate position
+      if (toggle) {
+        root.style.top = "100%"; // Below the character
+      } else {
+        root.style.bottom = "100%"; // Above the character
+      }
+
+      // Create description elements
+      const h1 = document.createElement("h1");
+      h1.className = `${playfairDisplay.className} font-bold`;
+      h1.textContent = title;
+
+      const subSpan = document.createElement("h6");
+      subSpan.className = `${playfairDisplay.className} italic text-gray-700`;
+      subSpan.textContent = sub;
+
+      const p = document.createElement("h6");
+      p.className = `${didactGothic.className} text-md`;
+      p.textContent = desc;
+
+      // Append text content to root
+      root.appendChild(h1);
+      root.appendChild(subSpan);
+      root.appendChild(p);
+
+      // Create image container
+      if (img) {
+        const p = document.createElement("h6");
+        p.className = `${didactGothic.className} text-xs spacing-0`;
+        p.textContent = title;
+
+        const imgElement = document.createElement("div");
+        imgElement.innerHTML = `
+          <img src="${img}" className="w-full h-full border border-black" />`;
+        imgElement.style.position = "absolute";
+        imgElement.style.left = "50%";
+        imgElement.style.width = "150px"
+        imgElement.style.height = "150px"
+        imgElement.style.transform = "translateX(-50%)";
+
+        // Place the image opposite to the tooltip
+        if (toggle) {
+          imgElement.style.bottom = "100%"; // Image above if description is below
+        } else {
+          imgElement.style.top = "100%"; // Image below if description is above
+        }
+        imgElement.appendChild(p)
+        span.appendChild(imgElement);
+      }
+
+      // Append root inside the span
+      span.appendChild(root);
+
+      // Toggle for the next character
+      toggle = !toggle;
+    }
 
     parent.appendChild(span);
     return span;
@@ -79,12 +182,12 @@ const splitText = (parent: HTMLElement | null, text: string) => {
   return chars;
 };
 
-const splitTextWithImgDescription = (parent : any, text : string) => { 
+const splitText = (parent : HTMLElement | null, text : string) => { 
   if (!parent) return [];
   parent.innerHTML = "";
   parent.style.letterSpacing = "0.05em";
 
-  const chars = text.split("").map((char, charIndex) => {
+  const chars = text.split("").map((char) => {
     const span = document.createElement("span");
 
     if (char === " ") {
@@ -106,21 +209,22 @@ const splitTextWithImgDescription = (parent : any, text : string) => {
 
 export const FirstHeader = forwardRef<HTMLDivElement, FirstHeaderProps>(
   (
-    { title, subtitle, className },
+    { title1, title2, subtitle, className },
     ref: ForwardedRef<HTMLDivElement>
   ) => {
     const titleRef = useRef<HTMLHeadingElement>(null);
     const subtitleRef = useRef<HTMLHeadingElement>(null);
   
     useEffect(() => {
-        const titleChars = splitText(titleRef.current, title);
+        const titleChars1 = splitText(titleRef.current, title1);
+        const titleChars2 = splitText(titleRef.current, title2);
         const subtitleChars = splitText(subtitleRef.current, subtitle);
 
         if (titleRef.current && subtitleRef.current) {
         // Create a GSAP context
         const ctx = gsap.context(() => {
           // Initial setup - inline-block for all characters
-          gsap.set([...titleChars, ...subtitleChars], {
+          gsap.set([...titleChars1, ...titleChars2, ...subtitleChars], {
             display: "inline-block",
             position: "relative",
           });
@@ -142,7 +246,7 @@ export const FirstHeader = forwardRef<HTMLDivElement, FirstHeaderProps>(
             scrub: 0.5,
             onUpdate: (self) => {
               // Capture the initial state for Flip
-              const state = Flip.getState([...titleChars, ...subtitleChars]);
+              const state = Flip.getState([...titleChars1, ...titleChars2, ...subtitleChars]);
 
               // Change the alignment to center
               gsap.set([titleRef.current, subtitleRef.current], {
@@ -195,7 +299,7 @@ export const FirstHeader = forwardRef<HTMLDivElement, FirstHeaderProps>(
 
         return () => ctx.revert(); // Clean up
       }
-    }, [title, subtitle]);
+    }, [title1, title2, subtitle]);
 
     return (
       <>
@@ -212,7 +316,7 @@ export const FirstHeader = forwardRef<HTMLDivElement, FirstHeaderProps>(
               className={`${playfairDisplay.className}
               text-[length:clamp(100px,10vw,250px)] transition-all 
               duration-300 flex `}>
-              {title.split("-")[0]}
+              {title1}
               -
             </h1>
             <h1
@@ -221,7 +325,7 @@ export const FirstHeader = forwardRef<HTMLDivElement, FirstHeaderProps>(
               text-[length:clamp(100px,10vw,250px)] transition-all 
               duration-300 flex italic font-bold`}
             >        
-              {title.split("-")[1]}
+              {title2}
             </h1>
           </div>
           <h2
@@ -255,7 +359,7 @@ export const SecondHeader = forwardRef<HTMLDivElement, SecondHeaderProps>(
         // Set initial state for second header
         gsap.set(secondHeaderRef.current, {
           opacity: 0,
-          x: "-50%",
+          x: 0,
         });
     
         // Ensure characters are inline-block and positioned normally
@@ -264,8 +368,7 @@ export const SecondHeader = forwardRef<HTMLDivElement, SecondHeaderProps>(
           y: 0,
           opacity: 1,
         });
-      }
-    
+      }        
       if (secondHeaderRef.current) {
         // Create a GSAP context
         const ctx = gsap.context(() => {
@@ -304,6 +407,32 @@ export const SecondHeader = forwardRef<HTMLDivElement, SecondHeaderProps>(
               }
             },
           });
+
+          ScrollTrigger.create({
+            trigger: ".third-section",
+            start: "top 80%",
+            end: "top 30%",
+            scrub: 0.6,
+            onUpdate: (self) => {
+              if (secondTitleRef.current) {
+                const secondTitleChars = secondTitleRef.current.querySelectorAll("span");
+    
+                // Reverse character spread effect (bring them back)
+                gsap.to(secondTitleChars, {
+                  x: 0,
+                  opacity: 1 - self.progress, // Fades out gradually
+                  duration: 0.5,
+                  stagger: 0.05,
+                });
+              }
+    
+              // Fade out the header as it moves up
+              gsap.to(secondHeaderRef.current, {
+                opacity: 1 - self.progress,
+                duration: 0.5,
+              });
+            }
+          })
                     
         });
     
@@ -329,26 +458,7 @@ export const SecondHeader = forwardRef<HTMLDivElement, SecondHeaderProps>(
           >
               {secondTitle}
           </h1>
-        
-          <div className="absolute relative w-[150px] h-[150px]">          
-            <div className={`relative absolute text-left spacing-0 text-md`}>
-              <h1 className={`${playfairDisplay.className} font-[700] non-italic`}>Tambo</h1>
-              <span className={`${playfairDisplay.className} italic text-gray-700`}>pangngalan</span>
-              <p className="max-w-md">Isang halamang ginagamit sa paggawa ng walis tambo.</p>
-            </div>
-          </div>
-          <div className="absolute relative w-[150px] h-[150px]">
-            TAMBO
-            <div className={`relative absolute`}>                    
-              <Image
-                src={tambo}
-                alt="abaka"
-                className="w-full h-full border border-black"
-              />
-            </div>
-          </div>
         </div>
-        
       </>
     )
   
@@ -356,3 +466,23 @@ export const SecondHeader = forwardRef<HTMLDivElement, SecondHeaderProps>(
 )
 
 SecondHeader.displayName = "SecondHeader";
+
+
+export const Title = forwardRef<HTMLDivElement>(
+  (
+    { },
+    ref: ForwardedRef<HTMLDivElement>
+  ) => {
+
+  return (
+    <div className="flex items-center">
+      <h1 className={`${playfairDisplay.className} text-6xl`}> E </h1>
+      <div className="flex flex-col justify-center text-lg">
+        <h1 className={`${playfairDisplay.className}`}>HABI</h1>
+        <h1 className={`${libreBaskerville.className}`}>Glossary</h1>
+      </div>
+    </div>
+  )
+})
+
+Title.displayName = "Title";

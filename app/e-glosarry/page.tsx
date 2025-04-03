@@ -5,12 +5,12 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import { FirstHeader, SecondHeader } from "../_components/EGlossaryTitle";
+import { FirstHeader, SecondHeader, Title } from "../_components/EGlossaryTitle";
+import { Alphabet, AlphabetBlocks } from "../_components/Alphabet";
+import { Terminologies } from "./constant";
+import { Footer } from "../_components/Footer";
 
-import handLeft from "@/public/images/hand-left.png";
-import handRight from "@/public/images/hand-right.png";
 import broom from "@/public/images/broom.png";
-import map from "@/public/images/map.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -814,7 +814,8 @@ export default function EGlossaryPage() {
     <div ref={parentRef} className="relative overflow-y-auto overflow-x-hidden">
       <div className="relative h-screen">
         <FirstHeader
-          title="E-GLOSSARY"
+          title1="E"
+          title2="GLOSSARY"
           subtitle="Ng Walis Tambo"
         />
       </div>
@@ -823,6 +824,49 @@ export default function EGlossaryPage() {
           secondTitle="TAMBO"
         />
       </div>
+
+      <div className="relative px-12 py-4 h-full w-full third-section">
+        <div className="absolute h-full w-full"
+            style={{
+              backgroundImage: `url(${broom.src})`,
+              backgroundSize: "100% 100%", // Full width, auto height
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "top center",
+              opacity: "10%",
+            }}
+        >
+        </div>
+
+        <div className="w-fit">
+          <Title />
+        </div>
+
+        {/* Loop through the Terminologies and display AlphabetBlock in a grid */}
+        {Object.keys(Terminologies).map((key) => {
+          return (
+            <div key={key} className="mb-2">
+              {/* Group the AlphabetBlocks in a grid */}
+              <div className="grid grid-cols-3 gap-2">                  
+                
+                <Alphabet alphabet={key} />                  
+                {Terminologies[key].map((item, index) => (                    
+                    <AlphabetBlocks 
+                      key={index}
+                      title={item.title} 
+                      sub={item.sub} 
+                      desc={item.desc} 
+                      img={item.img}
+                    />                    
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <Footer />
+      
+
       {/* 
       <div className="h-[100vh] relative third-section">
         <div ref={mapRef} className="fixed w-4/5 -left-[20%] -top-[25%]">
