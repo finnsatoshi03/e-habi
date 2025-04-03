@@ -49,6 +49,11 @@ export const useScrollAnimations = () => {
   const eighthSectionTextRef = useRef(null);
   const eighthSectionLineRef = useRef(null);
   const eighthSectionBottomLineRef = useRef(null);
+  const ninthSectionBambooRef = useRef(null);
+  const ninthSectionNumberRef = useRef(null);
+  const ninthSectionFirstTextRef = useRef(null);
+  const ninthSectionLineRef = useRef(null);
+  const ninthSectionSecondTextRef = useRef(null);
 
   useLayoutEffect(() => {
     // Images animation
@@ -57,12 +62,13 @@ export const useScrollAnimations = () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: parentRef.current,
-          start: "20% center",
-          end: "25% center",
-          scrub: 0.8,
+          start: "10% center",
+          end: "20% center",
+          scrub: 0.5,
           preventOverlaps: true,
           toggleActions: "play none none reverse",
           id: "header-animations",
+          fastScrollEnd: true,
         },
       });
 
@@ -70,6 +76,8 @@ export const useScrollAnimations = () => {
       gsap.set([handRightRef.current, broomRef.current], {
         scale: 1,
         opacity: 0.8,
+        force3D: true,
+        willChange: "transform",
       });
 
       // Make handLeft disappear with smoother transition
@@ -80,8 +88,10 @@ export const useScrollAnimations = () => {
           y: 150,
           x: "-10%",
           scale: 0.8,
-          duration: 1,
+          duration: 0.8,
           ease: "power2.inOut",
+          force3D: true,
+          willChange: "transform",
         },
         0
       );
@@ -95,8 +105,10 @@ export const useScrollAnimations = () => {
           x: "5vw",
           scale: 1.2,
           opacity: 1,
-          duration: 1,
+          duration: 0.8,
           ease: "power2.inOut",
+          force3D: true,
+          willChange: "transform",
         },
         0
       );
@@ -111,8 +123,10 @@ export const useScrollAnimations = () => {
           x: "70%",
           y: 250,
           opacity: 1,
-          duration: 1,
+          duration: 0.8,
           ease: "power2.inOut",
+          force3D: true,
+          willChange: "transform",
         },
         0
       );
@@ -1420,6 +1434,251 @@ export const useScrollAnimations = () => {
         },
         1.0
       );
+
+      // Add exit animation for eighth section elements
+      const eighthSectionExitTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".ninth-section",
+          start: "top 80%",
+          end: "top 30%",
+          scrub: 0.8,
+          preventOverlaps: true,
+          toggleActions: "play none none reverse",
+          id: "eighth-section-exit",
+        },
+      });
+
+      // Fade out eighth section elements with staggered timing
+      eighthSectionExitTl.to(
+        [eighthSectionTitleRef.current, eighthSectionTextRef.current],
+        {
+          opacity: 0,
+          y: -20,
+          duration: 0.3,
+          ease: "power2.inOut",
+        },
+        0
+      );
+
+      eighthSectionExitTl.to(
+        eighthSectionNumberRef.current,
+        {
+          opacity: 0,
+          y: -10,
+          duration: 0.3,
+          ease: "power2.inOut",
+        },
+        0.1
+      );
+
+      eighthSectionExitTl.to(
+        [eighthSectionLineRef.current, eighthSectionBottomLineRef.current],
+        {
+          scaleX: 0,
+          opacity: 0,
+          transformOrigin: "left center",
+          duration: 0.3,
+          ease: "power2.inOut",
+        },
+        0.2
+      );
+
+      eighthSectionExitTl.to(
+        eighthSectionBoxRef.current,
+        {
+          opacity: 0,
+          scale: 0.8,
+          duration: 0.3,
+          ease: "power2.inOut",
+        },
+        0.3
+      );
+
+      // Ensure lines are properly reset after animation
+      ScrollTrigger.create({
+        trigger: ".ninth-section",
+        start: "top 30%",
+        onLeave: () => {
+          gsap.set(
+            [eighthSectionLineRef.current, eighthSectionBottomLineRef.current],
+            {
+              scaleX: 0,
+              opacity: 0,
+              transformOrigin: "left center",
+            }
+          );
+        },
+      });
+
+      // Add a cleanup trigger to ensure lines stay hidden
+      ScrollTrigger.create({
+        trigger: ".ninth-section",
+        start: "top 30%",
+        end: "bottom bottom",
+        onEnter: () => {
+          gsap.set(
+            [eighthSectionLineRef.current, eighthSectionBottomLineRef.current],
+            {
+              scaleX: 0,
+              opacity: 0,
+              transformOrigin: "left center",
+            }
+          );
+        },
+      });
+    }
+
+    // Ninth section animations
+    if (
+      fifthSectionBroomRef.current &&
+      ninthSectionBambooRef.current &&
+      ninthSectionNumberRef.current &&
+      ninthSectionFirstTextRef.current &&
+      ninthSectionLineRef.current &&
+      ninthSectionSecondTextRef.current
+    ) {
+      // Set initial states for ninth section elements
+      gsap.set(ninthSectionBambooRef.current, {
+        opacity: 0,
+        x: "-20%",
+        scale: 0.8,
+      });
+
+      gsap.set(
+        [
+          ninthSectionNumberRef.current,
+          ninthSectionFirstTextRef.current,
+          ninthSectionSecondTextRef.current,
+        ],
+        {
+          opacity: 0,
+          y: 30,
+        }
+      );
+
+      gsap.set(ninthSectionLineRef.current, {
+        scaleX: 0,
+        transformOrigin: "left center",
+      });
+
+      // Create timeline for ninth section animations
+      const ninthSectionTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".ninth-section",
+          start: "top 80%",
+          end: "top 30%",
+          scrub: 0.8,
+          preventOverlaps: true,
+          toggleActions: "play none none reverse",
+          id: "ninth-section",
+        },
+      });
+
+      // Animate broom to final position
+      ninthSectionTl.to(
+        fifthSectionBroomRef.current,
+        {
+          x: "20%",
+          y: "45%",
+          scale: 0.5,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0
+      );
+
+      // Animate bamboo image
+      ninthSectionTl.to(
+        ninthSectionBambooRef.current,
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 0.8,
+          ease: "power2.out",
+        },
+        0.2
+      );
+
+      // Animate number
+      ninthSectionTl.to(
+        ninthSectionNumberRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "back.out(1.2)",
+        },
+        0.4
+      );
+
+      // Animate first text
+      ninthSectionTl.to(
+        ninthSectionFirstTextRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "back.out(1.2)",
+        },
+        0.5
+      );
+
+      // Animate horizontal line
+      ninthSectionTl.to(
+        ninthSectionLineRef.current,
+        {
+          scaleX: 1,
+          duration: 0.8,
+          ease: "none",
+        },
+        0.6
+      );
+
+      // Animate second text
+      ninthSectionTl.to(
+        ninthSectionSecondTextRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "back.out(1.2)",
+        },
+        0.7
+      );
+
+      // Add cleanup trigger for ninth section elements
+      ScrollTrigger.create({
+        trigger: ".ninth-section",
+        start: "top 30%",
+        end: "bottom bottom",
+        onEnter: () => {
+          gsap.set(fifthSectionBroomRef.current, {
+            x: "20%",
+            y: "45%",
+            scale: 0.5,
+          });
+          gsap.set(ninthSectionBambooRef.current, {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+          });
+          gsap.set(
+            [
+              ninthSectionNumberRef.current,
+              ninthSectionFirstTextRef.current,
+              ninthSectionSecondTextRef.current,
+            ],
+            {
+              opacity: 1,
+              y: 0,
+            }
+          );
+          gsap.set(ninthSectionLineRef.current, {
+            scaleX: 1,
+          });
+        },
+      });
     }
   }, []);
 
@@ -1468,5 +1727,10 @@ export const useScrollAnimations = () => {
     eighthSectionTextRef,
     eighthSectionLineRef,
     eighthSectionBottomLineRef,
+    ninthSectionBambooRef,
+    ninthSectionNumberRef,
+    ninthSectionFirstTextRef,
+    ninthSectionLineRef,
+    ninthSectionSecondTextRef,
   };
 };

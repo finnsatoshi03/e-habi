@@ -9,6 +9,7 @@ import handLeft from "@/public/images/hand-left.png";
 import handRight from "@/public/images/hand-right.png";
 import broom from "@/public/images/broom.png";
 import map from "@/public/images/map.png";
+import bamboo from "@/public/images/bamboo.png";
 
 import { useScrollAnimations } from "./_animations/useScrollAnimations";
 
@@ -60,6 +61,11 @@ export default function Home() {
     eighthSectionNumberRef,
     eighthSectionTextRef,
     eighthSectionBottomLineRef,
+    ninthSectionBambooRef,
+    ninthSectionNumberRef,
+    ninthSectionFirstTextRef,
+    ninthSectionLineRef,
+    ninthSectionSecondTextRef,
   } = useScrollAnimations();
 
   return (
@@ -70,6 +76,7 @@ export default function Home() {
           subtitle="Walis Tambo"
           secondTitle="Paggawa"
           secondSubtitle="Ng Walis Tambo"
+          isNinthSection={true}
         />
         <div
           ref={handLeftRef}
@@ -309,6 +316,31 @@ export default function Home() {
             ref={eighthSectionBottomLineRef}
             className="h-[1px] w-full bg-white col-start-2 col-span-2"
           ></div>
+        </div>
+      </div>
+      <div className="h-[100vh] relative ninth-section">
+        <div
+          ref={ninthSectionBambooRef}
+          className="fixed -left-[10%] top-0 w-1/4"
+        >
+          <Image src={bamboo} alt="bamboo" className="object-cover w-full" />
+        </div>
+        <div className="w-full flex justify-center h-full">
+          <div className="flex flex-col gap-4 w-1/3 h-full text-center items-center justify-center">
+            <p ref={ninthSectionNumberRef}>05</p>
+            <p ref={ninthSectionFirstTextRef} className="w-2/3">
+              Ang tangkay ng walis tambo ay maaaring yari sa kawayan o kahoy
+            </p>
+            <div
+              ref={ninthSectionLineRef}
+              className="h-[1px] w-full bg-white"
+            ></div>
+            <p ref={ninthSectionSecondTextRef} className="w-2/3">
+              Ngunit madalas gamitin ay ang tangkay mula sa punong bongliw.
+              Tinatawag din itong malapapaya. Ang mga tangkay ay maingat na
+              hinuhugis at nililinis upang maging magaan at matibay.
+            </p>
+          </div>
         </div>
       </div>
     </div>
