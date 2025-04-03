@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import trophywithbrooms from "@/public/images/trophywithbrooms.png";
+import broomsinsidebin from "@/public/images/broominsidebin.png";
 
 interface QuizResultProps {
   score: number;
@@ -33,12 +34,11 @@ export default function QuizResult({
     userAnswer?: string | null;
   } | null>(null);
 
-  // Identify questions where the user's answer was incorrect
+  const isPassed = score >= 8;
+
   const wrongAnswers = questions
     .map((q, i) =>
-      answers[i] !== q.correctAnswer
-        ? { ...q, userAnswer: answers[i] }
-        : null
+      answers[i] !== q.correctAnswer ? { ...q, userAnswer: answers[i] } : null
     )
     .filter((q) => q !== null);
 
@@ -59,22 +59,30 @@ export default function QuizResult({
 
   return (
     <div className="text-center p-12 bg-[#F5F3F0] rounded-lg">
-      {/* Trophy Image */}
+      {/* Result Image */}
       <Image
-        src={trophywithbrooms}
-        alt="Trophy with brooms"
-        width={150}
-        height={150}
+        src={isPassed ? trophywithbrooms : broomsinsidebin}
+        alt={isPassed ? "Trophy with brooms" : "Brooms inside a bin"}
+        width={300}
+        height={300}
         className="mx-auto mb-8"
       />
 
-      {/* Congratulations Message */}
-      <h2 className="text-5xl font-bold mb-4 text-black">Congratulations!</h2>
+      {/* Result Message */}
+      <h2 className="text-5xl font-bold font-[var(--font-didact-gothic)] mb-4 text-black">
+        {isPassed ? "Congratulations!" : "Nice Try!"}
+      </h2>
 
       {/* Score */}
-      <p className="text-3xl mb-8 text-black">
+      <p className="text-3xl mb-4 text-black">
         You’ve scored {score}/{total}
       </p>
+
+      {!isPassed && (
+        <p className="text-xl mb-8 text-gray-700">
+          Don’t worry — try again to improve your score!
+        </p>
+      )}
 
       {/* Buttons */}
       <div className="flex justify-center space-x-6 mb-12">
@@ -92,10 +100,44 @@ export default function QuizResult({
         </Link>
       </div>
 
-      {/* Two-Column Layout */}
+      {/* Responsive Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-        {/* Questions to Review */}
-        <div className="md:col-span-2">
+        {/* Quiz Summary - Order first on mobile */}
+        <div className="order-1 md:order-2 md:col-span-1">
+          <h3 className="text-3xl font-bold mb-6 text-black">Quiz Summary</h3>
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center justify-between">
+              <p className="text-xl text-black">Number of Questions</p>
+              <span
+                className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold text-white text-center"
+                style={{ backgroundColor: "#A855F7" }}
+              >
+                {total}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="text-xl text-black">Number of Correct</p>
+              <span
+                className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold text-white text-center"
+                style={{ backgroundColor: "#68FF46" }}
+              >
+                {score}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="text-xl text-black">Number of Wrong</p>
+              <span
+                className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold text-white text-center"
+                style={{ backgroundColor: "#F32A23" }}
+              >
+                {total - score}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Questions to Review - Order second on mobile */}
+        <div className="order-2 md:order-1 md:col-span-2">
           <h3 className="text-3xl font-bold mb-6 text-black">
             Questions to Review
           </h3>
@@ -115,7 +157,7 @@ export default function QuizResult({
                       id: q!.id,
                       text: q!.text,
                       correctAnswer: q!.correctAnswer,
-                      userAnswer: (q as any).userAnswer,
+                      userAnswer: q!.userAnswer ?? null,
                     })
                   }
                   className="bg-gray-300 text-black px-4 py-2 rounded-md text-base font-medium hover:bg-gray-400"
@@ -128,52 +170,16 @@ export default function QuizResult({
             <p className="text-xl text-gray-500">No questions to review.</p>
           )}
         </div>
-
-        {/* Quiz Summary */}
-        <div className="md:col-span-1">
-          <h3 className="text-3xl font-bold mb-6 text-black">Quiz Summary</h3>
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center justify-between">
-              <p className="text-xl text-black">Number of Questions</p>
-              <span
-                className="inline-block w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold text-white"
-                style={{ backgroundColor: "#A855F7" }}
-              >
-                {total}
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <p className="text-xl text-black">Number of Correct</p>
-              <span
-                className="inline-block w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold text-white"
-                style={{ backgroundColor: "#68FF46" }}
-              >
-                {score}
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <p className="text-xl text-black">Number of Wrong</p>
-              <span
-                className="inline-block w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold text-white"
-                style={{ backgroundColor: "#F32A23" }}
-              >
-                {total - score}
-              </span>
-            </div>
-          </div>
-        </div>
       </div>
 
-      {/* Modal for Review */}
+      {/* Modal */}
       {isModalOpen && activeQuestion && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-8 w-full max-w-xl text-left shadow-lg">
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none">
+          <div className="bg-white rounded-lg p-8 w-full max-w-xl text-left shadow-lg pointer-events-auto">
             <h2 className="text-2xl font-bold mb-4 text-black">
               Question {activeQuestion.id}
             </h2>
-            <p className="text-lg mb-4 text-gray-800">
-              {activeQuestion.text}
-            </p>
+            <p className="text-lg mb-4 text-gray-800">{activeQuestion.text}</p>
             <p className="text-md mb-2 text-green-600 font-semibold">
               ✅ Correct Answer: {activeQuestion.correctAnswer}
             </p>

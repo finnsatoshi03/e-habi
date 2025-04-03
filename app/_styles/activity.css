@@ -4,11 +4,6 @@
 
 body {
   scroll-behavior: smooth;
-  background-color: #f5e8c7; /* Beige color */
-}
-
-.bg-beige {
-  background-color: #f5e8c7;
 }
 
 button {

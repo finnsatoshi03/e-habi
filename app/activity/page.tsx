@@ -230,7 +230,7 @@ export default function ActivityPage() {
     updatedHasAnswered[currentQuestion] = true;
     setHasAnswered(updatedHasAnswered);
 
-    setTimeout(() => goToNextQuestion(), 1000);
+    setTimeout(() => goToNextQuestion(), transitionDelay);
   };
 
   const handleCorrect = () => {
@@ -248,7 +248,7 @@ export default function ActivityPage() {
     updatedHasAnswered[currentQuestion] = true;
     setHasAnswered(updatedHasAnswered);
 
-    setTimeout(() => goToNextQuestion(), 1000);
+    setTimeout(() => goToNextQuestion(), transitionDelay);
   };
 
   const handleIncorrect = () => {
@@ -264,7 +264,7 @@ export default function ActivityPage() {
     updatedHasAnswered[currentQuestion] = true;
     setHasAnswered(updatedHasAnswered);
 
-    setTimeout(() => goToNextQuestion(), 1000);
+    setTimeout(() => goToNextQuestion(), transitionDelay);
   };
 
   const handleRestart = () => {
@@ -285,37 +285,34 @@ export default function ActivityPage() {
   };
 
   const isIdentification = currentQuestion < 5;
+  const transitionDelay = isIdentification ? 100 : 700;
 
   return (
     <div className="relative min-h-screen flex flex-col bg-[#F5F3F0]">
-      {hasStarted && <QuizHeader title="E-HABI" />}
+      {hasStarted && <QuizHeader title="E-HABI" showInstruction={!quizCompleted} />}
 
-      <div className="w-full px-24 pt-10 pb-20 flex-1 flex flex-col gap-12">
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 pt-6 sm:pt-8 md:pt-10 pb-12 sm:pb-16 md:pb-20 flex-1 flex flex-col gap-6 sm:gap-8 md:gap-12">
         {!hasStarted ? (
           <div className="flex flex-col items-center justify-center flex-1 text-center">
-            <h1 className="text-5xl font-bold text-black mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-4 sm:mb-6">
               Welcome to E-HABI Quiz
             </h1>
-            <p className="text-xl text-gray-700 mb-10">
+            <p className="text-base sm:text-lg md:text-xl text-gray-700 mb-6 sm:mb-10">
               Test your knowledge about Walis Tambo! Click below to begin.
             </p>
             <button
               onClick={() => setHasStarted(true)}
-              className="bg-orange-500 text-white px-10 py-4 rounded-full text-2xl font-semibold hover:bg-orange-600 transition"
+              className="bg-orange-500 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full text-lg sm:text-xl md:text-2xl font-semibold hover:bg-orange-600 transition"
             >
               Start Quiz
             </button>
           </div>
         ) : !quizCompleted ? (
           <>
-            <div className="flex justify-between items-center mb-8">
-              <QuizProgress
-                current={currentQuestion + 1}
-                total={questions.length}
-              />
+            <div className="flex flex-col sm:flex-row justify-between items-center mb-4 sm:mb-6 md:mb-8 gap-4 sm:gap-0">
+              <QuizProgress current={currentQuestion + 1} total={questions.length} />
               <QuizTimer timeRemaining={formatTime(timeRemaining)} />
             </div>
-
             {isIdentification ? (
               <IdentificationQuestion
                 question={questions[currentQuestion].text}
