@@ -66,6 +66,11 @@ export default function Home() {
     ninthSectionFirstTextRef,
     ninthSectionLineRef,
     ninthSectionSecondTextRef,
+    finalSectionNumberRef,
+    finalSectionTitleRef,
+    finalSectionLineRef,
+    finalSectionTextRef,
+    finalSectionGridRef,
   } = useScrollAnimations();
 
   return (
@@ -340,6 +345,42 @@ export default function Home() {
               Tinatawag din itong malapapaya. Ang mga tangkay ay maingat na
               hinuhugis at nililinis upang maging magaan at matibay.
             </p>
+          </div>
+        </div>
+      </div>
+      <div className="h-[100vh] relative final-section">
+        <div className="w-full flex flex-col items-center justify-end pb-10 gap-8 h-full">
+          <div className="flex flex-col gap-4 w-1/3 text-center items-center justify-center">
+            <p ref={finalSectionNumberRef}>06</p>
+            <p ref={finalSectionTitleRef} className="w-2/3">
+              Pagtatapos
+            </p>
+            <div
+              ref={finalSectionLineRef}
+              className="h-[1px] w-full bg-white"
+            ></div>
+            <p ref={finalSectionTextRef} className="w-2/3">
+              Nilalagyan ng tatak, inaayos, at pinapaganda ang walis bago ito
+              dalhin sa pamilihan.
+            </p>
+          </div>
+          <div ref={finalSectionGridRef} className="grid grid-cols-4 gap-4">
+            <div>
+              <p className="uppercase grid-title">Pag tatak</p>
+              <div className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2 grid-box"></div>
+            </div>
+            <div>
+              <p className="uppercase grid-title">Pag tatak</p>
+              <div className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2 grid-box"></div>
+            </div>
+            <div>
+              <p className="uppercase grid-title">Pag papaganda</p>
+              <div className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2 grid-box"></div>
+            </div>
+            <div>
+              <p className="uppercase grid-title">Pag dala sa pamilihan</p>
+              <div className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2 grid-box"></div>
+            </div>
           </div>
         </div>
       </div>

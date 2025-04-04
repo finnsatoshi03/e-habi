@@ -100,8 +100,8 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
           // Set up ScrollTrigger for the first animation
           ScrollTrigger.create({
             trigger: document.body,
-            start: "10% center",
-            end: "20% center",
+            start: "7% center",
+            end: "13% center",
             scrub: 0.5,
             onUpdate: (self) => {
               // Capture the initial state for Flip
@@ -191,35 +191,6 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
                   scale: 0.5,
                   duration: 0.5,
                   ease: "power2.inOut",
-                });
-              },
-            });
-
-            // Add cleanup trigger for ninth section transition
-            ScrollTrigger.create({
-              trigger: ".ninth-section",
-              start: "top 30%",
-              end: "bottom bottom",
-              onEnter: () => {
-                gsap.set(secondHeaderRef.current, {
-                  y: "-100%",
-                  opacity: 0,
-                });
-                gsap.set(ninthHeaderRef.current, {
-                  y: "-25%",
-                  opacity: 1,
-                  scale: 0.5,
-                });
-              },
-              onLeave: () => {
-                gsap.set(secondHeaderRef.current, {
-                  y: "0%",
-                  opacity: 1,
-                });
-                gsap.set(ninthHeaderRef.current, {
-                  y: "-100%",
-                  opacity: 0,
-                  scale: 0.5,
                 });
               },
             });

@@ -54,6 +54,11 @@ export const useScrollAnimations = () => {
   const ninthSectionFirstTextRef = useRef(null);
   const ninthSectionLineRef = useRef(null);
   const ninthSectionSecondTextRef = useRef(null);
+  const finalSectionNumberRef = useRef(null);
+  const finalSectionTitleRef = useRef(null);
+  const finalSectionLineRef = useRef(null);
+  const finalSectionTextRef = useRef(null);
+  const finalSectionGridRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     // Images animation
@@ -62,8 +67,8 @@ export const useScrollAnimations = () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: parentRef.current,
-          start: "10% center",
-          end: "20% center",
+          start: "5% center",
+          end: "15% center",
           scrub: 0.5,
           preventOverlaps: true,
           toggleActions: "play none none reverse",
@@ -1680,6 +1685,301 @@ export const useScrollAnimations = () => {
         },
       });
     }
+
+    // Tenth section (Pagtatapos) animations
+    if (
+      fifthSectionBroomRef.current &&
+      ninthSectionBambooRef.current &&
+      finalSectionNumberRef.current &&
+      finalSectionTitleRef.current &&
+      finalSectionLineRef.current &&
+      finalSectionTextRef.current &&
+      finalSectionGridRef.current
+    ) {
+      // Set initial states for final section elements
+      gsap.set(
+        [
+          finalSectionNumberRef.current,
+          finalSectionTitleRef.current,
+          finalSectionTextRef.current,
+        ],
+        {
+          opacity: 0,
+          y: 30,
+        }
+      );
+
+      gsap.set(finalSectionLineRef.current, {
+        scaleX: 0,
+        transformOrigin: "center center",
+      });
+
+      // Set initial states for grid boxes
+      if (finalSectionGridRef.current) {
+        const gridBoxes = finalSectionGridRef.current.querySelectorAll(
+          ".grid-box"
+        ) as NodeListOf<HTMLElement>;
+        const gridTitles = finalSectionGridRef.current.querySelectorAll(
+          ".grid-title"
+        ) as NodeListOf<HTMLElement>;
+
+        gsap.set(finalSectionGridRef.current, {
+          autoAlpha: 1, // Use autoAlpha instead of opacity
+        });
+
+        gsap.set(gridTitles, {
+          autoAlpha: 0,
+          y: 20,
+          immediateRender: true,
+        });
+
+        gsap.set(gridBoxes, {
+          autoAlpha: 0,
+          y: 30,
+          scale: 0.95,
+          immediateRender: true,
+        });
+      }
+
+      // Create timeline for final section animations with improved configuration
+      const finalSectionTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".final-section",
+          start: "top 80%",
+          end: "center 30%",
+          markers: false, // Remove markers in production
+          scrub: 1, // Increase scrub value for smoother animations
+          preventOverlaps: true,
+          toggleActions: "play none none reverse",
+          id: "final-section",
+          fastScrollEnd: true, // Helps prevent jumpiness at the end of the animation
+        },
+        defaults: {
+          ease: "power2.out", // Smoother default easing
+          overwrite: "auto", // Prevent conflicting animations
+        },
+      });
+
+      // Move broom to the right - smooth transition
+      finalSectionTl.to(
+        fifthSectionBroomRef.current,
+        {
+          x: "100%",
+          y: "45%",
+          autoAlpha: 0,
+          scale: 0.5,
+          duration: 1,
+        },
+        0
+      );
+
+      // Move bamboo to the left - smooth transition
+      finalSectionTl.to(
+        ninthSectionBambooRef.current,
+        {
+          x: "-50%",
+          autoAlpha: 0,
+          duration: 1,
+        },
+        0
+      );
+
+      // Animate ninth section text exit - smoothly
+      finalSectionTl.to(
+        [
+          ninthSectionNumberRef.current,
+          ninthSectionFirstTextRef.current,
+          ninthSectionSecondTextRef.current,
+        ],
+        {
+          autoAlpha: 0,
+          y: -20,
+          duration: 0.8,
+          stagger: 0.05,
+        },
+        0
+      );
+
+      // Animate ninth section line exit - smoothly
+      finalSectionTl.to(
+        ninthSectionLineRef.current,
+        {
+          scaleX: 0,
+          duration: 0.8,
+        },
+        0
+      );
+
+      // Animate final section number
+      finalSectionTl.to(
+        finalSectionNumberRef.current,
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.8,
+        },
+        0.4 // Delay start
+      );
+
+      // Animate final section title
+      finalSectionTl.to(
+        finalSectionTitleRef.current,
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.8,
+        },
+        0.5
+      );
+
+      // Animate final section line
+      finalSectionTl.to(
+        finalSectionLineRef.current,
+        {
+          scaleX: 1,
+          duration: 0.8,
+        },
+        0.6
+      );
+
+      // Animate final section text
+      finalSectionTl.to(
+        finalSectionTextRef.current,
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.8,
+        },
+        0.7
+      );
+
+      // Animate final section grid with staggered effect
+      if (finalSectionGridRef.current) {
+        const gridBoxes = finalSectionGridRef.current.querySelectorAll(
+          ".grid-box"
+        ) as NodeListOf<HTMLElement>;
+        const gridTitles = finalSectionGridRef.current.querySelectorAll(
+          ".grid-title"
+        ) as NodeListOf<HTMLElement>;
+
+        // Animate grid titles with stagger
+        finalSectionTl.to(
+          gridTitles,
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.6,
+            stagger: {
+              each: 0.1, // Use 'each' instead of 'amount' for more predictable timing
+              from: "start",
+            },
+          },
+          0.8
+        );
+
+        // Animate grid boxes with stagger
+        finalSectionTl.to(
+          gridBoxes,
+          {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            stagger: {
+              each: 0.1, // Use 'each' instead of 'amount' for more predictable timing
+              from: "start",
+            },
+          },
+          0.9
+        );
+      } else {
+        // Fallback if the DOM query fails
+        finalSectionTl.to(
+          finalSectionGridRef.current,
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.8,
+          },
+          0.8
+        );
+      }
+
+      // Create a separate cleanup ScrollTrigger that doesn't interfere with the animation
+      ScrollTrigger.create({
+        trigger: ".final-section",
+        start: "center center",
+        end: "bottom bottom",
+        id: "final-section-cleanup",
+        onEnter: () => {
+          // Ensure all elements are in their final state
+          gsap.set(fifthSectionBroomRef.current, {
+            x: "100%",
+            y: "45%",
+            opacity: 0,
+            scale: 0.5,
+          });
+
+          gsap.set(ninthSectionBambooRef.current, {
+            x: "-50%",
+            opacity: 0,
+          });
+
+          gsap.set(
+            [
+              ninthSectionNumberRef.current,
+              ninthSectionFirstTextRef.current,
+              ninthSectionSecondTextRef.current,
+            ],
+            {
+              opacity: 0,
+              y: -20,
+            }
+          );
+
+          gsap.set(ninthSectionLineRef.current, {
+            scaleX: 0,
+          });
+
+          gsap.set(
+            [
+              finalSectionNumberRef.current,
+              finalSectionTitleRef.current,
+              finalSectionTextRef.current,
+            ],
+            {
+              opacity: 1,
+              y: 0,
+            }
+          );
+
+          gsap.set(finalSectionLineRef.current, {
+            scaleX: 1,
+          });
+
+          // Ensure grid boxes are visible after entering
+          if (finalSectionGridRef.current) {
+            const gridBoxes = finalSectionGridRef.current.querySelectorAll(
+              ".grid-box"
+            ) as NodeListOf<HTMLElement>;
+            const gridTitles = finalSectionGridRef.current.querySelectorAll(
+              ".grid-title"
+            ) as NodeListOf<HTMLElement>;
+
+            gsap.set(gridTitles, {
+              opacity: 1,
+              y: 0,
+            });
+
+            gsap.set(gridBoxes, {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+            });
+          }
+        },
+      });
+    }
   }, []);
 
   return {
@@ -1732,5 +2032,10 @@ export const useScrollAnimations = () => {
     ninthSectionFirstTextRef,
     ninthSectionLineRef,
     ninthSectionSecondTextRef,
+    finalSectionNumberRef,
+    finalSectionTitleRef,
+    finalSectionLineRef,
+    finalSectionTextRef,
+    finalSectionGridRef,
   };
 };
