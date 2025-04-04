@@ -10,7 +10,7 @@ import handRight from "@/public/images/hand-right.png";
 import broom from "@/public/images/broom.png";
 import map from "@/public/images/map.png";
 import bamboo from "@/public/images/bamboo.png";
-
+import feet from "@/public/images/feet.png";
 import { useScrollAnimations } from "./_animations/useScrollAnimations";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -71,6 +71,14 @@ export default function Home() {
     finalSectionLineRef,
     finalSectionTextRef,
     finalSectionGridRef,
+    beliefsSectionNumberRef,
+    beliefsSectionLineRef,
+    beliefsSectionTextRef,
+    beliefsSectionBroomRef,
+    beliefsSecondSectionFeetRef,
+    beliefsSecondSectionNumberRef,
+    beliefsSecondSectionLineRef,
+    beliefsSecondSectionTextRef,
   } = useScrollAnimations();
 
   return (
@@ -81,7 +89,10 @@ export default function Home() {
           subtitle="Walis Tambo"
           secondTitle="Paggawa"
           secondSubtitle="Ng Walis Tambo"
+          thirdTitle="PANINIWALA SA PAGGAWA"
+          thirdSubtitle="Ng Walis Tambo"
           isNinthSection={true}
+          isBeliefsSection={true}
         />
         <div
           ref={handLeftRef}
@@ -381,6 +392,46 @@ export default function Home() {
               <p className="uppercase grid-title">Pag dala sa pamilihan</p>
               <div className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2 grid-box"></div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div className="h-[100vh] relative beliefs-section">
+        <div className="w-full flex flex-col items-center justify-center gap-8 h-full">
+          <div className="flex flex-col gap-4 w-1/3 text-center items-center justify-center">
+            <p ref={beliefsSectionNumberRef}>01</p>
+            <div
+              ref={beliefsSectionLineRef}
+              className="h-[1px] w-full bg-white"
+            ></div>
+            <p ref={beliefsSectionTextRef} className="w-2/3">
+              Hindi dapat maambunan ang tambo upang hindi ito maging marupok.
+            </p>
+          </div>
+          <div
+            ref={beliefsSectionBroomRef}
+            className="fixed w-2/3 left-1/2 -bottom-[170%] -translate-x-1/2 rotate-[90deg] transform-origin-center"
+          >
+            <Image src={broom} alt="broom" className="object-cover w-full" />
+          </div>
+        </div>
+      </div>
+      <div className="h-[100vh] relative beliefs-second-section">
+        <div
+          ref={beliefsSecondSectionFeetRef}
+          className="fixed -top-[10%] rotate-[10deg] left-1/2 -translate-x-1/2 w-1/4"
+        >
+          <Image src={feet} alt="feet" className="object-cover w-full" />
+        </div>
+        <div className="w-full flex flex-col items-end justify-center gap-8 h-full pr-20">
+          <div className="flex flex-col gap-4 w-1/4 text-right items-end">
+            <p ref={beliefsSecondSectionNumberRef}>02</p>
+            <div
+              ref={beliefsSecondSectionLineRef}
+              className="h-[1px] w-full bg-white"
+            ></div>
+            <p ref={beliefsSecondSectionTextRef} className="w-2/3">
+              Hindi ito dapat tapakan o upuan dahil maaaring makaapekto sa benta
+            </p>
           </div>
         </div>
       </div>

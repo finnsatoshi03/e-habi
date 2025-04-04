@@ -27,11 +27,24 @@ type HeaderProps = {
   secondTitle?: string;
   secondSubtitle?: string;
   isNinthSection?: boolean;
+  thirdTitle?: string;
+  thirdSubtitle?: string;
+  isBeliefsSection?: boolean;
 };
 
 export const Header = forwardRef<HTMLDivElement, HeaderProps>(
   (
-    { title, subtitle, className, secondTitle, secondSubtitle, isNinthSection },
+    {
+      title,
+      subtitle,
+      className,
+      secondTitle,
+      secondSubtitle,
+      thirdTitle,
+      thirdSubtitle,
+      isNinthSection,
+      isBeliefsSection,
+    },
     ref: ForwardedRef<HTMLDivElement>
   ) => {
     const titleRef = useRef<HTMLHeadingElement>(null);
@@ -42,6 +55,9 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
     const ninthHeaderRef = useRef<HTMLDivElement>(null);
     const ninthTitleRef = useRef<HTMLHeadingElement>(null);
     const ninthSubtitleRef = useRef<HTMLHeadingElement>(null);
+    const beliefsHeaderRef = useRef<HTMLDivElement>(null);
+    const beliefsTitleRef = useRef<HTMLHeadingElement>(null);
+    const beliefsSubtitleRef = useRef<HTMLHeadingElement>(null);
 
     useEffect(() => {
       const titleChars = splitText(titleRef.current, title);
@@ -121,7 +137,6 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
               // Make subtitle animation more direct and consistent with title
               gsap.set(subtitleRef.current, {
                 lineHeight: self.progress > 0 ? "0em" : "1.2em",
-                // Apply the same animation timing as the rest of the elements
               });
 
               // Animate to the new positions
@@ -186,6 +201,34 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
 
                 // Make ninth header appear from top and disappear when scrolling back
                 gsap.to(ninthHeaderRef.current, {
+                  y: self.progress > 0.5 ? "-25%" : "-100%",
+                  opacity: self.progress,
+                  scale: 0.5,
+                  duration: 0.5,
+                  ease: "power2.inOut",
+                });
+              },
+            });
+          }
+
+          // Set up transition to the beliefs section header
+          if (ninthHeaderRef.current && beliefsHeaderRef.current) {
+            ScrollTrigger.create({
+              trigger: ".beliefs-section",
+              start: "top 80%",
+              end: "top 30%",
+              scrub: 0.8,
+              onUpdate: (self) => {
+                // Make ninth header disappear to top
+                gsap.to(ninthHeaderRef.current, {
+                  x: self.progress > 0.5 ? "-100%" : "0%",
+                  opacity: 1 - self.progress,
+                  duration: 0.5,
+                  ease: "power2.inOut",
+                });
+
+                // Make beliefs header appear from top
+                gsap.to(beliefsHeaderRef.current, {
                   y: self.progress > 0.5 ? "-25%" : "-100%",
                   opacity: self.progress,
                   scale: 0.5,
@@ -299,6 +342,29 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
               className={`${libreBaskerville.className} text-[length:clamp(50px,5vw,120px)] transition-all duration-300`}
             >
               {secondSubtitle}
+            </h2>
+          </div>
+        )}
+
+        {isBeliefsSection && thirdTitle && thirdSubtitle && (
+          <div
+            ref={beliefsHeaderRef}
+            className={cn(
+              "flex flex-col p-6 mix-blend-difference fixed top-0 w-full z-50 transition-all duration-300 ease-out will-change-transform text-center opacity-0",
+              className
+            )}
+          >
+            <h1
+              ref={beliefsTitleRef}
+              className={`${playfairDisplay.className} text-[length:clamp(50px,15vw,180px)] leading-[1.2] whitespace-normal break-words transition-all duration-300`}
+            >
+              {thirdTitle}
+            </h1>
+            <h2
+              ref={beliefsSubtitleRef}
+              className={`${libreBaskerville.className} text-[length:clamp(40px,5vw,100px)] leading-[1.3] whitespace-normal break-words transition-all duration-300`}
+            >
+              {thirdSubtitle}
             </h2>
           </div>
         )}

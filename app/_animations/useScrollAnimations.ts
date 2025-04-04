@@ -59,6 +59,14 @@ export const useScrollAnimations = () => {
   const finalSectionLineRef = useRef(null);
   const finalSectionTextRef = useRef(null);
   const finalSectionGridRef = useRef<HTMLDivElement>(null);
+  const beliefsSectionNumberRef = useRef(null);
+  const beliefsSectionLineRef = useRef(null);
+  const beliefsSectionTextRef = useRef(null);
+  const beliefsSectionBroomRef = useRef(null);
+  const beliefsSecondSectionNumberRef = useRef(null);
+  const beliefsSecondSectionLineRef = useRef(null);
+  const beliefsSecondSectionTextRef = useRef(null);
+  const beliefsSecondSectionFeetRef = useRef(null);
 
   useLayoutEffect(() => {
     // Images animation
@@ -1980,6 +1988,300 @@ export const useScrollAnimations = () => {
         },
       });
     }
+
+    // Beliefs section animations
+    if (
+      beliefsSectionNumberRef.current &&
+      beliefsSectionLineRef.current &&
+      beliefsSectionTextRef.current &&
+      beliefsSectionBroomRef.current
+    ) {
+      // Set initial states for beliefs section elements
+      gsap.set(
+        [beliefsSectionNumberRef.current, beliefsSectionTextRef.current],
+        {
+          opacity: 0,
+          y: 30,
+        }
+      );
+
+      gsap.set(beliefsSectionLineRef.current, {
+        scaleX: 0,
+        transformOrigin: "center center",
+      });
+
+      gsap.set(beliefsSectionBroomRef.current, {
+        opacity: 0,
+        scale: 0.5,
+        y: 50,
+      });
+
+      // Create timeline for beliefs section animations
+      const beliefsSectionTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".beliefs-section",
+          start: "top 80%",
+          end: "center 30%",
+          scrub: 1,
+          preventOverlaps: true,
+          toggleActions: "play none none reverse",
+          id: "beliefs-section",
+          fastScrollEnd: true,
+        },
+        defaults: {
+          ease: "power2.out",
+          overwrite: "auto",
+        },
+      });
+
+      // Fade out previous headers
+      beliefsSectionTl.to(
+        ".header-container",
+        {
+          opacity: 0,
+          y: -20,
+          duration: 0.8,
+        },
+        0
+      );
+
+      // Animate number
+      beliefsSectionTl.to(
+        beliefsSectionNumberRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+        },
+        0.2
+      );
+
+      // Animate line
+      beliefsSectionTl.to(
+        beliefsSectionLineRef.current,
+        {
+          scaleX: 1,
+          duration: 0.8,
+        },
+        0.4
+      );
+
+      // Animate text
+      beliefsSectionTl.to(
+        beliefsSectionTextRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+        },
+        0.6
+      );
+
+      // Animate broom
+      beliefsSectionTl.to(
+        beliefsSectionBroomRef.current,
+        {
+          opacity: 1,
+          scale: 0.5,
+          y: 0,
+          duration: 0.8,
+        },
+        0.8
+      );
+
+      // Add cleanup trigger for beliefs section
+      ScrollTrigger.create({
+        trigger: ".beliefs-section",
+        start: "center center",
+        end: "bottom bottom",
+        id: "beliefs-section-cleanup",
+        onEnter: () => {
+          gsap.set(
+            [beliefsSectionNumberRef.current, beliefsSectionTextRef.current],
+            {
+              opacity: 1,
+              y: 0,
+            }
+          );
+
+          gsap.set(beliefsSectionLineRef.current, {
+            scaleX: 1,
+          });
+
+          gsap.set(beliefsSectionBroomRef.current, {
+            opacity: 1,
+            scale: 0.5,
+            y: 0,
+          });
+
+          // Ensure previous headers are hidden
+          gsap.set(".header-container", {
+            opacity: 0,
+            y: -20,
+          });
+        },
+      });
+    }
+
+    // Beliefs second section animations
+    if (
+      beliefsSectionNumberRef.current &&
+      beliefsSectionLineRef.current &&
+      beliefsSectionTextRef.current &&
+      beliefsSectionBroomRef.current &&
+      beliefsSecondSectionNumberRef.current &&
+      beliefsSecondSectionLineRef.current &&
+      beliefsSecondSectionTextRef.current &&
+      beliefsSecondSectionFeetRef.current
+    ) {
+      // Set initial states for beliefs second section elements
+      gsap.set(
+        [
+          beliefsSecondSectionNumberRef.current,
+          beliefsSecondSectionTextRef.current,
+        ],
+        {
+          opacity: 0,
+          y: -50,
+        }
+      );
+
+      gsap.set(beliefsSecondSectionLineRef.current, {
+        scaleX: 0,
+        transformOrigin: "center center",
+      });
+
+      gsap.set(beliefsSecondSectionFeetRef.current, {
+        opacity: 0,
+        y: -100,
+        scale: 0.8,
+      });
+
+      // Create timeline for beliefs second section animations
+      const beliefsSecondSectionTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".beliefs-second-section",
+          start: "top 80%",
+          end: "center 30%",
+          scrub: 1,
+          preventOverlaps: true,
+          toggleActions: "play none none reverse",
+          id: "beliefs-second-section",
+          fastScrollEnd: true,
+        },
+        defaults: {
+          ease: "power2.out",
+          overwrite: "auto",
+        },
+      });
+
+      // Fade out previous beliefs section elements
+      beliefsSecondSectionTl.to(
+        [beliefsSectionNumberRef.current, beliefsSectionTextRef.current],
+        {
+          opacity: 0,
+          y: -20,
+          duration: 0.8,
+        },
+        0
+      );
+
+      beliefsSecondSectionTl.to(
+        beliefsSectionLineRef.current,
+        {
+          scaleX: 0,
+          duration: 0.8,
+        },
+        0
+      );
+
+      // Animate feet image from top
+      beliefsSecondSectionTl.to(
+        beliefsSecondSectionFeetRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1,
+        },
+        0.2
+      );
+
+      // Animate number
+      beliefsSecondSectionTl.to(
+        beliefsSecondSectionNumberRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+        },
+        0.4
+      );
+
+      // Animate line
+      beliefsSecondSectionTl.to(
+        beliefsSecondSectionLineRef.current,
+        {
+          scaleX: 1,
+          duration: 0.8,
+        },
+        0.6
+      );
+
+      // Animate text
+      beliefsSecondSectionTl.to(
+        beliefsSecondSectionTextRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+        },
+        0.8
+      );
+
+      // Add cleanup trigger for beliefs second section
+      ScrollTrigger.create({
+        trigger: ".beliefs-second-section",
+        start: "center center",
+        end: "bottom bottom",
+        id: "beliefs-second-section-cleanup",
+        onEnter: () => {
+          gsap.set(
+            [
+              beliefsSecondSectionNumberRef.current,
+              beliefsSecondSectionTextRef.current,
+            ],
+            {
+              opacity: 1,
+              y: 0,
+            }
+          );
+
+          gsap.set(beliefsSecondSectionLineRef.current, {
+            scaleX: 1,
+          });
+
+          gsap.set(beliefsSecondSectionFeetRef.current, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+          });
+
+          // Ensure previous beliefs section elements are hidden
+          gsap.set(
+            [beliefsSectionNumberRef.current, beliefsSectionTextRef.current],
+            {
+              opacity: 0,
+              y: -20,
+            }
+          );
+
+          gsap.set(beliefsSectionLineRef.current, {
+            scaleX: 0,
+          });
+        },
+      });
+    }
   }, []);
 
   return {
@@ -2037,5 +2339,13 @@ export const useScrollAnimations = () => {
     finalSectionLineRef,
     finalSectionTextRef,
     finalSectionGridRef,
+    beliefsSectionNumberRef,
+    beliefsSectionLineRef,
+    beliefsSectionTextRef,
+    beliefsSectionBroomRef,
+    beliefsSecondSectionNumberRef,
+    beliefsSecondSectionLineRef,
+    beliefsSecondSectionTextRef,
+    beliefsSecondSectionFeetRef,
   };
 };
