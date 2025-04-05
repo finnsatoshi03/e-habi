@@ -2021,7 +2021,6 @@ export const useScrollAnimations = () => {
       gsap.set(beliefsSectionBroomRef.current, {
         opacity: 0,
         scale: 0.5,
-        y: 50,
       });
 
       // Create timeline for beliefs section animations
@@ -2289,6 +2288,46 @@ export const useScrollAnimations = () => {
           });
         },
       });
+
+      // Add exit animation for beliefs second section
+      const beliefsSecondSectionExitTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".beliefs-third-section",
+          start: "top 80%",
+          end: "top 30%",
+          scrub: 0.8,
+          preventOverlaps: true,
+          toggleActions: "play none none reverse",
+          id: "beliefs-second-section-exit",
+        },
+      });
+
+      // Fade out and move up feet image
+      beliefsSecondSectionExitTl.to(
+        beliefsSecondSectionFeetRef.current,
+        {
+          opacity: 0,
+          y: -100,
+          scale: 0.8,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0
+      );
+
+      // Ensure feet stay hidden after exit animation
+      ScrollTrigger.create({
+        trigger: ".beliefs-third-section",
+        start: "top 30%",
+        end: "bottom bottom",
+        onEnter: () => {
+          gsap.set(beliefsSecondSectionFeetRef.current, {
+            opacity: 0,
+            y: -100,
+            scale: 0.8,
+          });
+        },
+      });
     }
 
     // Beliefs third section animations
@@ -2461,28 +2500,107 @@ export const useScrollAnimations = () => {
       );
 
       // Add cleanup trigger for beliefs third section
+      const beliefsThirdSectionExitTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".beliefs-third-section",
+          start: "bottom 80%",
+          end: "bottom 30%",
+          scrub: 0.8,
+          preventOverlaps: true,
+          toggleActions: "play none none reverse",
+          id: "beliefs-third-section-exit",
+        },
+      });
+
+      // Fade out beliefs section broom
+      beliefsThirdSectionExitTl.to(
+        beliefsSectionBroomRef.current,
+        {
+          opacity: 0,
+          scale: 0.2,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0
+      );
+
+      // Fade out and move up number and text
+      beliefsThirdSectionExitTl.to(
+        [
+          beliefsThirdSectionNumberRef.current,
+          beliefsThirdSectionTextRef.current,
+        ],
+        {
+          opacity: 0,
+          y: -30,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0.1
+      );
+
+      // Scale down and fade out line
+      beliefsThirdSectionExitTl.to(
+        beliefsThirdSectionLineRef.current,
+        {
+          scaleX: 0,
+          opacity: 0,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0.2
+      );
+
+      // Fade out and move up brooms with staggered effect
+      beliefsThirdSectionExitTl.to(
+        [
+          beliefsThirdSectionBroom1Ref.current,
+          beliefsThirdSectionBroom2Ref.current,
+          beliefsThirdSectionBroom3Ref.current,
+          beliefsThirdSectionBroom4Ref.current,
+          beliefsThirdSectionBroom5Ref.current,
+        ],
+        {
+          opacity: 0,
+          y: -50,
+          scale: 0.8,
+          duration: 0.5,
+          stagger: {
+            each: 0.1,
+            from: "start",
+          },
+          ease: "power2.inOut",
+        },
+        0.3
+      );
+
+      // Ensure elements stay hidden after exit animation
       ScrollTrigger.create({
         trigger: ".beliefs-third-section",
-        start: "center center",
+        start: "bottom 30%",
         end: "bottom bottom",
-        id: "beliefs-third-section-cleanup",
         onEnter: () => {
+          gsap.set(beliefsSectionBroomRef.current, {
+            opacity: 0,
+            scale: 0.2,
+          });
+
           gsap.set(
             [
               beliefsThirdSectionNumberRef.current,
               beliefsThirdSectionTextRef.current,
             ],
             {
-              opacity: 1,
-              x: 0,
+              opacity: 0,
+              y: -30,
             }
           );
 
           gsap.set(beliefsThirdSectionLineRef.current, {
-            scaleX: 1,
+            scaleX: 0,
+            opacity: 0,
           });
 
-          // Set brooms to final state
           gsap.set(
             [
               beliefsThirdSectionBroom1Ref.current,
@@ -2492,27 +2610,11 @@ export const useScrollAnimations = () => {
               beliefsThirdSectionBroom5Ref.current,
             ],
             {
-              opacity: 1,
-              y: 0,
-              scale: 1,
-            }
-          );
-
-          // Ensure previous beliefs second section elements are hidden
-          gsap.set(
-            [
-              beliefsSecondSectionNumberRef.current,
-              beliefsSecondSectionTextRef.current,
-            ],
-            {
               opacity: 0,
-              y: -20,
+              y: -50,
+              scale: 0.8,
             }
           );
-
-          gsap.set(beliefsSecondSectionLineRef.current, {
-            scaleX: 0,
-          });
         },
       });
     }

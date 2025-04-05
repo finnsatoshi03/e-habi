@@ -12,6 +12,15 @@ import map from "@/public/images/map.png";
 import bamboo from "@/public/images/bamboo.png";
 import feet from "@/public/images/feet.png";
 import { useScrollAnimations } from "./_animations/useScrollAnimations";
+import { ArrowDownRight } from "lucide-react";
+import { Playfair_Display } from "next/font/google";
+import Footer from "./_components/Footer";
+
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-playfair-display",
+});
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -488,6 +497,21 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* footer and call to action for e-glossary */}
+      <div className="mt-8 px-20 flex items-end justify-center gap-4 ">
+        <h1
+          className={`${playfairDisplay.className} text-[length:clamp(50px,7vw,180px)] leading-[1.2]`}
+        >
+          GO TO E-GLOSSARY
+        </h1>
+        <ArrowDownRight
+          className="size-[length:clamp(50px,7vw,180px)]"
+          strokeWidth={1}
+        />
+      </div>
+      {/* footer */}
+      <Footer darkMode={false} />
     </div>
   );
 }

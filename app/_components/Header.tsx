@@ -237,6 +237,37 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
                 });
               },
             });
+
+            // Add exit animation for beliefs header
+            ScrollTrigger.create({
+              trigger: ".beliefs-third-section",
+              start: "bottom 80%",
+              end: "bottom 30%",
+              scrub: 0.8,
+              onUpdate: (self) => {
+                // Make beliefs header disappear to top
+                gsap.to(beliefsHeaderRef.current, {
+                  y: self.progress > 0.5 ? "-100%" : "-25%",
+                  opacity: 1 - self.progress,
+                  scale: 0.5,
+                  duration: 0.5,
+                });
+              },
+            });
+
+            // Ensure beliefs header is hidden after exit
+            ScrollTrigger.create({
+              trigger: ".beliefs-third-section",
+              start: "bottom 30%",
+              end: "bottom bottom",
+              onEnter: () => {
+                gsap.set(beliefsHeaderRef.current, {
+                  y: "-100%",
+                  opacity: 0,
+                  scale: 0.5,
+                });
+              },
+            });
           }
         });
 
