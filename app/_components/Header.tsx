@@ -116,8 +116,8 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
           // Set up ScrollTrigger for the first animation
           ScrollTrigger.create({
             trigger: document.body,
-            start: "7% center",
-            end: "13% center",
+            start: "5% center",
+            end: "10% center",
             scrub: 0.5,
             onUpdate: (self) => {
               // Capture the initial state for Flip

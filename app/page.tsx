@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import gsap from "gsap";
+import { ArrowDownRight } from "lucide-react";
+import { Playfair_Display } from "next/font/google";
+
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Header } from "./_components/Header";
 
 import handLeft from "@/public/images/hand-left.png";
 import handRight from "@/public/images/hand-right.png";
@@ -11,10 +13,19 @@ import broom from "@/public/images/broom.png";
 import map from "@/public/images/map.png";
 import bamboo from "@/public/images/bamboo.png";
 import feet from "@/public/images/feet.png";
-import { useScrollAnimations } from "./_animations/useScrollAnimations";
-import { ArrowDownRight } from "lucide-react";
-import { Playfair_Display } from "next/font/google";
+import progress1 from "@/public/images/progress/1.jpg";
+import progress2 from "@/public/images/progress/2.jpg";
+import progress3 from "@/public/images/progress/3.jpg";
+import progress4_1 from "@/public/images/progress/4.1.jpg";
+import progress4_2 from "@/public/images/progress/4.2.jpg";
+import progress5_1 from "@/public/images/progress/5.1.jpg";
+import progress5_2 from "@/public/images/progress/5.2.jpg";
+import progress6 from "@/public/images/progress/6.jpg";
+import progress7 from "@/public/images/progress/7.jpg";
+
 import Footer from "./_components/Footer";
+import { Header } from "./_components/Header";
+import { useScrollAnimations } from "./_animations/useScrollAnimations";
 
 const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
@@ -202,12 +213,18 @@ export default function Home() {
             ref={fourthSectionTitleRef}
             className="col-start-1 uppercase w-fit"
           >
-            pagtatanim at pagtatahi
+            pagtatanim at pagaani
           </p>
           <div
             ref={fourthSectionBoxRef}
             className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2"
-          ></div>
+          >
+            <Image
+              src={progress1}
+              alt="Pagtatanim at Pagaani ng Walis Tambo"
+              className="object-cover w-full h-full"
+            />
+          </div>
           <div
             ref={fourthSectionLineRef}
             className="h-[1px] w-full bg-white row-start-2 mt-[10vh]"
@@ -244,7 +261,13 @@ export default function Home() {
           <div
             ref={fifthSectionBoxRef}
             className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2"
-          ></div>
+          >
+            <Image
+              src={progress2}
+              alt="Pagpapatuyo ng Walis Tambo"
+              className="object-cover w-full h-full"
+            />
+          </div>
           <div
             ref={fifthSectionLineRef}
             className="h-[1px] w-full bg-white row-start-2 mt-[10vh]"
@@ -271,7 +294,13 @@ export default function Home() {
           <div
             ref={sixthSectionBoxRef}
             className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2"
-          ></div>
+          >
+            <Image
+              src={progress3}
+              alt="Pagsusuri ng Walis Tambo"
+              className="object-cover w-full h-full"
+            />
+          </div>
           <div
             ref={sixthSectionLineRef}
             className="h-[1px] w-full bg-white row-start-2 mt-[10vh]"
@@ -301,7 +330,13 @@ export default function Home() {
           <div
             ref={seventhSectionBoxRef}
             className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2"
-          ></div>
+          >
+            <Image
+              src={progress4_1}
+              alt="Pagbibigkis ng Walis Tambo"
+              className="object-cover w-full h-full"
+            />
+          </div>
           <div
             ref={seventhSectionLineRef}
             className="h-[1px] w-full bg-white row-start-2 mt-[10vh]"
@@ -331,7 +366,13 @@ export default function Home() {
           <div
             ref={eighthSectionBoxRef}
             className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] col-start-2 row-start-2"
-          ></div>
+          >
+            <Image
+              src={progress4_2}
+              alt="Pananahi ng Walis Tambo"
+              className="object-cover w-full h-full"
+            />
+          </div>
           <div
             ref={eighthSectionLineRef}
             className="h-[1px] w-full bg-white mt-[10vh] row-start-2 col-start-1"
@@ -395,19 +436,43 @@ export default function Home() {
           <div ref={finalSectionGridRef} className="grid grid-cols-4 gap-4">
             <div>
               <p className="uppercase grid-title">Pag tatak</p>
-              <div className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2 grid-box"></div>
+              <div className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2 grid-box">
+                <Image
+                  src={progress5_1}
+                  alt="Pagtatak ng Walis Tambo"
+                  className="object-cover w-full h-full"
+                />
+              </div>
             </div>
             <div>
               <p className="uppercase grid-title">Pag tatak</p>
-              <div className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2 grid-box"></div>
+              <div className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2 grid-box">
+                <Image
+                  src={progress5_2}
+                  alt="Pagtatak ng Walis Tambo"
+                  className="object-cover w-full h-full"
+                />
+              </div>
             </div>
             <div>
               <p className="uppercase grid-title">Pag papaganda</p>
-              <div className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2 grid-box"></div>
+              <div className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2 grid-box">
+                <Image
+                  src={progress6}
+                  alt="Pagpapaganda ng Walis Tambo"
+                  className="object-cover w-full h-full"
+                />
+              </div>
             </div>
             <div>
               <p className="uppercase grid-title">Pag dala sa pamilihan</p>
-              <div className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2 grid-box"></div>
+              <div className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2 grid-box">
+                <Image
+                  src={progress7}
+                  alt="Pagdala sa pamilihan ng Walis Tambo"
+                  className="object-cover w-full h-full"
+                />
+              </div>
             </div>
           </div>
         </div>
