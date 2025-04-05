@@ -67,6 +67,14 @@ export const useScrollAnimations = () => {
   const beliefsSecondSectionLineRef = useRef(null);
   const beliefsSecondSectionTextRef = useRef(null);
   const beliefsSecondSectionFeetRef = useRef(null);
+  const beliefsThirdSectionNumberRef = useRef(null);
+  const beliefsThirdSectionLineRef = useRef(null);
+  const beliefsThirdSectionTextRef = useRef(null);
+  const beliefsThirdSectionBroom1Ref = useRef(null);
+  const beliefsThirdSectionBroom2Ref = useRef(null);
+  const beliefsThirdSectionBroom3Ref = useRef(null);
+  const beliefsThirdSectionBroom4Ref = useRef(null);
+  const beliefsThirdSectionBroom5Ref = useRef(null);
 
   useLayoutEffect(() => {
     // Images animation
@@ -2282,6 +2290,232 @@ export const useScrollAnimations = () => {
         },
       });
     }
+
+    // Beliefs third section animations
+    if (
+      beliefsSectionBroomRef.current &&
+      beliefsSecondSectionNumberRef.current &&
+      beliefsSecondSectionLineRef.current &&
+      beliefsSecondSectionTextRef.current &&
+      beliefsSecondSectionFeetRef.current &&
+      beliefsThirdSectionNumberRef.current &&
+      beliefsThirdSectionLineRef.current &&
+      beliefsThirdSectionTextRef.current &&
+      beliefsThirdSectionBroom1Ref.current &&
+      beliefsThirdSectionBroom2Ref.current &&
+      beliefsThirdSectionBroom3Ref.current &&
+      beliefsThirdSectionBroom4Ref.current &&
+      beliefsThirdSectionBroom5Ref.current
+    ) {
+      // Set initial states for beliefs third section elements
+      gsap.set(
+        [
+          beliefsThirdSectionNumberRef.current,
+          beliefsThirdSectionTextRef.current,
+        ],
+        {
+          opacity: 0,
+          x: -50,
+        }
+      );
+
+      gsap.set(beliefsThirdSectionLineRef.current, {
+        scaleX: 0,
+        transformOrigin: "left center",
+      });
+
+      // Set initial states for brooms
+      gsap.set(
+        [
+          beliefsThirdSectionBroom1Ref.current,
+          beliefsThirdSectionBroom2Ref.current,
+          beliefsThirdSectionBroom3Ref.current,
+          beliefsThirdSectionBroom4Ref.current,
+          beliefsThirdSectionBroom5Ref.current,
+        ],
+        {
+          opacity: 0,
+          y: 100,
+          scale: 0.8,
+        }
+      );
+
+      // Create timeline for beliefs third section animations
+      const beliefsThirdSectionTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".beliefs-third-section",
+          start: "top 80%",
+          end: "40% 30%",
+          scrub: 1,
+          preventOverlaps: true,
+          toggleActions: "play none none reverse",
+          id: "beliefs-third-section",
+          fastScrollEnd: true,
+        },
+        defaults: {
+          ease: "power2.out",
+          overwrite: "auto",
+        },
+      });
+
+      // Fade out previous beliefs second section elements
+      beliefsThirdSectionTl.to(
+        [
+          beliefsSecondSectionNumberRef.current,
+          beliefsSecondSectionTextRef.current,
+        ],
+        {
+          opacity: 0,
+          y: -20,
+          duration: 0.8,
+        },
+        0
+      );
+
+      beliefsThirdSectionTl.to(
+        beliefsSecondSectionLineRef.current,
+        {
+          scaleX: 0,
+          duration: 0.8,
+        },
+        0
+      );
+
+      // Fade out and move up feet image
+      beliefsThirdSectionTl.to(
+        beliefsSecondSectionFeetRef.current,
+        {
+          opacity: 0,
+          y: -100,
+          scale: 0.8,
+          duration: 0.8,
+        },
+        0
+      );
+
+      // Rotate broom from first beliefs section
+      beliefsThirdSectionTl.to(
+        beliefsSectionBroomRef.current,
+        {
+          rotation: 180,
+          y: "-10%",
+          scale: 0.25,
+          duration: 1,
+          ease: "power2.inOut",
+        },
+        0.2
+      );
+
+      // Animate number
+      beliefsThirdSectionTl.to(
+        beliefsThirdSectionNumberRef.current,
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.8,
+        },
+        0.4
+      );
+
+      // Animate line
+      beliefsThirdSectionTl.to(
+        beliefsThirdSectionLineRef.current,
+        {
+          scaleX: 1,
+          duration: 0.8,
+        },
+        0.6
+      );
+
+      // Animate text
+      beliefsThirdSectionTl.to(
+        beliefsThirdSectionTextRef.current,
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.8,
+        },
+        0.8
+      );
+
+      // Animate brooms with staggered effect
+      beliefsThirdSectionTl.to(
+        [
+          beliefsThirdSectionBroom1Ref.current,
+          beliefsThirdSectionBroom2Ref.current,
+          beliefsThirdSectionBroom3Ref.current,
+          beliefsThirdSectionBroom4Ref.current,
+          beliefsThirdSectionBroom5Ref.current,
+        ],
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          stagger: {
+            each: 0.2,
+            from: "start",
+          },
+        },
+        1.0
+      );
+
+      // Add cleanup trigger for beliefs third section
+      ScrollTrigger.create({
+        trigger: ".beliefs-third-section",
+        start: "center center",
+        end: "bottom bottom",
+        id: "beliefs-third-section-cleanup",
+        onEnter: () => {
+          gsap.set(
+            [
+              beliefsThirdSectionNumberRef.current,
+              beliefsThirdSectionTextRef.current,
+            ],
+            {
+              opacity: 1,
+              x: 0,
+            }
+          );
+
+          gsap.set(beliefsThirdSectionLineRef.current, {
+            scaleX: 1,
+          });
+
+          // Set brooms to final state
+          gsap.set(
+            [
+              beliefsThirdSectionBroom1Ref.current,
+              beliefsThirdSectionBroom2Ref.current,
+              beliefsThirdSectionBroom3Ref.current,
+              beliefsThirdSectionBroom4Ref.current,
+              beliefsThirdSectionBroom5Ref.current,
+            ],
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+            }
+          );
+
+          // Ensure previous beliefs second section elements are hidden
+          gsap.set(
+            [
+              beliefsSecondSectionNumberRef.current,
+              beliefsSecondSectionTextRef.current,
+            ],
+            {
+              opacity: 0,
+              y: -20,
+            }
+          );
+
+          gsap.set(beliefsSecondSectionLineRef.current, {
+            scaleX: 0,
+          });
+        },
+      });
+    }
   }, []);
 
   return {
@@ -2347,5 +2581,13 @@ export const useScrollAnimations = () => {
     beliefsSecondSectionLineRef,
     beliefsSecondSectionTextRef,
     beliefsSecondSectionFeetRef,
+    beliefsThirdSectionNumberRef,
+    beliefsThirdSectionLineRef,
+    beliefsThirdSectionTextRef,
+    beliefsThirdSectionBroom1Ref,
+    beliefsThirdSectionBroom2Ref,
+    beliefsThirdSectionBroom3Ref,
+    beliefsThirdSectionBroom4Ref,
+    beliefsThirdSectionBroom5Ref,
   };
 };

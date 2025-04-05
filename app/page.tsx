@@ -79,6 +79,14 @@ export default function Home() {
     beliefsSecondSectionNumberRef,
     beliefsSecondSectionLineRef,
     beliefsSecondSectionTextRef,
+    beliefsThirdSectionNumberRef,
+    beliefsThirdSectionLineRef,
+    beliefsThirdSectionTextRef,
+    beliefsThirdSectionBroom1Ref,
+    beliefsThirdSectionBroom2Ref,
+    beliefsThirdSectionBroom3Ref,
+    beliefsThirdSectionBroom4Ref,
+    beliefsThirdSectionBroom5Ref,
   } = useScrollAnimations();
 
   return (
@@ -432,6 +440,51 @@ export default function Home() {
             <p ref={beliefsSecondSectionTextRef} className="w-2/3">
               Hindi ito dapat tapakan o upuan dahil maaaring makaapekto sa benta
             </p>
+          </div>
+        </div>
+      </div>
+      <div className="h-[100vh] relative beliefs-third-section">
+        <div className="w-full flex flex-col items-start justify-center gap-8 h-full pl-20">
+          <div className="flex flex-col gap-4 w-1/4 text-left items-start">
+            <p ref={beliefsThirdSectionNumberRef}>03</p>
+            <div
+              ref={beliefsThirdSectionLineRef}
+              className="h-[1px] w-full bg-white"
+            ></div>
+            <p ref={beliefsThirdSectionTextRef} className="w-2/3">
+              Dapat may sapat na espasyo sa pag-iimbak upang maiwasan ang
+              moisture na nakakasira sa kalidad.
+            </p>
+          </div>
+          <div
+            ref={beliefsThirdSectionBroom1Ref}
+            className="fixed w-1/6 left-1/2 bottom-0"
+          >
+            <Image src={broom} alt="broom" className="object-cover w-full" />
+          </div>
+          <div
+            ref={beliefsThirdSectionBroom2Ref}
+            className="fixed w-1/6 left-[59%] top-[2.5%] rotate-180"
+          >
+            <Image src={broom} alt="broom" className="object-cover w-full" />
+          </div>
+          <div
+            ref={beliefsThirdSectionBroom3Ref}
+            className="fixed w-1/6 left-[68%] bottom-0"
+          >
+            <Image src={broom} alt="broom" className="object-cover w-full" />
+          </div>
+          <div
+            ref={beliefsThirdSectionBroom4Ref}
+            className="fixed w-1/6 left-[77%] top-[2.5%] rotate-180"
+          >
+            <Image src={broom} alt="broom" className="object-cover w-full" />
+          </div>
+          <div
+            ref={beliefsThirdSectionBroom5Ref}
+            className="fixed w-1/6 left-[86%] bottom-0"
+          >
+            <Image src={broom} alt="broom" className="object-cover w-full" />
           </div>
         </div>
       </div>
