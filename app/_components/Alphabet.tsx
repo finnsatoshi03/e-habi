@@ -1,5 +1,6 @@
 import { Playfair_Display, Didact_Gothic } from "next/font/google";
 import gsap from "gsap";
+import Image from "next/image";
 import { Flip } from "gsap/Flip";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -45,7 +46,14 @@ export const AlphabetBlocks = (
       <div className="text-left text-md spacing-0 z-10 w-full h-full flex flex-col justify-center">
         <h1 className={`${playfairDisplay.className} font-bold`}>{title}</h1>
         <h6 className={`${playfairDisplay.className} italic text-gray-700`}>{sub}</h6>
-        <img src="https://placehold.co/150" className="w-[150px] h-[150px] border border-black" />
+        {/* <img src="https://placehold.co/150" className="" /> */}
+         {img && <Image
+            src={img}
+            alt={title}
+            className="border border-black"
+            width={150} 
+            height={150} 
+          /> }
         <h6 className={`${didactGothic.className} text-md max-w-sm`}>{desc}</h6>
       </div>
     )
