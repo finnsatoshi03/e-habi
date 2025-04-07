@@ -1,4 +1,14 @@
-export const Terminologies = {
+type TerminologiesProps = {
+  [key: string]: {
+    title: string;
+    sub: string;
+    desc: string;
+    img: string;
+    voice: string;
+  }[];
+}
+
+export const Terminologies: TerminologiesProps = {
   Aa: [
     {
       title: "Abaká",
