@@ -151,7 +151,7 @@ const questions = [
 export default function ActivityPage() {
   const [hasStarted, setHasStarted] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [timeRemaining, setTimeRemaining] = useState(60);
+  const [timeRemaining, setTimeRemaining] = useState(6000);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [score, setScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
@@ -163,7 +163,7 @@ export default function ActivityPage() {
   );
 
   useEffect(() => {
-    setTimeRemaining(60);
+    setTimeRemaining(6000);
   }, [currentQuestion]);
 
   useEffect(() => {
@@ -288,16 +288,22 @@ export default function ActivityPage() {
   const transitionDelay = isIdentification ? 100 : 700;
 
   return (
-    <div className="relative min-h-screen flex flex-col bg-[#F5F3F0]">
-      {hasStarted && <QuizHeader title="E-HABI" showInstruction={!quizCompleted} />}
-
+    <div className="relative h-full flex flex-col bg-white">
       <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 pt-6 sm:pt-8 md:pt-10 pb-12 sm:pb-16 md:pb-20 flex-1 flex flex-col gap-6 sm:gap-8 md:gap-12">
+        {hasStarted && (
+          <QuizHeader
+            title="E-HABI"
+            instruction={
+              !quizCompleted ? "Complete the quiz to test your knowledge" : ""
+            }
+          />
+        )}
         {!hasStarted ? (
           <div className="flex flex-col items-center justify-center flex-1 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-4 sm:mb-6">
               Welcome to E-HABI Quiz
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-gray-700 mb-6 sm:mb-10">
+            <p className="text-base md:text-xl text-gray-700 mb-6 sm:mb-10">
               Test your knowledge about Walis Tambo! Click below to begin.
             </p>
             <button
@@ -308,9 +314,12 @@ export default function ActivityPage() {
             </button>
           </div>
         ) : !quizCompleted ? (
-          <>
-            <div className="flex flex-col sm:flex-row justify-between items-center mb-4 sm:mb-6 md:mb-8 gap-4 sm:gap-0">
-              <QuizProgress current={currentQuestion + 1} total={questions.length} />
+          <div className="flex flex-col gap-4 h-[70vh]">
+            <div className="grid md:grid-cols-[1fr_auto] gap-4 mb-4">
+              <QuizProgress
+                current={currentQuestion + 1}
+                total={questions.length}
+              />
               <QuizTimer timeRemaining={formatTime(timeRemaining)} />
             </div>
             {isIdentification ? (
@@ -321,7 +330,7 @@ export default function ActivityPage() {
                 onIncorrect={handleIncorrect}
               />
             ) : (
-              <>
+              <div className="flex flex-col gap-4 h-full">
                 <QuizQuestion question={questions[currentQuestion].text} />
                 <QuizOptions
                   options={questions[currentQuestion].options || []}
@@ -329,9 +338,9 @@ export default function ActivityPage() {
                   correctAnswer={questions[currentQuestion].correctAnswer}
                   onSelect={handleAnswerSelect}
                 />
-              </>
+              </div>
             )}
-          </>
+          </div>
         ) : (
           <QuizResult
             score={score}

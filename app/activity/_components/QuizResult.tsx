@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import trophywithbrooms from "@/public/images/trophywithbrooms.png";
 import broomsinsidebin from "@/public/images/broominsidebin.png";
+import { ArrowRight } from "lucide-react";
 
 interface QuizResultProps {
   score: number;
@@ -58,98 +59,68 @@ export default function QuizResult({
   };
 
   return (
-    <div className="text-center p-12 bg-[#F5F3F0] rounded-lg">
-      {/* Result Image */}
-      <Image
-        src={isPassed ? trophywithbrooms : broomsinsidebin}
-        alt={isPassed ? "Trophy with brooms" : "Brooms inside a bin"}
-        width={300}
-        height={300}
-        className="mx-auto mb-8"
-      />
+    <div className="text-center">
+      <div className="space-y-2">
+        {/* Result Image */}
+        <Image
+          src={isPassed ? trophywithbrooms : broomsinsidebin}
+          alt={isPassed ? "Trophy with brooms" : "Brooms inside a bin"}
+          width={200}
+          height={200}
+          className="mx-auto"
+        />
 
-      {/* Result Message */}
-      <h2 className="text-5xl font-bold font-[var(--font-didact-gothic)] mb-4 text-black">
-        {isPassed ? "Congratulations!" : "Nice Try!"}
-      </h2>
+        {/* Result Message */}
+        <h2 className="text-4xl text-black">
+          {isPassed ? "Congratulations!" : "Nice Try!"}
+        </h2>
 
-      {/* Score */}
-      <p className="text-3xl mb-4 text-black">
-        You’ve scored {score}/{total}
-      </p>
+        <div>
+          {/* Score */}
+          <p className="text-black">
+            You’ve scored {score}/{total}
+          </p>
+          {!isPassed && (
+            <p className="text-gray-700">
+              Don’t worry — try again to improve your score!
+            </p>
+          )}
+        </div>
 
-      {!isPassed && (
-        <p className="text-xl mb-8 text-gray-700">
-          Don’t worry — try again to improve your score!
-        </p>
-      )}
-
-      {/* Buttons */}
-      <div className="flex justify-center space-x-6 mb-12">
-        <button
-          onClick={onRestart}
-          className="bg-gray-500 text-black px-8 py-3 rounded-full text-2xl font-semibold hover:bg-gray-600"
-        >
-          Take quiz again
-        </button>
-        <Link
-          href="/"
-          className="bg-orange-500 text-black px-8 py-3 rounded-full text-2xl font-semibold hover:bg-orange-600"
-        >
-          Go home
-        </Link>
+        {/* Buttons */}
+        <div className="mt-4 flex justify-center gap-2">
+          <button
+            onClick={onRestart}
+            className="bg-gray-500 text-white px-8 py-1 rounded-full text-sm hover:bg-gray-600"
+          >
+            Take quiz again
+          </button>
+          <Link
+            href="/"
+            className="bg-orange-500 text-white px-8 py-1 rounded-full text-sm hover:bg-orange-600"
+          >
+            Go home
+          </Link>
+        </div>
       </div>
 
       {/* Responsive Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-        {/* Quiz Summary - Order first on mobile */}
-        <div className="order-1 md:order-2 md:col-span-1">
-          <h3 className="text-3xl font-bold mb-6 text-black">Quiz Summary</h3>
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center justify-between">
-              <p className="text-xl text-black">Number of Questions</p>
-              <span
-                className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold text-white text-center"
-                style={{ backgroundColor: "#A855F7" }}
-              >
-                {total}
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <p className="text-xl text-black">Number of Correct</p>
-              <span
-                className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold text-white text-center"
-                style={{ backgroundColor: "#68FF46" }}
-              >
-                {score}
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <p className="text-xl text-black">Number of Wrong</p>
-              <span
-                className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold text-white text-center"
-                style={{ backgroundColor: "#F32A23" }}
-              >
-                {total - score}
-              </span>
-            </div>
-          </div>
-        </div>
-
+      <div className="grid grid-cols-[1fr_auto] gap-4">
         {/* Questions to Review - Order second on mobile */}
-        <div className="order-2 md:order-1 md:col-span-2">
-          <h3 className="text-3xl font-bold mb-6 text-black">
+        <div className="">
+          <h3 className="text-2xl text-left mb-6 text-medium text-black">
             Questions to Review
           </h3>
+          <div className="space-y-4 max-h-[150px] overflow-y-auto pr-4">
           {wrongAnswers.length > 0 ? (
             wrongAnswers.map((q) => (
               <div
                 key={q!.id}
-                className="mb-4 flex justify-between items-start gap-4"
+                className="flex justify-between items-start gap-4"
               >
-                <p className="text-lg text-black max-w-[90%] break-words text-left">
+                <p className="text-black max-w-[90%] break-words text-left">
                   <span className="font-semibold">Question {q!.id}:</span>{" "}
-                  {q!.text}
+                  <span className="text-black/70">{q!.text}</span>
                 </p>
                 <button
                   onClick={() =>
@@ -160,15 +131,52 @@ export default function QuizResult({
                       userAnswer: q!.userAnswer ?? null,
                     })
                   }
-                  className="bg-gray-300 text-black px-4 py-2 rounded-md text-base font-medium hover:bg-gray-400"
+                  className="bg-gray-300 inline-flex items-center gap-1 text-black px-4 py-1 text-sm rounded-full font-medium hover:bg-gray-400"
                 >
-                  Review
+                  Review <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
             ))
           ) : (
             <p className="text-xl text-gray-500">No questions to review.</p>
           )}
+          </div>
+          </div>
+
+        {/* Quiz Summary - Order first on mobile */}
+        <div className="">
+        <h3 className="text-2xl text-left mb-6 text-medium text-black">
+            Questions Summary
+          </h3>
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center justify-between">
+              <p className="text-black">Number of Questions</p>
+              <span
+                className="size-6 rounded-full flex items-center justify-center text-white text-center"
+                style={{ backgroundColor: "#A855F7" }}
+              >
+                {total}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="text-black">Number of Correct</p>
+              <span
+                className="size-6 rounded-full flex items-center justify-center text-black text-center"
+                style={{ backgroundColor: "#68FF46" }}
+              >
+                {score}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="text-black">Number of Wrong</p>
+              <span
+                className="size-6 rounded-full flex items-center justify-center text-white text-center"
+                style={{ backgroundColor: "#F32A23" }}
+              >
+                {total - score}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 

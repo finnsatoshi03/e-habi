@@ -810,7 +810,10 @@ export default function Home() {
   }, []);
 
   return (
-    <div ref={parentRef} className="relative overflow-y-auto overflow-x-hidden">
+    <div
+      ref={parentRef}
+      className="relative overflow-y-auto overflow-x-hidden bg-[#1e1e1e] text-white"
+    >
       <div className="relative h-screen">
         <Header
           title="E-HABI"

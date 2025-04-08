@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, KeyboardEvent } from "react";
 
 interface IdentificationQuestionProps {
   question: string;
@@ -18,8 +18,12 @@ export default function IdentificationQuestion({
   const [shuffledLetters, setShuffledLetters] = useState<string[]>([]);
   const [userAnswer, setUserAnswer] = useState<string[]>([]);
   const [usedIndices, setUsedIndices] = useState<number[]>([]);
-  const [isAnswered, setIsAnswered] = useState<"correct" | "wrong" | null>(null);
-  const [hasProcessedAnswer, setHasProcessedAnswer] = useState(false); // Prevent multiple calls
+  const [isAnswered, setIsAnswered] = useState<"correct" | "wrong" | null>(
+    null
+  );
+  const [hasProcessedAnswer, setHasProcessedAnswer] = useState(false);
+  const [currentFocus, setCurrentFocus] = useState<number>(0);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const correct = answer.toUpperCase().split("");
@@ -32,30 +36,96 @@ export default function IdentificationQuestion({
     setUserAnswer([]);
     setUsedIndices([]);
     setIsAnswered(null);
-    setHasProcessedAnswer(false); // Reset for new question
+    setHasProcessedAnswer(false);
+    setCurrentFocus(0);
   }, [answer]);
 
+  useEffect(() => {
+    // Set focus to container when mounting and when focus changes
+    if (containerRef.current) {
+      containerRef.current.focus();
+    }
+  }, [currentFocus]);
+
   const handleSelectLetter = (char: string, index: number) => {
-    if (isAnswered || usedIndices.includes(index)) return;
-    setUserAnswer((prev) => [...prev, char]);
+    if (
+      isAnswered ||
+      usedIndices.includes(index) ||
+      userAnswer.length >= answer.length
+    )
+      return;
+
+    setUserAnswer((prev) => {
+      const newAnswer = [...prev];
+      newAnswer[currentFocus] = char;
+      return newAnswer;
+    });
+
     setUsedIndices((prev) => [...prev, index]);
+
+    // Focus next empty slot if available
+    if (currentFocus < answer.length - 1) {
+      setCurrentFocus(currentFocus + 1);
+    }
   };
 
   const handleRemoveLetter = (index: number) => {
     if (isAnswered) return;
+
     const updatedAnswer = [...userAnswer];
     const updatedUsed = [...usedIndices];
+
     updatedAnswer.splice(index, 1);
     updatedUsed.splice(index, 1);
+
     setUserAnswer(updatedAnswer);
     setUsedIndices(updatedUsed);
+    setCurrentFocus(index > 0 ? index - 1 : 0);
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (isAnswered) return;
+
+    // Handle backspace
+    if (e.key === "Backspace" && userAnswer.length > 0) {
+      e.preventDefault();
+      handleRemoveLetter(userAnswer.length - 1);
+      return;
+    }
+
+    // Handle arrow keys
+    if (e.key === "ArrowLeft" && currentFocus > 0) {
+      e.preventDefault();
+      setCurrentFocus(currentFocus - 1);
+      return;
+    }
+
+    if (
+      e.key === "ArrowRight" &&
+      currentFocus < Math.min(userAnswer.length, answer.length - 1)
+    ) {
+      e.preventDefault();
+      setCurrentFocus(currentFocus + 1);
+      return;
+    }
+
+    // Check if pressed key exists in available letters
+    const pressedKey = e.key.toUpperCase();
+    const availableLetterIndex = shuffledLetters.findIndex(
+      (char, idx) => char === pressedKey && !usedIndices.includes(idx)
+    );
+
+    if (availableLetterIndex !== -1) {
+      e.preventDefault();
+      handleSelectLetter(pressedKey, availableLetterIndex);
+    }
   };
 
   useEffect(() => {
     if (userAnswer.length === answer.length && !hasProcessedAnswer) {
       const isCorrect = userAnswer.join("") === answer.toUpperCase();
       setIsAnswered(isCorrect ? "correct" : "wrong");
-      setHasProcessedAnswer(true); // Prevent multiple calls
+      setHasProcessedAnswer(true);
 
       if (isCorrect) {
         setTimeout(() => {
@@ -74,26 +144,32 @@ export default function IdentificationQuestion({
   }, [userAnswer, answer, onCorrect, onIncorrect, hasProcessedAnswer]);
 
   return (
-    <div className="space-y-10">
-      <div className="bg-[#D9D9D9] px-20 py-16 rounded-xl shadow text-center w-full">
-        <p className="text-5xl text-black font-[var(--font-didact-gothic)] leading-snug">
-          {question}
-        </p>
+    <div
+      className="space-y-4 flex-1 h-full flex-col flex"
+      ref={containerRef}
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      aria-label="Identification question input"
+    >
+      <div className="bg-gray-200 py-10 px-4 rounded-xl text-center w-full">
+        <p className="text-xl text-black leading-snug">{question}</p>
       </div>
 
-      <div className="bg-gray-600 px-8 py-8 rounded-xl flex justify-center flex-wrap gap-5">
+      <div className="bg-gray-400 py-4 rounded-xl flex justify-center flex-wrap gap-2 md:gap-4">
         {Array.from({ length: answer.length }).map((_, i) => (
           <span
             key={i}
-            onClick={() => handleRemoveLetter(i)}
-            className={`w-20 h-20 rounded-xl flex items-center justify-center text-4xl font-bold cursor-pointer transition ${
+            onClick={() => setCurrentFocus(i)}
+            className={`size-12 rounded-xl flex items-center justify-center text-2xl font-bold cursor-pointer transition ${
               isAnswered === "correct"
-                ? "bg-lime-400 text-black"
+                ? "bg-green-400 text-black"
                 : isAnswered === "wrong"
-                ? "bg-red-500 text-white"
-                : userAnswer[i]
-                ? "bg-[#D9D9D9] text-black"
-                : "bg-[#D9D9D9] opacity-40"
+                  ? "bg-red-500 text-white"
+                  : i === currentFocus
+                    ? "bg-blue-300 text-black ring-2 ring-blue-500"
+                    : userAnswer[i]
+                      ? "bg-gray-200 text-black"
+                      : "bg-gray-200 opacity-40"
             }`}
           >
             {userAnswer[i] || ""}
@@ -101,21 +177,23 @@ export default function IdentificationQuestion({
         ))}
       </div>
 
-      <div className="bg-[#E4E8EE] px-6 py-8 rounded-xl grid grid-cols-6 gap-6 justify-center w-fit mx-auto">
-        {shuffledLetters.map((char, i) => (
-          <button
-            key={i}
-            onClick={() => handleSelectLetter(char, i)}
-            disabled={usedIndices.includes(i) || isAnswered !== null}
-            className={`w-20 h-20 rounded-xl text-4xl font-bold flex items-center justify-center transition ${
-              usedIndices.includes(i)
-                ? "bg-gray-300 text-white"
-                : "bg-gray-500 text-white hover:bg-gray-600"
-            }`}
-          >
-            {char}
-          </button>
-        ))}
+      <div className="bg-gray-200 py-4 w-full flex-1 rounded-xl flex items-center justify-center">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 md:gap-4">
+          {shuffledLetters.map((char, i) => (
+            <button
+              key={i}
+              onClick={() => handleSelectLetter(char, i)}
+              disabled={usedIndices.includes(i) || isAnswered !== null}
+              className={`size-12 rounded-xl hover:cursor-pointer text-2xl font-bold flex items-center justify-center transition ${
+                usedIndices.includes(i)
+                  ? "bg-gray-300 text-white"
+                  : "bg-gray-500 text-white hover:bg-gray-600"
+              }`}
+            >
+              {char}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ interface QuizProgressProps {
 
 export default function QuizProgress({ current, total }: QuizProgressProps) {
   return (
-    <div className="flex gap-2 sm:gap-5 flex-wrap">
+    <div className="grid grid-cols-5 md:grid-cols-10 lg:grid-cols-15 gap-4">
       {Array.from({ length: total }, (_, i) => {
         const index = i + 1;
         let bgColor = "bg-gray-300 text-gray-700";
@@ -19,7 +19,7 @@ export default function QuizProgress({ current, total }: QuizProgressProps) {
         return (
           <span
             key={index}
-            className={`w-10 h-10 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-base sm:text-xl font-semibold ${bgColor}`}
+            className={`rounded-full size-full flex items-center justify-center ${bgColor}`}
           >
             {index}
           </span>

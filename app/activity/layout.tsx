@@ -10,7 +10,8 @@ const didactGothic = Didact_Gothic({
 
 export const metadata: Metadata = {
   title: "E-HABI | Walis Tambo Quiz",
-  description: "Test your knowledge about the traditional Filipino Walis Tambo with this interactive quiz.",
+  description:
+    "Test your knowledge about the traditional Filipino Walis Tambo with this interactive quiz.",
   keywords: ["Walis Tambo", "Quiz", "Filipino Culture", "Interactive Learning"],
   authors: [{ name: "E-HABI Team" }],
 };
@@ -22,7 +23,9 @@ export default function ActivityLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${didactGothic.variable} antialiased bg-white text-black`}>
+      <body
+        className={`${didactGothic.variable} antialiased h-screen bg-white text-black`}
+      >
         {children}
       </body>
     </html>
