@@ -382,7 +382,7 @@ export const FirstHeader = forwardRef<HTMLDivElement, FirstHeaderProps>(
 FirstHeader.displayName = "FirstHeader";
 
 export const SecondHeader = forwardRef<HTMLDivElement, SecondHeaderProps>(
-  ({ className, secondTitle }, ref: ForwardedRef<HTMLDivElement>) => {
+  ({ className, secondTitle }) => {
     const secondHeaderRef = useRef<HTMLDivElement>(null);
     const secondTitleRef = useRef<HTMLHeadingElement>(null);
 
@@ -515,7 +515,7 @@ export const SecondHeader = forwardRef<HTMLDivElement, SecondHeaderProps>(
 SecondHeader.displayName = "SecondHeader";
 
 export const Title = forwardRef<HTMLDivElement>(
-  ({}, ref: ForwardedRef<HTMLDivElement>) => {
+  ({}) => {
     const headerRef = useRef<HTMLDivElement>(null);
     
     useEffect(() => {
