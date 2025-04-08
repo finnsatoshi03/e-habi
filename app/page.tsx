@@ -1,858 +1,162 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
 import Image from "next/image";
 import gsap from "gsap";
+import { ArrowDownRight } from "lucide-react";
+import { Playfair_Display } from "next/font/google";
+
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Header } from "./_components/Header";
 
 import handLeft from "@/public/images/hand-left.png";
 import handRight from "@/public/images/hand-right.png";
 import broom from "@/public/images/broom.png";
 import map from "@/public/images/map.png";
+import bamboo from "@/public/images/bamboo.png";
+import feet from "@/public/images/feet.png";
+import progress1 from "@/public/images/progress/1.jpg";
+import progress2 from "@/public/images/progress/2.jpg";
+import progress3 from "@/public/images/progress/3.jpg";
+import progress4_1 from "@/public/images/progress/4.1.jpg";
+import progress4_2 from "@/public/images/progress/4.2.jpg";
+import progress5_1 from "@/public/images/progress/5.1.jpg";
+import progress5_2 from "@/public/images/progress/5.2.jpg";
+import progress6 from "@/public/images/progress/6.jpg";
+import progress7 from "@/public/images/progress/7.jpg";
+
+import Footer from "./_components/Footer";
+import { Header } from "./_components/Header";
+import { useScrollAnimations } from "./_animations/useScrollAnimations";
+
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-playfair-display",
+});
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
-  const parentRef = useRef(null);
-  const handLeftRef = useRef(null);
-  const handRightRef = useRef(null);
-  const broomRef = useRef(null);
-  const verticalLineRef = useRef(null);
-  const firstParagraphRef = useRef(null);
-  const secondParagraphRef = useRef(null);
-  const mapRef = useRef(null);
-  const secondSectionRef = useRef(null);
-  const horizontalLineRef = useRef(null);
-  const thirdSectionFirstParagraphRef = useRef(null);
-  const thirdSectionSecondParagraphRef = useRef(null);
-  const fourthSectionBroomRef = useRef(null);
-  const fourthSectionTitleRef = useRef(null);
-  const fourthSectionBoxRef = useRef(null);
-  const fourthSectionLineRef = useRef(null);
-  const fourthSectionNumberRef = useRef(null);
-  const fourthSectionTextRef = useRef(null);
-  const fourthSectionBottomLineRef = useRef(null);
-  const fifthSectionBroomRef = useRef(null);
-  const fifthSectionTitleRef = useRef(null);
-  const fifthSectionBoxRef = useRef(null);
-  const fifthSectionNumberRef = useRef(null);
-  const fifthSectionTextRef = useRef(null);
-  const fifthSectionLineRef = useRef(null);
-  const fifthSectionBottomLineRef = useRef(null);
-
-  useEffect(() => {
-    // Images animation
-    if (handLeftRef.current && handRightRef.current && broomRef.current) {
-      // Create a timeline for image animations
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: parentRef.current,
-          start: "20% center",
-          end: "25% top",
-          scrub: 0.5,
-        },
-      });
-
-      gsap.set([handRightRef.current, broomRef.current], {
-        scale: 1,
-      });
-
-      // Make handLeft disappear
-      tl.to(
-        handLeftRef.current,
-        {
-          opacity: 0,
-          y: 150,
-          x: "-10%",
-          duration: 1,
-          ease: "power1.out",
-        },
-        0
-      );
-
-      // Rotate handRight and move to bottom
-      tl.to(
-        handRightRef.current,
-        {
-          rotation: -30,
-          y: "-25vh",
-          x: "5vw",
-          scale: 1.2,
-          duration: 1,
-          ease: "power1.inOut",
-        },
-        0
-      );
-
-      // Rotate broom and move to bottom center
-      tl.to(
-        broomRef.current,
-        {
-          rotation: 90,
-          scale: 1.5,
-          bottom: "-10%",
-          x: "70%",
-          y: 250,
-          duration: 1,
-          ease: "power1.inOut",
-        },
-        0
-      );
-    }
-
-    // Text and line animation
-    if (
-      verticalLineRef.current &&
-      firstParagraphRef.current &&
-      secondParagraphRef.current
-    ) {
-      // Set initial states
-      gsap.set(verticalLineRef.current, {
-        scaleY: 0,
-        transformOrigin: "top center",
-        height: "100%",
-      });
-
-      gsap.set([firstParagraphRef.current, secondParagraphRef.current], {
-        opacity: 0,
-        y: 30,
-      });
-
-      // Create a scroll-based animation for the line
-      const lineDrawing = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".second-section",
-          start: "center 70%",
-          end: "center center",
-          scrub: 0.6,
-        },
-      });
-
-      // Draw the line as user scrolls
-      lineDrawing.to(verticalLineRef.current, {
-        scaleY: 1,
-        duration: 1,
-        ease: "none",
-      });
-
-      // Create a timeline for text animations that triggers after line reaches halfway
-      const textTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".second-section",
-          start: "70% 70%",
-          end: "bottom bottom",
-          toggleActions: "play none none reverse",
-        },
-      });
-
-      // Fade in first paragraph
-      textTl
-        .to(firstParagraphRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          ease: "back.out(1.2)",
-        })
-        // Fade in second paragraph
-        .to(
-          secondParagraphRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            ease: "back.out(1.2)",
-          },
-          "-=0.3"
-        );
-    }
-
-    // Third section animations - disappearing elements and map appearance
-    if (
-      mapRef.current &&
-      secondSectionRef.current &&
-      handRightRef.current &&
-      broomRef.current
-    ) {
-      // Set initial state for map
-      gsap.set(mapRef.current, {
-        opacity: 0,
-        x: "-5%",
-      });
-
-      // Create a dedicated ScrollTrigger just for map visibility with proper callbacks
-      ScrollTrigger.create({
-        trigger: ".third-section",
-        start: "top+=20% 80%",
-        end: "bottom-=30% 20%",
-        onEnter: () => {
-          gsap.to(mapRef.current, {
-            opacity: 1,
-            x: 0,
-            duration: 0.5,
-          });
-        },
-        onLeave: () => {
-          gsap.to(mapRef.current, {
-            opacity: 0,
-            x: "-100%",
-            duration: 0.5,
-          });
-        },
-        onEnterBack: () => {
-          gsap.to(mapRef.current, {
-            opacity: 1,
-            x: 0,
-            duration: 0.5,
-          });
-        },
-        onLeaveBack: () => {
-          gsap.to(mapRef.current, {
-            opacity: 0,
-            x: "-5%",
-            duration: 0.5,
-          });
-        },
-      });
-
-      // Create a timeline for third section animations (keep existing animation for other elements)
-      const thirdSectionTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".third-section",
-          start: "top 80%",
-          end: "top-=20% 30%",
-          scrub: 0.8,
-        },
-      });
-
-      // Make handRight disappear to the right
-      thirdSectionTl.to(
-        handRightRef.current,
-        {
-          x: "100vw",
-          opacity: 0,
-          duration: 1,
-          ease: "power2.inOut",
-        },
-        0
-      );
-
-      // Fade out broom
-      thirdSectionTl.to(
-        broomRef.current,
-        {
-          opacity: 0,
-          duration: 1,
-          ease: "power2.inOut",
-        },
-        0
-      );
-
-      // Fade out second section
-      thirdSectionTl.to(
-        secondSectionRef.current,
-        {
-          opacity: 0,
-          y: -50,
-          duration: 1,
-          ease: "power2.inOut",
-        },
-        0
-      );
-    }
-
-    // Third section text and horizontal line animations
-    if (
-      horizontalLineRef.current &&
-      thirdSectionFirstParagraphRef.current &&
-      thirdSectionSecondParagraphRef.current
-    ) {
-      // Get the container element
-      const textContainer = document.querySelector(".third-section-text");
-
-      // Set initial states - hide the text container completely
-      gsap.set(textContainer, {
-        opacity: 0,
-        pointerEvents: "none", // Prevent interaction when invisible
-      });
-
-      gsap.set(horizontalLineRef.current, {
-        scaleX: 0,
-        transformOrigin: "left center",
-      });
-
-      gsap.set(
-        [
-          thirdSectionFirstParagraphRef.current,
-          thirdSectionSecondParagraphRef.current,
-        ],
-        {
-          opacity: 0,
-          y: 20,
-        }
-      );
-
-      // Create visibility control for the fixed element based on section position
-      ScrollTrigger.create({
-        trigger: ".third-section",
-        start: "top 80%", // Start showing when third section is near view
-        end: "bottom 20%", // Hide when third section is leaving
-        // markers: true,
-        onEnter: () => {
-          gsap.to(textContainer, {
-            opacity: 1,
-            pointerEvents: "auto",
-            duration: 0.5,
-          });
-        },
-        onLeave: () => {
-          gsap.to(textContainer, {
-            opacity: 0,
-            pointerEvents: "none",
-            duration: 0.5,
-          });
-        },
-        onEnterBack: () => {
-          gsap.to(textContainer, {
-            opacity: 1,
-            pointerEvents: "auto",
-            duration: 0.5,
-          });
-        },
-        onLeaveBack: () => {
-          gsap.to(textContainer, {
-            opacity: 0,
-            pointerEvents: "none",
-            duration: 0.5,
-          });
-        },
-      });
-
-      // Create a timeline for horizontal line drawing
-      const horizontalLineDrawing = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".third-section",
-          start: "top 50%",
-          end: "top 20%",
-          scrub: 0.6,
-        },
-      });
-
-      // Draw the horizontal line from left to right
-      horizontalLineDrawing.to(horizontalLineRef.current, {
-        scaleX: 1,
-        duration: 1,
-        ease: "none",
-      });
-
-      // Create a timeline for third section text animations
-      const thirdSectionTextTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".third-section",
-          start: "top 40%",
-          toggleActions: "play none none reverse",
-        },
-      });
-
-      // Fade in first paragraph of third section
-      thirdSectionTextTl
-        .to(thirdSectionFirstParagraphRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          ease: "back.out(1.2)",
-        })
-        // Fade in second paragraph of third section
-        .to(
-          thirdSectionSecondParagraphRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            ease: "back.out(1.2)",
-          },
-          "-=0.3"
-        );
-    }
-
-    // Fourth section entrance - hide map and third section text
-    if (mapRef.current) {
-      const textContainer = document.querySelector(".third-section-text");
-
-      // Create a timeline for fourth section entrance animations
-      const fourthSectionTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".fourth-section",
-          start: "top 80%",
-          end: "top 30%",
-          scrub: 0.8,
-          // Remove the markers to avoid console clutter
-          // markers: true,
-        },
-      });
-
-      // Fade out third section paragraphs (keep this part)
-      if (textContainer) {
-        fourthSectionTl.to(
-          textContainer,
-          {
-            opacity: 0,
-            y: -30,
-            duration: 1,
-            ease: "power2.inOut",
-          },
-          0
-        );
-      }
-
-      // Remove the map animation from here as it's now handled by the dedicated ScrollTrigger above
-    }
-
-    // Fourth section element animations
-    if (
-      fourthSectionBroomRef.current &&
-      fourthSectionTitleRef.current &&
-      fourthSectionBoxRef.current &&
-      fourthSectionLineRef.current &&
-      fourthSectionNumberRef.current &&
-      fourthSectionTextRef.current &&
-      fourthSectionBottomLineRef.current
-    ) {
-      // Set initial states
-      gsap.set(fourthSectionBroomRef.current, {
-        y: "-100vh", // Start from way off the top
-        opacity: 0.3,
-        scale: 0.8,
-      });
-
-      gsap.set(
-        [
-          fourthSectionTitleRef.current,
-          fourthSectionBoxRef.current,
-          fourthSectionNumberRef.current,
-          fourthSectionTextRef.current,
-        ],
-        {
-          opacity: 0,
-          y: 30,
-        }
-      );
-
-      gsap.set(
-        [fourthSectionLineRef.current, fourthSectionBottomLineRef.current],
-        {
-          scaleX: 0,
-          transformOrigin: "left center",
-        }
-      );
-
-      // Create animation timeline for fourth section elements
-      const fourthElementsTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".fourth-section",
-          start: "top 60%",
-          end: "center center",
-          scrub: 0.6,
-        },
-      });
-
-      // Animate broom from top to final position
-      fourthElementsTl.to(
-        fourthSectionBroomRef.current,
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 1.5,
-          ease: "power2.out",
-        },
-        0
-      );
-
-      // Animate title
-      fourthElementsTl.to(
-        fourthSectionTitleRef.current,
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "back.out(1.2)",
-        },
-        0.3
-      );
-
-      // Animate horizontal line
-      fourthElementsTl.to(
-        fourthSectionLineRef.current,
-        {
-          scaleX: 1,
-          duration: 1,
-          ease: "none",
-        },
-        0.5
-      );
-
-      // Animate box
-      fourthElementsTl.to(
-        fourthSectionBoxRef.current,
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          ease: "power1.out",
-        },
-        0.6
-      );
-
-      // Animate numbered section
-      fourthElementsTl.to(
-        fourthSectionNumberRef.current,
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "back.out(1.2)",
-        },
-        0.7
-      );
-
-      // Animate text paragraph
-      fourthElementsTl.to(
-        fourthSectionTextRef.current,
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "back.out(1.2)",
-        },
-        0.8
-      );
-
-      // Animate bottom line
-      fourthElementsTl.to(
-        fourthSectionBottomLineRef.current,
-        {
-          scaleX: 1,
-          duration: 0.8,
-          ease: "none",
-        },
-        0.9
-      );
-    }
-
-    // Fifth section animations - transition from fourth section
-    if (
-      fourthSectionBroomRef.current &&
-      fifthSectionBroomRef.current &&
-      fourthSectionTitleRef.current &&
-      fifthSectionTitleRef.current &&
-      fourthSectionTextRef.current &&
-      fifthSectionTextRef.current &&
-      fourthSectionNumberRef.current &&
-      fifthSectionNumberRef.current &&
-      fourthSectionBoxRef.current &&
-      fifthSectionBoxRef.current &&
-      fourthSectionLineRef.current &&
-      fifthSectionLineRef.current &&
-      fourthSectionBottomLineRef.current &&
-      fifthSectionBottomLineRef.current
-    ) {
-      // Split text into characters for animation
-      const splitTextToChars = (
-        element: HTMLElement
-      ): NodeListOf<HTMLSpanElement> => {
-        const text = element.textContent || "";
-        element.innerHTML = "";
-        const chars = text.split("");
-
-        chars.forEach((char: string) => {
-          const span = document.createElement("span");
-          span.className = "char inline-block relative";
-          span.textContent = char === " " ? "\u00A0" : char;
-          element.appendChild(span);
-        });
-
-        return element.querySelectorAll<HTMLSpanElement>(".char");
-      };
-
-      // Split texts into characters
-      const fourthTitleChars = splitTextToChars(fourthSectionTitleRef.current);
-      const fourthTextChars = splitTextToChars(fourthSectionTextRef.current);
-      const fifthTitleChars = splitTextToChars(fifthSectionTitleRef.current);
-      const fifthTextChars = splitTextToChars(fifthSectionTextRef.current);
-      const fourthNumberChars = splitTextToChars(
-        fourthSectionNumberRef.current
-      );
-      const fifthNumberChars = splitTextToChars(fifthSectionNumberRef.current);
-
-      // Set initial states
-      gsap.set(fifthSectionBroomRef.current, { opacity: 0 });
-      gsap.set([...fifthTitleChars, ...fifthTextChars, ...fifthNumberChars], {
-        opacity: 0,
-      });
-      gsap.set(fifthSectionBoxRef.current, { opacity: 0, scale: 0.8 });
-      gsap.set(
-        [fifthSectionLineRef.current, fifthSectionBottomLineRef.current],
-        {
-          scaleX: 0,
-          transformOrigin: "left center",
-        }
-      );
-
-      // Create a dedicated ScrollTrigger for fourth/fifth section transition
-      // This handles visibility of both boxes with proper enter/leave callbacks
-      ScrollTrigger.create({
-        trigger: ".fifth-section",
-        start: "top 80%",
-        end: "top 30%",
-        onEnter: () => {
-          // When entering fifth section, hide fourth section elements
-          gsap.to(fourthSectionBoxRef.current, {
-            opacity: 0,
-            scale: 0.8,
-            duration: 0.3,
-            ease: "power2.out",
-            overwrite: "auto",
-          });
-          gsap.to(fourthSectionBroomRef.current, {
-            opacity: 0,
-            duration: 0.3,
-            ease: "power2.out",
-            overwrite: "auto",
-          });
-
-          // Show fifth section elements
-          gsap.to(fifthSectionBoxRef.current, {
-            opacity: 1,
-            scale: 1,
-            duration: 0.5,
-            ease: "back.out(1.2)",
-            overwrite: "auto",
-          });
-          gsap.to(fifthSectionBroomRef.current, {
-            opacity: 1,
-            duration: 0.5,
-            ease: "power2.in",
-            overwrite: "auto",
-          });
-        },
-        onLeave: () => {
-          // Additional animations when leaving fifth section upward (if needed)
-        },
-        onEnterBack: () => {
-          // When entering fifth section from below (if needed)
-        },
-        onLeaveBack: () => {
-          // When leaving fifth section going up (back to fourth)
-          gsap.to(fourthSectionBoxRef.current, {
-            opacity: 1,
-            scale: 1,
-            duration: 0.5,
-            ease: "back.out(1.2)",
-            overwrite: "auto",
-          });
-          gsap.to(fourthSectionBroomRef.current, {
-            opacity: 1,
-            duration: 0.5,
-            ease: "power2.in",
-            overwrite: "auto",
-          });
-
-          // Hide fifth section elements
-          gsap.to(fifthSectionBoxRef.current, {
-            opacity: 0,
-            scale: 0.8,
-            duration: 0.3,
-            ease: "power2.out",
-            overwrite: "auto",
-          });
-          gsap.to(fifthSectionBroomRef.current, {
-            opacity: 0,
-            duration: 0.3,
-            ease: "power2.out",
-            overwrite: "auto",
-          });
-        },
-      });
-
-      // Create timeline for section transition animations (for text and other elements)
-      const sectionTransitionTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".fifth-section",
-          start: "top 80%",
-          end: "top 30%",
-          scrub: 0.8,
-        },
-      });
-
-      // Fade out fourth section characters randomly
-      fourthTitleChars.forEach((char: HTMLSpanElement) => {
-        sectionTransitionTl.to(
-          char,
-          {
-            opacity: 0,
-            duration: 0.3,
-            ease: "power1.out",
-          },
-          0.1 + Math.random() * 0.3
-        );
-      });
-
-      fourthTextChars.forEach((char: HTMLSpanElement) => {
-        sectionTransitionTl.to(
-          char,
-          {
-            opacity: 0,
-            duration: 0.3,
-            ease: "power1.out",
-          },
-          0.2 + Math.random() * 0.3
-        );
-      });
-
-      // Fade out fourth section number characters
-      fourthNumberChars.forEach((char: HTMLSpanElement) => {
-        sectionTransitionTl.to(
-          char,
-          {
-            opacity: 0,
-            y: -10,
-            duration: 0.3,
-            ease: "power1.out",
-          },
-          0.15 + Math.random() * 0.2
-        );
-      });
-
-      // Fade in fifth section characters randomly
-      fifthTitleChars.forEach((char: HTMLSpanElement) => {
-        sectionTransitionTl.to(
-          char,
-          {
-            opacity: 1,
-            duration: 0.3,
-            ease: "power1.in",
-          },
-          0.4 + Math.random() * 0.3
-        );
-      });
-
-      fifthTextChars.forEach((char: HTMLSpanElement) => {
-        sectionTransitionTl.to(
-          char,
-          {
-            opacity: 1,
-            duration: 0.3,
-            ease: "power1.in",
-          },
-          0.5 + Math.random() * 0.3
-        );
-      });
-
-      // Fade in fifth section number with a special effect
-      fifthNumberChars.forEach((char: HTMLSpanElement) => {
-        sectionTransitionTl.to(
-          char,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.4,
-            ease: "back.out(1.5)",
-          },
-          0.45 + Math.random() * 0.2
-        );
-      });
-
-      // Fade out fourth section lines
-      sectionTransitionTl.to(
-        fourthSectionLineRef.current,
-        {
-          scaleX: 0,
-          duration: 0.4,
-          ease: "power1.in",
-        },
-        0.1
-      );
-
-      sectionTransitionTl.to(
-        fourthSectionBottomLineRef.current,
-        {
-          scaleX: 0,
-          duration: 0.4,
-          ease: "power1.in",
-        },
-        0.2
-      );
-
-      // Animate in fifth section horizontal line
-      sectionTransitionTl.to(
-        fifthSectionLineRef.current,
-        {
-          scaleX: 1,
-          duration: 0.6,
-          ease: "power1.out",
-        },
-        0.5
-      );
-
-      // Animate in fifth section bottom line
-      sectionTransitionTl.to(
-        fifthSectionBottomLineRef.current,
-        {
-          scaleX: 1,
-          duration: 0.6,
-          ease: "power1.out",
-        },
-        0.6
-      );
-    }
-  }, []);
+  const {
+    parentRef,
+    handLeftRef,
+    handRightRef,
+    broomRef,
+    secondSectionRef,
+    firstParagraphRef,
+    verticalLineRef,
+    secondParagraphRef,
+    mapRef,
+    thirdSectionFirstParagraphRef,
+    horizontalLineRef,
+    thirdSectionSecondParagraphRef,
+    fourthSectionBroomRef,
+    fourthSectionTitleRef,
+    fourthSectionBoxRef,
+    fourthSectionLineRef,
+    fourthSectionNumberRef,
+    fourthSectionTextRef,
+    fourthSectionBottomLineRef,
+    fifthSectionBroomRef,
+    fifthSectionTitleRef,
+    fifthSectionBoxRef,
+    fifthSectionNumberRef,
+    fifthSectionTextRef,
+    fifthSectionLineRef,
+    fifthSectionBottomLineRef,
+    sixthSectionTitleRef,
+    sixthSectionBoxRef,
+    sixthSectionLineRef,
+    sixthSectionNumberRef,
+    sixthSectionTextRef,
+    sixthSectionBottomLineRef,
+    seventhSectionBroomRef,
+    seventhSectionTitleRef,
+    seventhSectionBoxRef,
+    seventhSectionLineRef,
+    seventhSectionNumberRef,
+    seventhSectionTextRef,
+    seventhSectionBottomLineRef,
+    eighthSectionBroomRef,
+    eighthSectionTitleRef,
+    eighthSectionBoxRef,
+    eighthSectionLineRef,
+    eighthSectionNumberRef,
+    eighthSectionTextRef,
+    eighthSectionBottomLineRef,
+    ninthSectionBroomRef,
+    ninthSectionBambooRef,
+    ninthSectionNumberRef,
+    ninthSectionFirstTextRef,
+    ninthSectionLineRef,
+    ninthSectionSecondTextRef,
+    finalSectionNumberRef,
+    finalSectionTitleRef,
+    finalSectionLineRef,
+    finalSectionTextRef,
+    finalSectionGridRef,
+    beliefsSectionNumberRef,
+    beliefsSectionLineRef,
+    beliefsSectionTextRef,
+    beliefsSectionBroomRef,
+    beliefsSecondSectionFeetRef,
+    beliefsSecondSectionNumberRef,
+    beliefsSecondSectionLineRef,
+    beliefsSecondSectionTextRef,
+    beliefsThirdSectionNumberRef,
+    beliefsThirdSectionLineRef,
+    beliefsThirdSectionTextRef,
+    beliefsThirdSectionBroom1Ref,
+    beliefsThirdSectionBroom2Ref,
+    beliefsThirdSectionBroom3Ref,
+    beliefsThirdSectionBroom4Ref,
+    beliefsThirdSectionBroom5Ref,
+  } = useScrollAnimations();
 
   return (
-    <div
-      ref={parentRef}
-      className="relative overflow-y-auto overflow-x-hidden bg-[#1e1e1e] text-white"
-    >
+    <div ref={parentRef} className="relative overflow-x-hidden overflow-y-auto">
       <div className="relative h-screen">
         <Header
           title="E-HABI"
           subtitle="Walis Tambo"
           secondTitle="Paggawa"
           secondSubtitle="Ng Walis Tambo"
+          thirdTitle="PANINIWALA SA PAGGAWA"
+          thirdSubtitle="Ng Walis Tambo"
+          isNinthSection={true}
+          isBeliefsSection={true}
         />
         <div
           ref={handLeftRef}
-          className="fixed bottom-0 -left-[10%] w-1/2 rotate-[-20deg]"
+          className="fixed bottom-1/5 -left-1/4 w-2/3 -rotate-[45deg] md:bottom-0 md:-left-[10%] md:w-1/2 md:rotate-[-20deg]"
         >
           <Image
             src={handLeft}
             alt="hand-left"
-            className="object-cover w-full"
+            className="w-full object-cover"
           />
         </div>
         <div
           ref={handRightRef}
-          className="fixed bottom-1/4 -right-[10%] w-1/2 rotate-[10deg]"
+          className="fixed -right-1/4 bottom-1/2 w-2/3 -rotate-[15deg] md:-right-[10%] md:bottom-1/4 md:w-1/2 md:rotate-[10deg]"
         >
           <Image
             src={handRight}
             alt="hand-right"
-            className="object-cover w-full"
+            className="w-full object-cover"
           />
         </div>
         <div
           ref={broomRef}
-          className="fixed w-1/5 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[158deg] transform-origin-center"
+          className="transform-origin-center fixed top-1/2 left-[45%] w-[15rem] -translate-x-1/2 -translate-y-1/2 rotate-[158deg] md:left-1/2 md:w-[40vh]"
         >
-          <Image src={broom} alt="broom" className="object-cover w-full" />
+          <Image src={broom} alt="broom" className="w-full object-cover" />
         </div>
       </div>
-      <div ref={secondSectionRef} className="h-[100vh] relative second-section">
-        <div className="grid grid-cols-[1fr_auto_1fr] gap-8 absolute top-0 left-[10%] w-1/2">
+      <div ref={secondSectionRef} className="second-section relative h-[100vh]">
+        <div className="absolute top-0 left-[10%] grid w-1/2 grid-cols-[1fr_auto_1fr] gap-8">
           <p
             ref={firstParagraphRef}
-            className="text-right row-start-2 col-start-1 pr-8 mt-[25vh]"
+            className="col-start-1 row-start-2 mt-[25vh] pr-8 text-right"
           >
             Ang E-HABI ay isang digital na kasangkapan na naglalaman ng kultura
             at wika sa paggawa ng walis tambo sa San Lorenzo Ruiz, Camarines
@@ -860,11 +164,11 @@ export default function Home() {
           </p>
           <div
             ref={verticalLineRef}
-            className="w-[1px] h-full row-span-3 row-start-1 left-1/3 bg-white mb-8"
+            className="left-1/3 row-span-3 row-start-1 mb-8 h-full w-[1px] bg-white"
           ></div>
           <p
             ref={secondParagraphRef}
-            className="text-left row-start-3 col-start-3 pl-8"
+            className="col-start-3 row-start-3 pl-8 text-left"
           >
             Dito, matutuklasan ang tradisyon at kasanayang nagpapakilala sa mga
             manggagawang gumagawa ng walis, na patuloy na nagpapanatili ng
@@ -872,31 +176,34 @@ export default function Home() {
           </p>
         </div>
       </div>
-      <div className="h-[100vh] relative third-section">
-        <div ref={mapRef} className="fixed w-4/5 -left-[20%] -top-[25%]">
-          <Image src={map} alt="map" className="object-cover w-full" />
-        </div>
-        <div className="fixed grid grid-cols-2 gap-4 bottom-[15%] right-[10%] w-1/2 third-section-text">
-          <p ref={thirdSectionFirstParagraphRef} className="col-start-2">
-            Sa San Lorenzo Ruiz, ang paggawa ng walis tambo ay hindi lang
-            simpleng kabuhayan—ito ay isang sining at pamana
-          </p>
-          <div
-            ref={horizontalLineRef}
-            className="h-[1px] w-full bg-white col-span-2"
-          ></div>
-          <p ref={thirdSectionSecondParagraphRef} className="col-start-2">
-            Nagbibigay ito ng oportunidad sa mga manggagawa upang kumita at
-            mabuhay, habang ipinapakita ang kanilang sipag, husay, at kultura.
-            Ang tradisyong ito ay naipapasa mula henerasyon hanggang henerasyon,
-            patuloy na nagpapatibay sa pagkakakilanlan ng bayan.
-          </p>
+      <div className="third-section relative h-[100vh]">
+        <div
+          ref={mapRef}
+          className="fixed right-0 bottom-0 w-[50rem] lg:right-1/2 lg:bottom-0 lg:block lg:w-[75rem]"
+        >
+          <Image src={map} alt="map" className="relative w-full object-cover" />
+          <div className="third-section-text mb-20 grid w-2/3 grid-cols-2 gap-4 lg:fixed lg:-right-[25rem] lg:bottom-[15%] lg:mb-0">
+            <p ref={thirdSectionFirstParagraphRef} className="col-start-2">
+              Sa San Lorenzo Ruiz, ang paggawa ng walis tambo ay hindi lang
+              simpleng kabuhayan—ito ay isang sining at pamana
+            </p>
+            <div
+              ref={horizontalLineRef}
+              className="col-span-2 h-[1px] w-full bg-white"
+            ></div>
+            <p ref={thirdSectionSecondParagraphRef} className="col-start-2">
+              Nagbibigay ito ng oportunidad sa mga manggagawa upang kumita at
+              mabuhay, habang ipinapakita ang kanilang sipag, husay, at kultura.
+              Ang tradisyong ito ay naipapasa mula henerasyon hanggang
+              henerasyon, patuloy na nagpapatibay sa pagkakakilanlan ng bayan.
+            </p>
+          </div>
         </div>
       </div>
-      <div className="h-[100vh] relative fourth-section">
+      <div className="fourth-section relative h-[100vh]">
         <div
           ref={fourthSectionBroomRef}
-          className="fixed w-[60%] -right-[10%] -top-[235%]"
+          className="fixed bottom-0 left-[50%] w-[50rem]"
         >
           <Image
             src={broom}
@@ -904,75 +211,411 @@ export default function Home() {
             style={{
               filter: "saturate(2) hue-rotate(40deg)",
             }}
-            className="object-cover w-full"
+            className="relative w-full object-cover"
           />
-        </div>
-        <div className="fixed grid grid-cols-[auto_1fr] bottom-[25%] left-[10%] w-1/2 fourth-section-image">
-          <p
-            ref={fourthSectionTitleRef}
-            className="col-start-1 uppercase w-fit"
-          >
-            pagtatanim at pagtatahi
-          </p>
-          <div
-            ref={fourthSectionBoxRef}
-            className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2"
-          ></div>
-          <div
-            ref={fourthSectionLineRef}
-            className="h-[1px] w-full bg-white row-start-2 mt-[10vh]"
-          ></div>
-        </div>
-        <div className="fixed grid grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4 bottom-[15%] left-[35%] w-1/3 fourth-section-text">
-          <p ref={fourthSectionNumberRef} className="col-start-1">
-            01
-          </p>
-          <p ref={fourthSectionTextRef} className="col-start-2">
-            Karaniwang ginagawa tuwing Pebrero hanggang Mayo.
-          </p>
-          <div
-            ref={fourthSectionBottomLineRef}
-            className="h-[1px] w-full bg-white col-start-2 col-span-2"
-          ></div>
+          <div className="fourth-section-image fixed right-[70%] bottom-[9%] grid w-[70vw] grid-cols-[auto_1fr] lg:w-[60rem]">
+            <p
+              ref={fourthSectionTitleRef}
+              className="col-start-1 w-fit uppercase"
+            >
+              pagtatanim at pagaani
+            </p>
+            <div
+              ref={fourthSectionBoxRef}
+              className="row-start-2 h-[300px] w-[300px] border"
+            >
+              <Image
+                src={progress1}
+                alt="Pagtatanim at Pagaani ng Walis Tambo"
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div
+              ref={fourthSectionLineRef}
+              className="row-start-2 mt-[10vh] h-[1px] w-full bg-white"
+            ></div>
+          </div>
+          <div className="fourth-section-text fixed bottom-[5%] -left-[35%] grid w-2/3 grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4">
+            <p ref={fourthSectionNumberRef} className="col-start-1">
+              01
+            </p>
+            <p ref={fourthSectionTextRef} className="col-start-2">
+              Karaniwang ginagawa tuwing Pebrero hanggang Mayo.
+            </p>
+            <div
+              ref={fourthSectionBottomLineRef}
+              className="col-span-2 col-start-2 h-[1px] w-full bg-white"
+            ></div>
+          </div>
         </div>
       </div>
-      <div className="h-[100vh] relative fifth-section">
+      <div className="fifth-section relative h-[100vh]">
         <div
           ref={fifthSectionBroomRef}
-          className="fixed w-[60%] -right-[10%] -top-[235%]"
+          className="fixed bottom-0 left-[50%] w-[50rem]"
         >
           <Image
             src={broom}
             alt="Walis Tambo"
-            className="object-cover w-full"
+            className="relative w-full object-cover"
           />
+
+          {/* fifth section */}
+          <div className="fifth-section-image fixed right-[60%] bottom-[9%] grid w-[70vw] grid-cols-[auto_1fr] lg:w-[60rem]">
+            <p
+              ref={fifthSectionTitleRef}
+              className="col-start-1 w-fit uppercase"
+            >
+              pagpapatuyo
+            </p>
+            <div
+              ref={fifthSectionBoxRef}
+              className="row-start-2 h-[300px] w-[300px] border"
+            >
+              <Image
+                src={progress2}
+                alt="Pagpapatuyo ng Walis Tambo"
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div
+              ref={fifthSectionLineRef}
+              className="row-start-2 mt-[10vh] h-[1px] w-full bg-white"
+            ></div>
+          </div>
+          <div className="fifth-section-text fixed bottom-[5%] -left-[45%] grid w-full grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4">
+            <p ref={fifthSectionNumberRef} className="col-start-1">
+              02
+            </p>
+            <p ref={fifthSectionTextRef} className="col-start-2">
+              Binibilad sa araw o tinutuyo gamit ang mahinang apoy kapag maulan.
+            </p>
+            <div
+              ref={fifthSectionBottomLineRef}
+              className="col-span-2 col-start-2 h-[1px] w-full bg-white"
+            ></div>
+          </div>
         </div>
-        <div className="fixed grid grid-cols-[auto_1fr] bottom-[25%] left-[10%] w-1/2 fifth-section-image">
-          <p ref={fifthSectionTitleRef} className="col-start-1 uppercase w-fit">
-            pagpapatuyo
+      </div>
+      <div className="sixth-section relative h-[100vh]">
+        <div className="sixth-section-image fixed bottom-[27%] left-[6%] grid w-[60%] grid-cols-[auto_1fr]">
+          <p ref={sixthSectionTitleRef} className="col-start-1 w-fit uppercase">
+            pagsusuri
           </p>
           <div
-            ref={fifthSectionBoxRef}
-            className="w-[150px] h-[150px] border md:h-[300px] md:w-[300px] row-start-2"
-          ></div>
+            ref={sixthSectionBoxRef}
+            className="row-start-2 h-[300px] w-[300px] border"
+          >
+            <Image
+              src={progress3}
+              alt="Pagsusuri ng Walis Tambo"
+              className="h-full w-full object-cover"
+            />
+          </div>
           <div
-            ref={fifthSectionLineRef}
-            className="h-[1px] w-full bg-white row-start-2 mt-[10vh]"
+            ref={sixthSectionLineRef}
+            className="row-start-2 mt-[10vh] h-[1px] w-full bg-white"
           ></div>
         </div>
-        <div className="fixed grid grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4 bottom-[15%] left-[35%] w-1/3 fifth-section-text">
-          <p ref={fifthSectionNumberRef} className="col-start-1">
-            02
+        <div className="sixth-section-text fixed bottom-[15%] left-[20%] grid w-1/2 grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4">
+          <p ref={sixthSectionNumberRef} className="col-start-1">
+            03
           </p>
-          <p ref={fifthSectionTextRef} className="col-start-2">
-            Binibilad sa araw o tinutuyo gamit ang mahinang apoy kapag maulan.
+          <p ref={sixthSectionTextRef} className="col-start-2">
+            Pinipili ang tamang haba at kapal ng tambo.
           </p>
           <div
-            ref={fifthSectionBottomLineRef}
-            className="h-[1px] w-full bg-white col-start-2 col-span-2"
+            ref={sixthSectionBottomLineRef}
+            className="col-span-2 col-start-2 h-[1px] w-full bg-white"
           ></div>
         </div>
       </div>
+      <div className="seventh-section relative h-[100vh]">
+        <div
+          ref={seventhSectionBroomRef}
+          className="fixed bottom-0 left-1/2 w-[20rem] -translate-x-1/2"
+        >
+          <Image
+            src={broom}
+            alt="broom"
+            className="relative w-full object-cover"
+          />
+          <div className="seventh-section-image fixed right-[60%] bottom-[7rem] grid w-[30vw] grid-cols-[auto_1fr] md:w-[40vw]">
+            <p
+              ref={seventhSectionTitleRef}
+              className="col-start-1 w-fit uppercase"
+            >
+              pagbibigkis
+            </p>
+            <div
+              ref={seventhSectionBoxRef}
+              className="row-start-2 h-[300px] w-[300px] border"
+            >
+              <Image
+                src={progress4_1}
+                alt="Pagbibigkis ng Walis Tambo"
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div
+              ref={seventhSectionLineRef}
+              className="row-start-2 mt-[10vh] h-[1px] w-full bg-white"
+            ></div>
+          </div>
+          <div className="seventh-section-text fixed -right-[20vw] bottom-[15%] grid w-[30vw] grid-cols-[1fr_1fr_auto] gap-x-8 gap-y-4 text-right lg:w-[30vw]">
+            <p
+              ref={seventhSectionNumberRef}
+              className="col-start-3 row-start-1"
+            >
+              04.1
+            </p>
+            <p ref={seventhSectionTextRef} className="col-start-2 row-start-1">
+              Ang mga lalaki ang nagbibigkis ng tambo sa tangkay
+            </p>
+            <div
+              ref={seventhSectionBottomLineRef}
+              className="col-span-2 col-start-1 h-[1px] w-full bg-white"
+            ></div>
+          </div>
+        </div>
+      </div>
+      <div className="eighth-section relative h-[100vh]">
+        <div
+          ref={eighthSectionBroomRef}
+          className="fixed bottom-0 left-1/2 w-[25rem] -translate-x-1/2"
+        >
+          <Image src={broom} alt="broom" className="w-full object-cover" />
+          <div className="eighth-section-image fixed -right-[26vw] bottom-[14%] grid w-[30vw] grid-cols-[1fr_1fr_auto] text-right lg:w-[40vw]">
+            <p
+              ref={eighthSectionTitleRef}
+              className="col-start-2 w-fit justify-self-end uppercase"
+            >
+              pananahi
+            </p>
+            <div
+              ref={eighthSectionBoxRef}
+              className="col-start-2 row-start-2 h-[300px] w-[300px] border"
+            >
+              <Image
+                src={progress4_2}
+                alt="Pananahi ng Walis Tambo"
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div
+              ref={eighthSectionLineRef}
+              className="col-start-1 row-start-2 mt-[10vh] h-[1px] w-full bg-white"
+            ></div>
+          </div>
+          <div className="eighth-section-text fixed right-[60%] bottom-[18%] grid w-[30vw] grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4 md:w-[40vw]">
+            <p ref={eighthSectionNumberRef} className="col-start-1 row-start-1">
+              04.2
+            </p>
+            <p ref={eighthSectionTextRef} className="col-start-2 row-start-1">
+              Habang ang mga babae ang nagtatahi gamit ang karayom at plastic
+              rattan.{" "}
+            </p>
+            <div
+              ref={eighthSectionBottomLineRef}
+              className="col-span-2 col-start-2 h-[1px] w-full bg-white"
+            ></div>
+          </div>
+        </div>
+      </div>
+      <div className="ninth-section relative h-[100vh]">
+        <div
+          ref={ninthSectionBambooRef}
+          className="fixed top-0 -left-[15rem] w-[50vh] lg:-left-[10rem]"
+        >
+          <Image src={bamboo} alt="bamboo" className="w-full object-cover" />
+        </div>
+        <div
+          ref={ninthSectionBroomRef}
+          className="fixed top-0 -right-[10rem] w-[50vh]"
+        >
+          <Image src={broom} alt="broom" className="w-full object-cover" />
+        </div>
+        <div className="flex h-full w-full justify-center">
+          <div className="flex h-full w-1/3 flex-col items-center justify-center gap-4 text-center">
+            <p ref={ninthSectionNumberRef}>05</p>
+            <p ref={ninthSectionFirstTextRef} className="w-2/3">
+              Ang tangkay ng walis tambo ay maaaring yari sa kawayan o kahoy
+            </p>
+            <div
+              ref={ninthSectionLineRef}
+              className="h-[1px] w-full bg-white"
+            ></div>
+            <p ref={ninthSectionSecondTextRef} className="w-2/3">
+              Ngunit madalas gamitin ay ang tangkay mula sa punong bongliw.
+              Tinatawag din itong malapapaya. Ang mga tangkay ay maingat na
+              hinuhugis at nililinis upang maging magaan at matibay.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="final-section relative h-[100vh]">
+        <div className="flex h-full w-full flex-col items-center justify-end gap-8 pb-10">
+          <div className="flex w-1/3 flex-col items-center justify-center gap-4 text-center">
+            <p ref={finalSectionNumberRef}>06</p>
+            <p ref={finalSectionTitleRef} className="w-2/3">
+              Pagtatapos
+            </p>
+            <div
+              ref={finalSectionLineRef}
+              className="h-[1px] w-full bg-white"
+            ></div>
+            <p ref={finalSectionTextRef} className="w-2/3">
+              Nilalagyan ng tatak, inaayos, at pinapaganda ang walis bago ito
+              dalhin sa pamilihan.
+            </p>
+          </div>
+          <div
+            ref={finalSectionGridRef}
+            className="grid grid-cols-2 gap-4 md:grid-cols-4"
+          >
+            <div>
+              <p className="grid-title uppercase">Pag tatak</p>
+              <div className="grid-box row-start-2 h-[200px] w-[200px] border md:h-[300px] md:w-[300px]">
+                <Image
+                  src={progress5_1}
+                  alt="Pagtatak ng Walis Tambo"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            </div>
+            <div>
+              <p className="grid-title uppercase">Pag tatak</p>
+              <div className="grid-box row-start-2 h-[200px] w-[200px] border md:h-[300px] md:w-[300px]">
+                <Image
+                  src={progress5_2}
+                  alt="Pagtatak ng Walis Tambo"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            </div>
+            <div>
+              <p className="grid-title uppercase">Pag papaganda</p>
+              <div className="grid-box row-start-2 h-[200px] w-[200px] border md:h-[300px] md:w-[300px]">
+                <Image
+                  src={progress6}
+                  alt="Pagpapaganda ng Walis Tambo"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            </div>
+            <div>
+              <p className="grid-title uppercase">Pag dala sa pamilihan</p>
+              <div className="grid-box row-start-2 h-[200px] w-[200px] border md:h-[300px] md:w-[300px]">
+                <Image
+                  src={progress7}
+                  alt="Pagdala sa pamilihan ng Walis Tambo"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="beliefs-section relative h-[100vh]">
+        <div className="flex h-full w-full flex-col items-center justify-center gap-8">
+          <div className="flex w-1/3 flex-col items-center justify-center gap-4 text-center">
+            <p ref={beliefsSectionNumberRef}>01</p>
+            <div
+              ref={beliefsSectionLineRef}
+              className="h-[1px] w-full bg-white"
+            ></div>
+            <p ref={beliefsSectionTextRef} className="w-2/3">
+              Hindi dapat maambunan ang tambo upang hindi ito maging marupok.
+            </p>
+          </div>
+          <div
+            ref={beliefsSectionBroomRef}
+            className="transform-origin-center fixed -bottom-[110%] left-1/2 w-[50rem] -translate-x-1/2 rotate-[90deg] md:-bottom-[76.5rem] md:w-[63rem]"
+          >
+            <Image src={broom} alt="broom" className="w-full object-cover" />
+          </div>
+        </div>
+      </div>
+      <div className="beliefs-second-section relative h-[100vh]">
+        <div
+          ref={beliefsSecondSectionFeetRef}
+          className="fixed -top-[8rem] left-1/2 w-[40vh] -translate-x-1/2 rotate-[10deg] md:w-[25rem]"
+        >
+          <Image src={feet} alt="feet" className="w-full object-cover" />
+        </div>
+        <div className="flex h-full w-full flex-col items-end justify-center gap-8 pr-20">
+          <div className="flex w-1/4 flex-col items-end gap-4 text-right">
+            <p ref={beliefsSecondSectionNumberRef}>02</p>
+            <div
+              ref={beliefsSecondSectionLineRef}
+              className="h-[1px] w-full bg-white"
+            ></div>
+            <p ref={beliefsSecondSectionTextRef} className="w-2/3">
+              Hindi ito dapat tapakan o upuan dahil maaaring makaapekto sa benta
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="beliefs-third-section relative h-[100vh]">
+        <div className="flex h-full w-full flex-col items-start justify-center gap-8 pl-20">
+          <div className="flex w-1/4 flex-col items-start gap-4 text-left">
+            <p ref={beliefsThirdSectionNumberRef}>03</p>
+            <div
+              ref={beliefsThirdSectionLineRef}
+              className="h-[1px] w-full bg-white"
+            ></div>
+            <p ref={beliefsThirdSectionTextRef} className="w-2/3">
+              Dapat may sapat na espasyo sa pag-iimbak upang maiwasan ang
+              moisture na nakakasira sa kalidad.
+            </p>
+          </div>
+          <div
+            ref={beliefsThirdSectionBroom1Ref}
+            className="fixed bottom-0 left-1/2 w-[12.7rem] md:w-[15.7rem]"
+          >
+            <Image src={broom} alt="broom" className="w-full object-cover" />
+          </div>
+          <div
+            ref={beliefsThirdSectionBroom2Ref}
+            className="fixed top-[2.5%] left-[59%] w-[12.7rem] rotate-180 md:w-[15.7rem]"
+          >
+            <Image src={broom} alt="broom" className="w-full object-cover" />
+          </div>
+          <div
+            ref={beliefsThirdSectionBroom3Ref}
+            className="fixed bottom-0 left-[68%] w-[12.7rem] md:w-[15.7rem]"
+          >
+            <Image src={broom} alt="broom" className="w-full object-cover" />
+          </div>
+          <div
+            ref={beliefsThirdSectionBroom4Ref}
+            className="fixed top-[2.5%] left-[77%] w-[12.7rem] rotate-180 md:w-[15.7rem]"
+          >
+            <Image src={broom} alt="broom" className="w-full object-cover" />
+          </div>
+          <div
+            ref={beliefsThirdSectionBroom5Ref}
+            className="fixed bottom-0 left-[86%] w-[12.7rem] md:w-[15.7rem]"
+          >
+            <Image src={broom} alt="broom" className="w-full object-cover" />
+          </div>
+        </div>
+      </div>
+
+      {/* footer and call to action for e-glossary */}
+      <div className="mt-8 flex items-end justify-center gap-4 px-20">
+        <h1
+          className={`${playfairDisplay.className} text-[length:clamp(50px,7vw,180px)] leading-[1.2]`}
+        >
+          GO TO E-GLOSSARY
+        </h1>
+        <ArrowDownRight
+          className="size-[length:clamp(50px,7vw,180px)]"
+          strokeWidth={1}
+        />
+      </div>
+      {/* footer */}
+      <Footer darkMode={false} />
     </div>
   );
 }
