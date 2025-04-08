@@ -68,9 +68,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${didactGothic.variable} antialiased`}
-      >
+      <body className={`${didactGothic.variable} antialiased`}>
         <LenisWrapper>{children}</LenisWrapper>
       </body>
     </html>

@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  scroll-behavior: smooth;
+}
+
+button {
+  transition: background-color 0.3s;
+}
+
+button:hover:not(:disabled) {
+  background-color: #a3a3a3;
+}
