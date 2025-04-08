@@ -27,7 +27,7 @@ const Footer = ({ darkMode, callToAction, callToActionText = "GO TO E-GLOSSARY",
         </div>
     )}
     <div
-      className={`mt-8 px-20 py-10 ${
+      className={`mt-8 relative z-50 px-20 py-10 ${
         darkMode ? "bg-[#1e1e1e] text-white" : "bg-white text-black"
       }`}
     >

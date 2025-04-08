@@ -351,10 +351,10 @@ export default function ActivityPage() {
                   questions={questions}
                   onRestart={handleRestart}
               />
-              <Footer darkMode={false} />
             </>
           )}
       </div>
+          <Footer darkMode />
     </div>
   );
 }
