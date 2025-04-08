@@ -1,16 +1,19 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
-import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import { FirstHeader, SecondHeader, Title } from "../_components/EGlossaryTitle";
+import {
+  FirstHeader,
+  SecondHeader,
+  Title,
+} from "../_components/EGlossaryTitle";
 import { Alphabet, AlphabetBlocks } from "../_components/Alphabet";
 import { Terminologies } from "./constant";
-import { Footer } from "../_components/Footer";
 
 import broom from "@/public/images/broom.png";
+import Footer from "../_components/Footer";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -48,38 +51,34 @@ export default function EGlossaryPage() {
   return (
     <div ref={parentRef} className="relative overflow-y-auto overflow-x-hidden">
       <div className="relative h-screen">
-        <FirstHeader
-          title1="E"
-          title2="GLOSSARY"
-          subtitle="Ng Walis Tambo"
-        />
+        <FirstHeader title1="E" title2="GLOSSARY" subtitle="Ng Walis Tambo" />
       </div>
       <div className="relative h-screen second-section z-0">
-        <SecondHeader
-          secondTitle="TAMBO"
-        />
+        <SecondHeader secondTitle="TAMBO" />
       </div>
 
       <div className="relative px-12 py-4 h-full w-full third-section">
-        <div className="absolute h-full w-full"
-            style={{
-              backgroundImage: `url(${broom.src})`,
-              backgroundSize: "100% 100%",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "top center",
-              opacity: "10%",
-            }}
-        >
-        </div>
+        <div
+          className="absolute h-full w-full"
+          style={{
+            backgroundImage: `url(${broom.src})`,
+            backgroundSize: "100% 100%",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "top center",
+            opacity: "10%",
+          }}
+        ></div>
 
         <div className="w-fit">
           <Title />
         </div>
-        
+
         {Object.keys(Terminologies).map((key) => (
           <div
             key={key}
-            ref={(el) => (alphabetRefs.current[key] = el)}
+            ref={(el) => {
+              alphabetRefs.current[key] = el;
+            }}
             className="mb-12"
           >
             <div className="grid grid-cols-3 gap-2">
@@ -97,13 +96,9 @@ export default function EGlossaryPage() {
             </div>
           </div>
         ))}
-
       </div>
 
-      <Footer />
-      
-
-      
+      <Footer darkMode callToAction callToActionText="SIMULAN ANG QUIZ!" to="/activity" />
     </div>
   );
 }
