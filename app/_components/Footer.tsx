@@ -38,7 +38,7 @@ const Footer = ({ darkMode }: { darkMode: boolean }) => {
                 <Link href="/e-glossary">E-Glossary</Link>
               </li>
               <li>
-                <Link href="/take-quiz">Take Quiz</Link>
+                <Link href="/activity">Take Quiz</Link>
               </li>
             </ul>
           </nav>

@@ -8,6 +8,7 @@ import QuizTimer from "./_components/QuizTimer";
 import QuizProgress from "./_components/QuizProgress";
 import QuizResult from "./_components/QuizResult";
 import IdentificationQuestion from "./_components/IdentificationQuestion";
+import Footer from "../_components/Footer";
 
 const questions = [
   {
@@ -341,15 +342,18 @@ export default function ActivityPage() {
               </div>
             )}
           </div>
-        ) : (
-          <QuizResult
-            score={score}
-            total={questions.length}
-            answers={answers}
-            questions={questions}
-            onRestart={handleRestart}
-          />
-        )}
+          ) : (
+              <>
+                <QuizResult
+                  score={score}
+                  total={questions.length}
+                  answers={answers}
+                  questions={questions}
+                  onRestart={handleRestart}
+              />
+              <Footer darkMode={false} />
+            </>
+          )}
       </div>
     </div>
   );

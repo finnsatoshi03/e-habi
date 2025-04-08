@@ -113,7 +113,7 @@ export default function Home() {
   } = useScrollAnimations();
 
   return (
-    <div ref={parentRef} className="relative overflow-x-hidden overflow-y-auto">
+    <div ref={parentRef} className="relative overflow-x-hidden overflow-y-auto bg-[#1e1e1e] text-white">
       <div className="relative h-screen">
         <Header
           title="E-HABI"
