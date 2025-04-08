@@ -1,7 +1,7 @@
 import { Didact_Gothic } from "next/font/google";
-import "./_styles/globals.css";
+import "../_styles/globals.css";
 import { Metadata } from "next";
-import LenisWrapper from "./_components/LenisWrapper";
+import LenisWrapper from "../_components/LenisWrapper";
 
 const didactGothic = Didact_Gothic({
   variable: "--font-didact-gothic",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default function EGlossaryLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -69,7 +69,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${didactGothic.variable} antialiased`}
+        className={`${didactGothic.variable} antialiased bg-[#F5F3F0] text-black`}
       >
         <LenisWrapper>{children}</LenisWrapper>
       </body>

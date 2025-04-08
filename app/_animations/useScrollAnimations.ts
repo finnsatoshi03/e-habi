@@ -37,18 +37,21 @@ export const useScrollAnimations = () => {
   const sixthSectionTextRef = useRef(null);
   const sixthSectionLineRef = useRef(null);
   const sixthSectionBottomLineRef = useRef(null);
+  const seventhSectionBroomRef = useRef(null);
   const seventhSectionTitleRef = useRef(null);
   const seventhSectionBoxRef = useRef(null);
   const seventhSectionNumberRef = useRef(null);
   const seventhSectionTextRef = useRef(null);
   const seventhSectionLineRef = useRef(null);
   const seventhSectionBottomLineRef = useRef(null);
+  const eighthSectionBroomRef = useRef(null);
   const eighthSectionTitleRef = useRef(null);
   const eighthSectionBoxRef = useRef(null);
   const eighthSectionNumberRef = useRef(null);
   const eighthSectionTextRef = useRef(null);
   const eighthSectionLineRef = useRef(null);
   const eighthSectionBottomLineRef = useRef(null);
+  const ninthSectionBroomRef = useRef(null);
   const ninthSectionBambooRef = useRef(null);
   const ninthSectionNumberRef = useRef(null);
   const ninthSectionFirstTextRef = useRef(null);
@@ -97,7 +100,6 @@ export const useScrollAnimations = () => {
       gsap.set([handRightRef.current, broomRef.current], {
         scale: 1,
         opacity: 0.8,
-        force3D: true,
         willChange: "transform",
       });
 
@@ -111,10 +113,8 @@ export const useScrollAnimations = () => {
           scale: 0.8,
           duration: 0.8,
           ease: "power2.inOut",
-          force3D: true,
-          willChange: "transform",
         },
-        0
+        0,
       );
 
       // Rotate handRight and move to bottom with smoother scaling
@@ -128,10 +128,8 @@ export const useScrollAnimations = () => {
           opacity: 1,
           duration: 0.8,
           ease: "power2.inOut",
-          force3D: true,
-          willChange: "transform",
         },
-        0
+        0,
       );
 
       // Rotate broom and move to bottom center with smoother scaling
@@ -146,10 +144,8 @@ export const useScrollAnimations = () => {
           opacity: 1,
           duration: 0.8,
           ease: "power2.inOut",
-          force3D: true,
-          willChange: "transform",
         },
-        0
+        0,
       );
     }
 
@@ -215,7 +211,7 @@ export const useScrollAnimations = () => {
             duration: 0.7,
             ease: "back.out(1.2)",
           },
-          "-=0.3"
+          "-=0.3",
         );
     }
 
@@ -232,48 +228,6 @@ export const useScrollAnimations = () => {
         x: "-5%",
       });
 
-      // Create a dedicated ScrollTrigger for map visibility with improved configuration
-      ScrollTrigger.create({
-        trigger: ".third-section",
-        start: "top+=20% 80%",
-        end: "bottom-=30% 20%",
-        preventOverlaps: true,
-        toggleActions: "play none none reverse",
-        id: "map-visibility",
-        onEnter: () => {
-          gsap.to(mapRef.current, {
-            opacity: 1,
-            x: 0,
-            duration: 0.5,
-            ease: "power2.inOut",
-          });
-        },
-        onLeave: () => {
-          gsap.to(mapRef.current, {
-            opacity: 0,
-            x: "-100%",
-            duration: 0.5,
-            ease: "power2.inOut",
-          });
-        },
-        onEnterBack: () => {
-          gsap.to(mapRef.current, {
-            opacity: 1,
-            x: 0,
-            duration: 0.5,
-            ease: "power2.inOut",
-          });
-        },
-        onLeaveBack: () => {
-          gsap.to(mapRef.current, {
-            opacity: 0,
-            x: "-5%",
-            duration: 0.5,
-            ease: "power2.inOut",
-          });
-        },
-      });
-
       // Create a timeline for third section animations with improved ScrollTrigger config
       const thirdSectionTl = gsap.timeline({
         scrollTrigger: {
@@ -287,27 +241,36 @@ export const useScrollAnimations = () => {
         },
       });
 
+      thirdSectionTl.to(
+        mapRef.current,
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0,
+      );
+
       // Make handRight disappear to the right
       thirdSectionTl.to(
         handRightRef.current,
         {
           x: "100vw",
-          opacity: 0,
+          autoAlpha: 0,
           duration: 1,
-          ease: "power2.inOut",
         },
-        0
+        0,
       );
 
       // Fade out broom
       thirdSectionTl.to(
         broomRef.current,
         {
-          opacity: 0,
+          autoAlpha: 0,
           duration: 1,
-          ease: "power2.inOut",
         },
-        0
+        0,
       );
 
       // Fade out second section
@@ -319,7 +282,7 @@ export const useScrollAnimations = () => {
           duration: 1,
           ease: "power2.inOut",
         },
-        0
+        0,
       );
 
       // Add transition animation for map when entering fourth section
@@ -342,7 +305,7 @@ export const useScrollAnimations = () => {
           duration: 1,
           ease: "power2.inOut",
         },
-        0
+        0,
       );
 
       // Ensure map is properly hidden after transition
@@ -387,7 +350,7 @@ export const useScrollAnimations = () => {
         {
           opacity: 0,
           y: 20,
-        }
+        },
       );
 
       // Create visibility control for the fixed element based on section position
@@ -395,7 +358,6 @@ export const useScrollAnimations = () => {
         trigger: ".third-section",
         start: "top 80%", // Start showing when third section is near view
         end: "bottom 20%", // Hide when third section is leaving
-        // markers: true,
         onEnter: () => {
           gsap.to(textContainer, {
             opacity: 1,
@@ -469,7 +431,7 @@ export const useScrollAnimations = () => {
             duration: 0.7,
             ease: "back.out(1.2)",
           },
-          "-=0.3"
+          "-=0.3",
         );
     }
 
@@ -484,8 +446,6 @@ export const useScrollAnimations = () => {
           start: "top 80%",
           end: "top 30%",
           scrub: 0.8,
-          // Remove the markers to avoid console clutter
-          // markers: true,
         },
       });
 
@@ -499,7 +459,7 @@ export const useScrollAnimations = () => {
             duration: 1,
             ease: "power2.inOut",
           },
-          0
+          0,
         );
       }
 
@@ -533,7 +493,7 @@ export const useScrollAnimations = () => {
         {
           opacity: 0,
           y: 30,
-        }
+        },
       );
 
       gsap.set(
@@ -541,7 +501,7 @@ export const useScrollAnimations = () => {
         {
           scaleX: 0,
           transformOrigin: "left center",
-        }
+        },
       );
 
       // Create animation timeline for fourth section elements with improved ScrollTrigger config
@@ -567,7 +527,7 @@ export const useScrollAnimations = () => {
           duration: 1.5,
           ease: "power2.out",
         },
-        0
+        0,
       );
 
       // Animate title
@@ -579,7 +539,7 @@ export const useScrollAnimations = () => {
           duration: 0.8,
           ease: "back.out(1.2)",
         },
-        0.3
+        0.3,
       );
 
       // Animate horizontal line
@@ -590,7 +550,7 @@ export const useScrollAnimations = () => {
           duration: 1,
           ease: "none",
         },
-        0.5
+        0.5,
       );
 
       // Animate box
@@ -602,7 +562,7 @@ export const useScrollAnimations = () => {
           duration: 0.5,
           ease: "power1.out",
         },
-        0.6
+        0.6,
       );
 
       // Animate numbered section
@@ -614,7 +574,7 @@ export const useScrollAnimations = () => {
           duration: 0.8,
           ease: "back.out(1.2)",
         },
-        0.7
+        0.7,
       );
 
       // Animate text paragraph
@@ -626,7 +586,7 @@ export const useScrollAnimations = () => {
           duration: 0.8,
           ease: "back.out(1.2)",
         },
-        0.8
+        0.8,
       );
 
       // Animate bottom line
@@ -637,7 +597,7 @@ export const useScrollAnimations = () => {
           duration: 0.8,
           ease: "none",
         },
-        0.9
+        0.9,
       );
 
       // Add exit animation for fourth section elements
@@ -659,6 +619,40 @@ export const useScrollAnimations = () => {
             opacity: 0,
             scale: 0.8,
           });
+        },
+        onEnterBack: () => {
+          gsap.to(fourthSectionBoxRef.current, {
+            opacity: 0,
+            scale: 0.8,
+            duration: 0.5,
+            ease: "power2.inOut",
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to(fourthSectionBoxRef.current, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.5,
+            ease: "power2.inOut",
+          });
+
+          // Ensure all fourth section elements are visible when scrolling back
+          gsap.to(
+            [
+              fourthSectionTitleRef.current,
+              fourthSectionLineRef.current,
+              fourthSectionNumberRef.current,
+              fourthSectionTextRef.current,
+              fourthSectionBottomLineRef.current,
+            ],
+            {
+              opacity: 1,
+              scaleX: 1,
+              y: 0,
+              duration: 0.5,
+              ease: "power2.inOut",
+            },
+          );
         },
       });
     }
@@ -699,14 +693,14 @@ export const useScrollAnimations = () => {
         {
           opacity: 0,
           y: 30,
-        }
+        },
       );
       gsap.set(
         [fifthSectionLineRef.current, fifthSectionBottomLineRef.current],
         {
           scaleX: 0,
           transformOrigin: "left center",
-        }
+        },
       );
 
       // Create timeline for section transition animations with improved ScrollTrigger config
@@ -731,7 +725,7 @@ export const useScrollAnimations = () => {
           duration: 0.5,
           ease: "power2.inOut",
         },
-        0
+        0,
       );
 
       // Fade out fourth section elements
@@ -743,7 +737,7 @@ export const useScrollAnimations = () => {
           duration: 0.5,
           ease: "power2.inOut",
         },
-        0
+        0,
       );
 
       sectionTransitionTl.to(
@@ -754,7 +748,7 @@ export const useScrollAnimations = () => {
           duration: 0.5,
           ease: "power2.inOut",
         },
-        0
+        0,
       );
 
       // Fade out fourth section lines
@@ -765,7 +759,7 @@ export const useScrollAnimations = () => {
           duration: 0.5,
           ease: "power2.inOut",
         },
-        0
+        0,
       );
 
       // Animate fifth section broom
@@ -778,7 +772,7 @@ export const useScrollAnimations = () => {
           duration: 0.8,
           ease: "back.out(1.2)",
         },
-        0.2
+        0.2,
       );
 
       // Animate fifth section title
@@ -790,7 +784,7 @@ export const useScrollAnimations = () => {
           duration: 0.8,
           ease: "back.out(1.2)",
         },
-        0.3
+        0.3,
       );
 
       // Animate fifth section horizontal line
@@ -801,7 +795,7 @@ export const useScrollAnimations = () => {
           duration: 1,
           ease: "none",
         },
-        0.5
+        0.5,
       );
 
       // Animate fifth section box
@@ -813,7 +807,7 @@ export const useScrollAnimations = () => {
           duration: 0.5,
           ease: "power1.out",
         },
-        0.6
+        0.6,
       );
 
       // Animate fifth section number
@@ -825,7 +819,7 @@ export const useScrollAnimations = () => {
           duration: 0.8,
           ease: "back.out(1.2)",
         },
-        0.7
+        0.7,
       );
 
       // Animate fifth section text
@@ -837,7 +831,7 @@ export const useScrollAnimations = () => {
           duration: 0.8,
           ease: "back.out(1.2)",
         },
-        0.8
+        0.8,
       );
 
       // Animate fifth section bottom line
@@ -848,7 +842,7 @@ export const useScrollAnimations = () => {
           duration: 0.8,
           ease: "none",
         },
-        0.9
+        0.9,
       );
 
       // Add exit animation for fifth section elements
@@ -870,6 +864,40 @@ export const useScrollAnimations = () => {
             opacity: 0,
             scale: 0.8,
           });
+        },
+        onEnterBack: () => {
+          gsap.to(fifthSectionBoxRef.current, {
+            opacity: 0,
+            scale: 0.8,
+            duration: 0.5,
+            ease: "power2.inOut",
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to(fifthSectionBoxRef.current, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.5,
+            ease: "power2.inOut",
+          });
+
+          // Ensure all fifth section elements are visible when scrolling back
+          gsap.to(
+            [
+              fifthSectionTitleRef.current,
+              fifthSectionLineRef.current,
+              fifthSectionNumberRef.current,
+              fifthSectionTextRef.current,
+              fifthSectionBottomLineRef.current,
+            ],
+            {
+              opacity: 1,
+              scaleX: 1,
+              y: 0,
+              duration: 0.5,
+              ease: "power2.inOut",
+            },
+          );
         },
       });
     }
@@ -904,14 +932,14 @@ export const useScrollAnimations = () => {
         {
           opacity: 0,
           y: 30,
-        }
+        },
       );
       gsap.set(
         [sixthSectionLineRef.current, sixthSectionBottomLineRef.current],
         {
           scaleX: 0,
           transformOrigin: "left center",
-        }
+        },
       );
 
       // Create timeline for section transition animations with improved ScrollTrigger config
@@ -937,7 +965,7 @@ export const useScrollAnimations = () => {
           duration: 0.5,
           ease: "power2.inOut",
         },
-        0
+        0,
       );
 
       // Fade out fifth section elements
@@ -949,7 +977,7 @@ export const useScrollAnimations = () => {
           duration: 0.5,
           ease: "power2.inOut",
         },
-        0
+        0,
       );
 
       sectionTransitionTl.to(
@@ -960,7 +988,7 @@ export const useScrollAnimations = () => {
           duration: 0.5,
           ease: "power2.inOut",
         },
-        0
+        0,
       );
 
       // Fade out fifth section lines
@@ -971,7 +999,7 @@ export const useScrollAnimations = () => {
           duration: 0.5,
           ease: "power2.inOut",
         },
-        0
+        0,
       );
 
       // Animate sixth section title
@@ -983,7 +1011,7 @@ export const useScrollAnimations = () => {
           duration: 0.8,
           ease: "back.out(1.2)",
         },
-        0.3
+        0.3,
       );
 
       // Animate sixth section horizontal line
@@ -994,7 +1022,7 @@ export const useScrollAnimations = () => {
           duration: 1,
           ease: "none",
         },
-        0.5
+        0.5,
       );
 
       // Animate sixth section box
@@ -1006,7 +1034,7 @@ export const useScrollAnimations = () => {
           duration: 0.5,
           ease: "power1.out",
         },
-        0.6
+        0.6,
       );
 
       // Animate sixth section number
@@ -1018,7 +1046,7 @@ export const useScrollAnimations = () => {
           duration: 0.8,
           ease: "back.out(1.2)",
         },
-        0.7
+        0.7,
       );
 
       // Animate sixth section text
@@ -1030,7 +1058,7 @@ export const useScrollAnimations = () => {
           duration: 0.8,
           ease: "back.out(1.2)",
         },
-        0.8
+        0.8,
       );
 
       // Animate sixth section bottom line
@@ -1041,7 +1069,7 @@ export const useScrollAnimations = () => {
           duration: 0.8,
           ease: "none",
         },
-        0.9
+        0.9,
       );
 
       // Create a separate timeline for sixth section exit animations with improved ScrollTrigger config
@@ -1066,7 +1094,7 @@ export const useScrollAnimations = () => {
           duration: 0.3,
           ease: "power2.inOut",
         },
-        0
+        0,
       );
 
       sixthSectionExitTl.to(
@@ -1077,7 +1105,7 @@ export const useScrollAnimations = () => {
           duration: 0.3,
           ease: "power2.inOut",
         },
-        0.1
+        0.1,
       );
 
       // Fix line animations to ensure they disappear properly
@@ -1090,7 +1118,7 @@ export const useScrollAnimations = () => {
           duration: 0.3,
           ease: "power2.inOut",
         },
-        0.2
+        0.2,
       );
 
       sixthSectionExitTl.to(
@@ -1101,7 +1129,7 @@ export const useScrollAnimations = () => {
           duration: 0.3,
           ease: "power2.inOut",
         },
-        0.3
+        0.3,
       );
 
       // Ensure lines are properly reset after animation
@@ -1115,7 +1143,7 @@ export const useScrollAnimations = () => {
               scaleX: 0,
               opacity: 0,
               transformOrigin: "left center",
-            }
+            },
           );
         },
       });
@@ -1132,7 +1160,7 @@ export const useScrollAnimations = () => {
               scaleX: 0,
               opacity: 0,
               transformOrigin: "left center",
-            }
+            },
           );
         },
       });
@@ -1140,7 +1168,6 @@ export const useScrollAnimations = () => {
 
     // Seventh section animations - transition from sixth section
     if (
-      fifthSectionBroomRef.current &&
       sixthSectionTitleRef.current &&
       sixthSectionTextRef.current &&
       sixthSectionNumberRef.current &&
@@ -1152,7 +1179,8 @@ export const useScrollAnimations = () => {
       seventhSectionNumberRef.current &&
       seventhSectionTextRef.current &&
       seventhSectionLineRef.current &&
-      seventhSectionBottomLineRef.current
+      seventhSectionBottomLineRef.current &&
+      seventhSectionBroomRef.current
     ) {
       // Set initial states for seventh section
       gsap.set(seventhSectionBoxRef.current, {
@@ -1168,14 +1196,18 @@ export const useScrollAnimations = () => {
         {
           opacity: 0,
           y: 30,
-        }
+        },
       );
+      gsap.set(seventhSectionBroomRef.current, {
+        opacity: 0,
+        scale: 0.8,
+      });
       gsap.set(
         [seventhSectionLineRef.current, seventhSectionBottomLineRef.current],
         {
           scaleX: 0,
           transformOrigin: "left center",
-        }
+        },
       );
 
       // Create timeline for section transition animations with improved ScrollTrigger config
@@ -1195,13 +1227,22 @@ export const useScrollAnimations = () => {
       sectionTransitionTl.to(
         fifthSectionBroomRef.current,
         {
-          y: "30%",
-          x: "-45%",
+          opacity: 0,
           scale: 0.4,
           duration: 0.5,
           ease: "power2.inOut",
         },
-        0.4 // Start after sixth section elements fade out
+        0.4, // Start after sixth section elements fade out
+      );
+      sectionTransitionTl.to(
+        seventhSectionBroomRef.current,
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0.4,
       );
 
       // Animate seventh section elements with staggered timing
@@ -1213,7 +1254,7 @@ export const useScrollAnimations = () => {
           duration: 0.4,
           ease: "back.out(1.2)",
         },
-        0.5 // Start after broom starts moving
+        0.5, // Start after broom starts moving
       );
 
       sectionTransitionTl.to(
@@ -1223,7 +1264,7 @@ export const useScrollAnimations = () => {
           duration: 0.4,
           ease: "none",
         },
-        0.6
+        0.6,
       );
 
       sectionTransitionTl.to(
@@ -1234,7 +1275,7 @@ export const useScrollAnimations = () => {
           duration: 0.4,
           ease: "power1.out",
         },
-        0.7
+        0.7,
       );
 
       sectionTransitionTl.to(
@@ -1245,7 +1286,7 @@ export const useScrollAnimations = () => {
           duration: 0.4,
           ease: "back.out(1.2)",
         },
-        0.8
+        0.8,
       );
 
       sectionTransitionTl.to(
@@ -1256,7 +1297,7 @@ export const useScrollAnimations = () => {
           duration: 0.4,
           ease: "back.out(1.2)",
         },
-        0.9
+        0.9,
       );
 
       sectionTransitionTl.to(
@@ -1266,7 +1307,7 @@ export const useScrollAnimations = () => {
           duration: 0.4,
           ease: "none",
         },
-        1.0
+        1.0,
       );
 
       // Add exit animation for seventh section elements
@@ -1289,12 +1330,46 @@ export const useScrollAnimations = () => {
             scale: 0.8,
           });
         },
+        onEnterBack: () => {
+          gsap.to(seventhSectionBoxRef.current, {
+            opacity: 0,
+            scale: 0.8,
+            duration: 0.5,
+            ease: "power2.inOut",
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to(seventhSectionBoxRef.current, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.5,
+            ease: "power2.inOut",
+          });
+
+          // Ensure all seventh section elements are visible when scrolling back
+          gsap.to(
+            [
+              seventhSectionTitleRef.current,
+              seventhSectionLineRef.current,
+              seventhSectionNumberRef.current,
+              seventhSectionTextRef.current,
+              seventhSectionBottomLineRef.current,
+            ],
+            {
+              opacity: 1,
+              scaleX: 1,
+              y: 0,
+              duration: 0.5,
+              ease: "power2.inOut",
+            },
+          );
+        },
       });
     }
 
     // Eighth section animations - transition from seventh section
     if (
-      fifthSectionBroomRef.current &&
+      seventhSectionBroomRef.current &&
       seventhSectionTitleRef.current &&
       seventhSectionTextRef.current &&
       seventhSectionNumberRef.current &&
@@ -1322,14 +1397,18 @@ export const useScrollAnimations = () => {
         {
           opacity: 0,
           y: 30,
-        }
+        },
       );
+      gsap.set(eighthSectionBroomRef.current, {
+        opacity: 0,
+        scale: 0.8,
+      });
       gsap.set(
         [eighthSectionLineRef.current, eighthSectionBottomLineRef.current],
         {
           scaleX: 0,
           transformOrigin: "left center",
-        }
+        },
       );
 
       // Create timeline for section transition animations with improved ScrollTrigger config
@@ -1347,15 +1426,24 @@ export const useScrollAnimations = () => {
 
       // Scale down fifth section broom and move it up
       sectionTransitionTl.to(
-        fifthSectionBroomRef.current,
+        seventhSectionBroomRef.current,
         {
-          y: "25%",
-          x: "-45%",
-          scale: 0.5,
+          opacity: 0,
           duration: 0.5,
           ease: "power2.inOut",
         },
-        0.4
+        0.4,
+      );
+
+      sectionTransitionTl.to(
+        eighthSectionBroomRef.current,
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0.4,
       );
 
       // Fade out seventh section elements
@@ -1367,7 +1455,7 @@ export const useScrollAnimations = () => {
           duration: 0.5,
           ease: "power2.inOut",
         },
-        0
+        0,
       );
 
       sectionTransitionTl.to(
@@ -1378,7 +1466,7 @@ export const useScrollAnimations = () => {
           duration: 0.5,
           ease: "power2.inOut",
         },
-        0
+        0,
       );
 
       sectionTransitionTl.to(
@@ -1388,7 +1476,7 @@ export const useScrollAnimations = () => {
           duration: 0.5,
           ease: "power2.inOut",
         },
-        0
+        0,
       );
 
       // Animate eighth section elements with staggered timing
@@ -1400,7 +1488,7 @@ export const useScrollAnimations = () => {
           duration: 0.4,
           ease: "back.out(1.2)",
         },
-        0.5
+        0.5,
       );
 
       sectionTransitionTl.to(
@@ -1410,7 +1498,7 @@ export const useScrollAnimations = () => {
           duration: 0.4,
           ease: "none",
         },
-        0.6
+        0.6,
       );
 
       sectionTransitionTl.to(
@@ -1421,7 +1509,7 @@ export const useScrollAnimations = () => {
           duration: 0.4,
           ease: "power1.out",
         },
-        0.7
+        0.7,
       );
 
       sectionTransitionTl.to(
@@ -1432,7 +1520,7 @@ export const useScrollAnimations = () => {
           duration: 0.4,
           ease: "back.out(1.2)",
         },
-        0.8
+        0.8,
       );
 
       sectionTransitionTl.to(
@@ -1443,7 +1531,7 @@ export const useScrollAnimations = () => {
           duration: 0.4,
           ease: "back.out(1.2)",
         },
-        0.9
+        0.9,
       );
 
       sectionTransitionTl.to(
@@ -1453,10 +1541,10 @@ export const useScrollAnimations = () => {
           duration: 0.4,
           ease: "none",
         },
-        1.0
+        1.0,
       );
 
-      // Add exit animation for eighth section elements
+      // Add onLeaveBack to the eighth section exit ScrollTrigger
       const eighthSectionExitTl = gsap.timeline({
         scrollTrigger: {
           trigger: ".ninth-section",
@@ -1466,6 +1554,33 @@ export const useScrollAnimations = () => {
           preventOverlaps: true,
           toggleActions: "play none none reverse",
           id: "eighth-section-exit",
+          onEnterBack: () => {
+            // When scrolling back to eighth section from ninth section
+            gsap.to(eighthSectionBoxRef.current, {
+              opacity: 1,
+              scale: 1,
+              duration: 0.5,
+              ease: "power2.inOut",
+            });
+
+            // Ensure all eighth section elements are visible
+            gsap.to(
+              [
+                eighthSectionTitleRef.current,
+                eighthSectionLineRef.current,
+                eighthSectionNumberRef.current,
+                eighthSectionTextRef.current,
+                eighthSectionBottomLineRef.current,
+              ],
+              {
+                opacity: 1,
+                scaleX: 1,
+                y: 0,
+                duration: 0.5,
+                ease: "power2.inOut",
+              },
+            );
+          },
         },
       });
 
@@ -1478,7 +1593,7 @@ export const useScrollAnimations = () => {
           duration: 0.3,
           ease: "power2.inOut",
         },
-        0
+        0,
       );
 
       eighthSectionExitTl.to(
@@ -1489,7 +1604,7 @@ export const useScrollAnimations = () => {
           duration: 0.3,
           ease: "power2.inOut",
         },
-        0.1
+        0.1,
       );
 
       eighthSectionExitTl.to(
@@ -1501,7 +1616,7 @@ export const useScrollAnimations = () => {
           duration: 0.3,
           ease: "power2.inOut",
         },
-        0.2
+        0.2,
       );
 
       eighthSectionExitTl.to(
@@ -1512,7 +1627,7 @@ export const useScrollAnimations = () => {
           duration: 0.3,
           ease: "power2.inOut",
         },
-        0.3
+        0.3,
       );
 
       // Ensure lines are properly reset after animation
@@ -1526,7 +1641,7 @@ export const useScrollAnimations = () => {
               scaleX: 0,
               opacity: 0,
               transformOrigin: "left center",
-            }
+            },
           );
         },
       });
@@ -1543,7 +1658,7 @@ export const useScrollAnimations = () => {
               scaleX: 0,
               opacity: 0,
               transformOrigin: "left center",
-            }
+            },
           );
         },
       });
@@ -1551,7 +1666,8 @@ export const useScrollAnimations = () => {
 
     // Ninth section animations
     if (
-      fifthSectionBroomRef.current &&
+      ninthSectionBroomRef.current &&
+      eighthSectionBroomRef.current &&
       ninthSectionBambooRef.current &&
       ninthSectionNumberRef.current &&
       ninthSectionFirstTextRef.current &&
@@ -1562,7 +1678,11 @@ export const useScrollAnimations = () => {
       gsap.set(ninthSectionBambooRef.current, {
         opacity: 0,
         x: "-20%",
-        scale: 0.8,
+      });
+
+      gsap.set(ninthSectionBroomRef.current, {
+        opacity: 0,
+        x: "20%",
       });
 
       gsap.set(
@@ -1574,7 +1694,7 @@ export const useScrollAnimations = () => {
         {
           opacity: 0,
           y: 30,
-        }
+        },
       );
 
       gsap.set(ninthSectionLineRef.current, {
@@ -1597,17 +1717,26 @@ export const useScrollAnimations = () => {
 
       // Animate broom to final position
       ninthSectionTl.to(
-        fifthSectionBroomRef.current,
+        eighthSectionBroomRef.current,
         {
-          x: "20%",
-          y: "45%",
-          scale: 0.5,
+          opacity: 0,
           duration: 0.5,
           ease: "power2.inOut",
         },
-        0
+        0.5,
       );
 
+      ninthSectionTl.to(
+        ninthSectionBroomRef.current,
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+        0.2,
+      );
       // Animate bamboo image
       ninthSectionTl.to(
         ninthSectionBambooRef.current,
@@ -1618,7 +1747,7 @@ export const useScrollAnimations = () => {
           duration: 0.8,
           ease: "power2.out",
         },
-        0.2
+        0.2,
       );
 
       // Animate number
@@ -1630,7 +1759,7 @@ export const useScrollAnimations = () => {
           duration: 0.8,
           ease: "back.out(1.2)",
         },
-        0.4
+        0.4,
       );
 
       // Animate first text
@@ -1642,7 +1771,7 @@ export const useScrollAnimations = () => {
           duration: 0.8,
           ease: "back.out(1.2)",
         },
-        0.5
+        0.5,
       );
 
       // Animate horizontal line
@@ -1653,7 +1782,7 @@ export const useScrollAnimations = () => {
           duration: 0.8,
           ease: "none",
         },
-        0.6
+        0.6,
       );
 
       // Animate second text
@@ -1665,7 +1794,7 @@ export const useScrollAnimations = () => {
           duration: 0.8,
           ease: "back.out(1.2)",
         },
-        0.7
+        0.7,
       );
 
       // Add cleanup trigger for ninth section elements
@@ -1674,12 +1803,12 @@ export const useScrollAnimations = () => {
         start: "top 30%",
         end: "bottom bottom",
         onEnter: () => {
-          gsap.set(fifthSectionBroomRef.current, {
-            x: "20%",
-            y: "45%",
-            scale: 0.5,
-          });
           gsap.set(ninthSectionBambooRef.current, {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+          });
+          gsap.set(ninthSectionBroomRef.current, {
             opacity: 1,
             x: 0,
             scale: 1,
@@ -1693,7 +1822,7 @@ export const useScrollAnimations = () => {
             {
               opacity: 1,
               y: 0,
-            }
+            },
           );
           gsap.set(ninthSectionLineRef.current, {
             scaleX: 1,
@@ -1704,7 +1833,7 @@ export const useScrollAnimations = () => {
 
     // Tenth section (Pagtatapos) animations
     if (
-      fifthSectionBroomRef.current &&
+      ninthSectionBroomRef.current &&
       ninthSectionBambooRef.current &&
       finalSectionNumberRef.current &&
       finalSectionTitleRef.current &&
@@ -1722,7 +1851,7 @@ export const useScrollAnimations = () => {
         {
           opacity: 0,
           y: 30,
-        }
+        },
       );
 
       gsap.set(finalSectionLineRef.current, {
@@ -1733,10 +1862,10 @@ export const useScrollAnimations = () => {
       // Set initial states for grid boxes
       if (finalSectionGridRef.current) {
         const gridBoxes = finalSectionGridRef.current.querySelectorAll(
-          ".grid-box"
+          ".grid-box",
         ) as NodeListOf<HTMLElement>;
         const gridTitles = finalSectionGridRef.current.querySelectorAll(
-          ".grid-title"
+          ".grid-title",
         ) as NodeListOf<HTMLElement>;
 
         gsap.set(finalSectionGridRef.current, {
@@ -1763,7 +1892,6 @@ export const useScrollAnimations = () => {
           trigger: ".final-section",
           start: "top 80%",
           end: "center 30%",
-          markers: false, // Remove markers in production
           scrub: 1, // Increase scrub value for smoother animations
           preventOverlaps: true,
           toggleActions: "play none none reverse",
@@ -1778,15 +1906,13 @@ export const useScrollAnimations = () => {
 
       // Move broom to the right - smooth transition
       finalSectionTl.to(
-        fifthSectionBroomRef.current,
+        ninthSectionBroomRef.current,
         {
           x: "100%",
-          y: "45%",
           autoAlpha: 0,
-          scale: 0.5,
           duration: 1,
         },
-        0
+        0,
       );
 
       // Move bamboo to the left - smooth transition
@@ -1797,7 +1923,7 @@ export const useScrollAnimations = () => {
           autoAlpha: 0,
           duration: 1,
         },
-        0
+        0,
       );
 
       // Animate ninth section text exit - smoothly
@@ -1813,7 +1939,7 @@ export const useScrollAnimations = () => {
           duration: 0.8,
           stagger: 0.05,
         },
-        0
+        0,
       );
 
       // Animate ninth section line exit - smoothly
@@ -1823,7 +1949,7 @@ export const useScrollAnimations = () => {
           scaleX: 0,
           duration: 0.8,
         },
-        0
+        0,
       );
 
       // Animate final section number
@@ -1834,7 +1960,7 @@ export const useScrollAnimations = () => {
           y: 0,
           duration: 0.8,
         },
-        0.4 // Delay start
+        0.4, // Delay start
       );
 
       // Animate final section title
@@ -1845,7 +1971,7 @@ export const useScrollAnimations = () => {
           y: 0,
           duration: 0.8,
         },
-        0.5
+        0.5,
       );
 
       // Animate final section line
@@ -1855,7 +1981,7 @@ export const useScrollAnimations = () => {
           scaleX: 1,
           duration: 0.8,
         },
-        0.6
+        0.6,
       );
 
       // Animate final section text
@@ -1866,16 +1992,16 @@ export const useScrollAnimations = () => {
           y: 0,
           duration: 0.8,
         },
-        0.7
+        0.7,
       );
 
       // Animate final section grid with staggered effect
       if (finalSectionGridRef.current) {
         const gridBoxes = finalSectionGridRef.current.querySelectorAll(
-          ".grid-box"
+          ".grid-box",
         ) as NodeListOf<HTMLElement>;
         const gridTitles = finalSectionGridRef.current.querySelectorAll(
-          ".grid-title"
+          ".grid-title",
         ) as NodeListOf<HTMLElement>;
 
         // Animate grid titles with stagger
@@ -1890,7 +2016,7 @@ export const useScrollAnimations = () => {
               from: "start",
             },
           },
-          0.8
+          0.8,
         );
 
         // Animate grid boxes with stagger
@@ -1906,7 +2032,7 @@ export const useScrollAnimations = () => {
               from: "start",
             },
           },
-          0.9
+          0.9,
         );
       } else {
         // Fallback if the DOM query fails
@@ -1917,7 +2043,7 @@ export const useScrollAnimations = () => {
             y: 0,
             duration: 0.8,
           },
-          0.8
+          0.8,
         );
       }
 
@@ -1929,11 +2055,16 @@ export const useScrollAnimations = () => {
         id: "final-section-cleanup",
         onEnter: () => {
           // Ensure all elements are in their final state
-          gsap.set(fifthSectionBroomRef.current, {
+          gsap.set(eighthSectionBroomRef.current, {
             x: "100%",
             y: "45%",
             opacity: 0,
             scale: 0.5,
+          });
+
+          gsap.set(ninthSectionBroomRef.current, {
+            opacity: 0,
+            x: "50%",
           });
 
           gsap.set(ninthSectionBambooRef.current, {
@@ -1950,7 +2081,7 @@ export const useScrollAnimations = () => {
             {
               opacity: 0,
               y: -20,
-            }
+            },
           );
 
           gsap.set(ninthSectionLineRef.current, {
@@ -1966,7 +2097,7 @@ export const useScrollAnimations = () => {
             {
               opacity: 1,
               y: 0,
-            }
+            },
           );
 
           gsap.set(finalSectionLineRef.current, {
@@ -1976,10 +2107,10 @@ export const useScrollAnimations = () => {
           // Ensure grid boxes are visible after entering
           if (finalSectionGridRef.current) {
             const gridBoxes = finalSectionGridRef.current.querySelectorAll(
-              ".grid-box"
+              ".grid-box",
             ) as NodeListOf<HTMLElement>;
             const gridTitles = finalSectionGridRef.current.querySelectorAll(
-              ".grid-title"
+              ".grid-title",
             ) as NodeListOf<HTMLElement>;
 
             gsap.set(gridTitles, {
@@ -2010,7 +2141,7 @@ export const useScrollAnimations = () => {
         {
           opacity: 0,
           y: 30,
-        }
+        },
       );
 
       gsap.set(beliefsSectionLineRef.current, {
@@ -2049,7 +2180,7 @@ export const useScrollAnimations = () => {
           y: -20,
           duration: 0.8,
         },
-        0
+        0,
       );
 
       // Animate number
@@ -2060,7 +2191,7 @@ export const useScrollAnimations = () => {
           y: 0,
           duration: 0.8,
         },
-        0.2
+        0.2,
       );
 
       // Animate line
@@ -2070,7 +2201,7 @@ export const useScrollAnimations = () => {
           scaleX: 1,
           duration: 0.8,
         },
-        0.4
+        0.4,
       );
 
       // Animate text
@@ -2081,7 +2212,7 @@ export const useScrollAnimations = () => {
           y: 0,
           duration: 0.8,
         },
-        0.6
+        0.6,
       );
 
       // Animate broom
@@ -2093,7 +2224,7 @@ export const useScrollAnimations = () => {
           y: 0,
           duration: 0.8,
         },
-        0.8
+        0.8,
       );
 
       // Add cleanup trigger for beliefs section
@@ -2108,7 +2239,7 @@ export const useScrollAnimations = () => {
             {
               opacity: 1,
               y: 0,
-            }
+            },
           );
 
           gsap.set(beliefsSectionLineRef.current, {
@@ -2150,7 +2281,7 @@ export const useScrollAnimations = () => {
         {
           opacity: 0,
           y: -50,
-        }
+        },
       );
 
       gsap.set(beliefsSecondSectionLineRef.current, {
@@ -2190,7 +2321,7 @@ export const useScrollAnimations = () => {
           y: -20,
           duration: 0.8,
         },
-        0
+        0,
       );
 
       beliefsSecondSectionTl.to(
@@ -2199,7 +2330,7 @@ export const useScrollAnimations = () => {
           scaleX: 0,
           duration: 0.8,
         },
-        0
+        0,
       );
 
       // Animate feet image from top
@@ -2211,7 +2342,7 @@ export const useScrollAnimations = () => {
           scale: 1,
           duration: 1,
         },
-        0.2
+        0.2,
       );
 
       // Animate number
@@ -2222,7 +2353,7 @@ export const useScrollAnimations = () => {
           y: 0,
           duration: 0.8,
         },
-        0.4
+        0.4,
       );
 
       // Animate line
@@ -2232,7 +2363,7 @@ export const useScrollAnimations = () => {
           scaleX: 1,
           duration: 0.8,
         },
-        0.6
+        0.6,
       );
 
       // Animate text
@@ -2243,7 +2374,7 @@ export const useScrollAnimations = () => {
           y: 0,
           duration: 0.8,
         },
-        0.8
+        0.8,
       );
 
       // Add cleanup trigger for beliefs second section
@@ -2261,7 +2392,7 @@ export const useScrollAnimations = () => {
             {
               opacity: 1,
               y: 0,
-            }
+            },
           );
 
           gsap.set(beliefsSecondSectionLineRef.current, {
@@ -2280,7 +2411,7 @@ export const useScrollAnimations = () => {
             {
               opacity: 0,
               y: -20,
-            }
+            },
           );
 
           gsap.set(beliefsSectionLineRef.current, {
@@ -2312,7 +2443,7 @@ export const useScrollAnimations = () => {
           duration: 0.5,
           ease: "power2.inOut",
         },
-        0
+        0,
       );
 
       // Ensure feet stay hidden after exit animation
@@ -2355,7 +2486,7 @@ export const useScrollAnimations = () => {
         {
           opacity: 0,
           x: -50,
-        }
+        },
       );
 
       gsap.set(beliefsThirdSectionLineRef.current, {
@@ -2376,7 +2507,7 @@ export const useScrollAnimations = () => {
           opacity: 0,
           y: 100,
           scale: 0.8,
-        }
+        },
       );
 
       // Create timeline for beliefs third section animations
@@ -2408,7 +2539,7 @@ export const useScrollAnimations = () => {
           y: -20,
           duration: 0.8,
         },
-        0
+        0,
       );
 
       beliefsThirdSectionTl.to(
@@ -2417,7 +2548,7 @@ export const useScrollAnimations = () => {
           scaleX: 0,
           duration: 0.8,
         },
-        0
+        0,
       );
 
       // Fade out and move up feet image
@@ -2429,20 +2560,18 @@ export const useScrollAnimations = () => {
           scale: 0.8,
           duration: 0.8,
         },
-        0
+        0,
       );
 
       // Rotate broom from first beliefs section
       beliefsThirdSectionTl.to(
         beliefsSectionBroomRef.current,
         {
-          rotation: 180,
-          y: "-10%",
-          scale: 0.25,
+          opacity: 0,
           duration: 1,
           ease: "power2.inOut",
         },
-        0.2
+        0.2,
       );
 
       // Animate number
@@ -2453,7 +2582,7 @@ export const useScrollAnimations = () => {
           x: 0,
           duration: 0.8,
         },
-        0.4
+        0.4,
       );
 
       // Animate line
@@ -2463,7 +2592,7 @@ export const useScrollAnimations = () => {
           scaleX: 1,
           duration: 0.8,
         },
-        0.6
+        0.6,
       );
 
       // Animate text
@@ -2474,7 +2603,7 @@ export const useScrollAnimations = () => {
           x: 0,
           duration: 0.8,
         },
-        0.8
+        0.8,
       );
 
       // Animate brooms with staggered effect
@@ -2496,15 +2625,15 @@ export const useScrollAnimations = () => {
             from: "start",
           },
         },
-        1.0
+        1.0,
       );
 
       // Add cleanup trigger for beliefs third section
       const beliefsThirdSectionExitTl = gsap.timeline({
         scrollTrigger: {
           trigger: ".beliefs-third-section",
-          start: "bottom 80%",
-          end: "bottom 30%",
+          start: "70% 80%",
+          end: "70% 30%",
           scrub: 0.8,
           preventOverlaps: true,
           toggleActions: "play none none reverse",
@@ -2521,7 +2650,7 @@ export const useScrollAnimations = () => {
           duration: 0.5,
           ease: "power2.inOut",
         },
-        0
+        0,
       );
 
       // Fade out and move up number and text
@@ -2536,7 +2665,7 @@ export const useScrollAnimations = () => {
           duration: 0.5,
           ease: "power2.inOut",
         },
-        0.1
+        0.1,
       );
 
       // Scale down and fade out line
@@ -2548,7 +2677,7 @@ export const useScrollAnimations = () => {
           duration: 0.5,
           ease: "power2.inOut",
         },
-        0.2
+        0.2,
       );
 
       // Fade out and move up brooms with staggered effect
@@ -2571,7 +2700,7 @@ export const useScrollAnimations = () => {
           },
           ease: "power2.inOut",
         },
-        0.3
+        0.3,
       );
 
       // Ensure elements stay hidden after exit animation
@@ -2593,7 +2722,7 @@ export const useScrollAnimations = () => {
             {
               opacity: 0,
               y: -30,
-            }
+            },
           );
 
           gsap.set(beliefsThirdSectionLineRef.current, {
@@ -2613,7 +2742,7 @@ export const useScrollAnimations = () => {
               opacity: 0,
               y: -50,
               scale: 0.8,
-            }
+            },
           );
         },
       });
@@ -2653,18 +2782,21 @@ export const useScrollAnimations = () => {
     sixthSectionTextRef,
     sixthSectionLineRef,
     sixthSectionBottomLineRef,
+    seventhSectionBroomRef,
     seventhSectionTitleRef,
     seventhSectionBoxRef,
     seventhSectionNumberRef,
     seventhSectionTextRef,
     seventhSectionLineRef,
     seventhSectionBottomLineRef,
+    eighthSectionBroomRef,
     eighthSectionTitleRef,
     eighthSectionBoxRef,
     eighthSectionNumberRef,
     eighthSectionTextRef,
     eighthSectionLineRef,
     eighthSectionBottomLineRef,
+    ninthSectionBroomRef,
     ninthSectionBambooRef,
     ninthSectionNumberRef,
     ninthSectionFirstTextRef,
