@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 import gsap from "gsap";
-import { ArrowDownRight } from "lucide-react";
-import { Playfair_Display } from "next/font/google";
 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -26,12 +24,6 @@ import progress7 from "@/public/images/progress/7.jpg";
 import Footer from "./_components/Footer";
 import { Header } from "./_components/Header";
 import { useScrollAnimations } from "./_animations/useScrollAnimations";
-
-const playfairDisplay = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-playfair-display",
-});
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -602,18 +594,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* footer and call to action for e-glossary */}
-      <div className="mt-8 flex items-end justify-center gap-4 px-20">
-        <h1
-          className={`${playfairDisplay.className} text-[length:clamp(50px,7vw,180px)] leading-[1.2]`}
-        >
-          GO TO E-GLOSSARY
-        </h1>
-        <ArrowDownRight
-          className="size-[length:clamp(50px,7vw,180px)]"
-          strokeWidth={1}
-        />
-      </div>
+      
       {/* footer */}
       <Footer darkMode={false} />
     </div>
