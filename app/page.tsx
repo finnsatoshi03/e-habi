@@ -105,7 +105,7 @@ export default function Home() {
   } = useScrollAnimations();
 
   return (
-    <div ref={parentRef} className="relative overflow-x-hidden overflow-y-auto bg-[#1e1e1e] text-white">
+    <div ref={parentRef} className="relative overflow-x-hidden overflow-y-auto bg-[#ae7437] text-white">
       <div className="relative h-screen">
         <Header
           title="E-HABI"
@@ -463,7 +463,7 @@ export default function Home() {
           </div>
           <div
             ref={finalSectionGridRef}
-            className="grid grid-cols-2 gap-4 md:grid-cols-4"
+            className="grid grid-cols-2 gap-4 xl:grid-cols-4"
           >
             <div>
               <p className="grid-title uppercase">Pag tatak</p>
@@ -596,7 +596,7 @@ export default function Home() {
 
       
       {/* footer */}
-      <Footer darkMode={false} />
+      <Footer darkMode={false} callToAction callToActionText="GO TO E-REHISTRO" to="/e-rehistro" />
     </div>
   );
 }

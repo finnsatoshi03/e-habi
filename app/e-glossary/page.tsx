@@ -51,7 +51,7 @@ export default function EGlossaryPage() {
   return (
     <div ref={parentRef} className="relative overflow-y-auto overflow-x-hidden">
       <div className="relative h-screen">
-        <FirstHeader title1="E" title2="GLOSSARY" subtitle="Ng Walis Tambo" />
+        <FirstHeader title1="E" title2="REHISTRO" subtitle="Ng Walis Tambo" />
       </div>
       <div className="relative h-screen second-section z-0">
         <SecondHeader secondTitle="TAMBO" />

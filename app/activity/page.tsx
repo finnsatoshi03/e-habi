@@ -152,7 +152,7 @@ const questions = [
 export default function ActivityPage() {
   const [hasStarted, setHasStarted] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [timeRemaining, setTimeRemaining] = useState(6000);
+  const [timeRemaining, setTimeRemaining] = useState(1200); // 20 minutes in seconds
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [score, setScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
@@ -164,45 +164,20 @@ export default function ActivityPage() {
   );
 
   useEffect(() => {
-    setTimeRemaining(6000);
-  }, [currentQuestion]);
-
-  useEffect(() => {
-    if (!quizCompleted && hasStarted && !selectedAnswer) {
+    if (!quizCompleted && hasStarted) {
       const timer = setInterval(() => {
         setTimeRemaining((prev) => {
           if (prev <= 0) {
-            const updatedAnswers = [...answers];
-            if (!hasAnswered[currentQuestion]) {
-              updatedAnswers[currentQuestion] = "TIMEOUT";
-              setAnswers(updatedAnswers);
-
-              const updatedHasAnswered = [...hasAnswered];
-              updatedHasAnswered[currentQuestion] = true;
-              setHasAnswered(updatedHasAnswered);
-            }
-
-            if (currentQuestion + 1 < questions.length) {
-              setCurrentQuestion(currentQuestion + 1);
-              setSelectedAnswer(null);
-            } else {
-              setQuizCompleted(true);
-            }
-            return 60;
+            // Time's up, complete the quiz
+            setQuizCompleted(true);
+            return 0;
           }
           return prev - 1;
         });
       }, 1000);
       return () => clearInterval(timer);
     }
-  }, [
-    quizCompleted,
-    hasStarted,
-    currentQuestion,
-    selectedAnswer,
-    answers,
-    hasAnswered,
-  ]);
+  }, [quizCompleted, hasStarted]);
 
   const goToNextQuestion = () => {
     if (currentQuestion + 1 < questions.length) {
@@ -270,7 +245,7 @@ export default function ActivityPage() {
 
   const handleRestart = () => {
     setCurrentQuestion(0);
-    setTimeRemaining(60);
+    setTimeRemaining(1200); // Reset to 20 minutes
     setSelectedAnswer(null);
     setScore(0);
     setQuizCompleted(false);
@@ -354,7 +329,7 @@ export default function ActivityPage() {
             </>
           )}
       </div>
-          <Footer darkMode />
+          {quizCompleted && <Footer darkMode />}
     </div>
   );
 }

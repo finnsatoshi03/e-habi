@@ -313,7 +313,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
         <div
           ref={ref}
           className={cn(
-            "flex flex-col p-6 mix-blend-difference fixed top-0 w-full z-50 transition-all duration-300 ease-out will-change-transform text-right",
+            "flex flex-col p-6 text-white fixed top-0 w-full z-50 transition-all duration-300 ease-out will-change-transform text-right",
             className
           )}
         >
@@ -335,7 +335,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
           <div
             ref={secondHeaderRef}
             className={cn(
-              "flex flex-col p-6 mix-blend-difference fixed top-0 w-full z-50 transition-all duration-300 ease-out will-change-transform text-left",
+              "flex flex-col p-6 text-white fixed top-0 w-full z-50 transition-all duration-300 ease-out will-change-transform text-left",
               className
             )}
           >
@@ -358,7 +358,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
           <div
             ref={ninthHeaderRef}
             className={cn(
-              "flex flex-col p-6 mix-blend-difference fixed top-0 w-full z-50 transition-all duration-300 ease-out will-change-transform text-center opacity-0",
+              "flex flex-col p-6 text-white fixed top-0 w-full z-50 transition-all duration-300 ease-out will-change-transform text-center opacity-0",
               className
             )}
           >
@@ -381,7 +381,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
           <div
             ref={beliefsHeaderRef}
             className={cn(
-              "flex flex-col p-6 mix-blend-difference fixed top-0 w-full z-50 transition-all duration-300 ease-out will-change-transform text-center opacity-0",
+              "flex flex-col p-6 text-white fixed top-0 w-full z-50 transition-all duration-300 ease-out will-change-transform text-center opacity-0",
               className
             )}
           >

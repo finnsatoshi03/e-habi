@@ -8,7 +8,7 @@ const playfairDisplay = Playfair_Display({
   variable: "--font-playfair-display",
 });
 
-const Footer = ({ darkMode, callToAction, callToActionText = "GO TO E-GLOSSARY", to = "/e-glossary" }: { darkMode: boolean, callToAction?: boolean, callToActionText?: string, to?: string }) => {
+const Footer = ({ darkMode, callToAction, callToActionText = "GO TO E-REHISTRO", to = "/e-rehistro" }: { darkMode: boolean, callToAction?: boolean, callToActionText?: string, to?: string }) => {
   return (
 
     <>
@@ -28,7 +28,7 @@ const Footer = ({ darkMode, callToAction, callToActionText = "GO TO E-GLOSSARY",
     )}
     <div
       className={`mt-8 relative z-50 px-20 py-10 ${
-        darkMode ? "bg-[#1e1e1e] text-white" : "bg-white text-black"
+        darkMode ? "bg-[#ae7437] text-white" : "bg-white text-black"
       }`}
     >
       <div className="grid grid-cols-[1fr_auto]">
@@ -52,7 +52,7 @@ const Footer = ({ darkMode, callToAction, callToActionText = "GO TO E-GLOSSARY",
                 </Link>
               </li>
               <li>
-                <Link href="/e-glossary">E-Glossary</Link>
+                <Link href="/e-rehistro">E-Rehistro</Link>
               </li>
               <li>
                 <Link href="/activity">Take Quiz</Link>
