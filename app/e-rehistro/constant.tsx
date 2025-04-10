@@ -15,7 +15,7 @@ export const Terminologies: TerminologiesProps = {
       sub: "pangngalan",
       desc: "Isang halamang hemp o napagkukunan ng himayma na berde ang mga dahon na kawangis ng dahon ng saging. Ito ay ginagamit bilang pantali at panahi sa walis tambo.",
       img: "/images/abaka.jpg",
-      voice: "/audio/ABAKA .m4a",
+      voice: "/audio/ABAKA NEW.m4a",
     },
     {
       title: "Alámbré",
@@ -112,7 +112,7 @@ export const Terminologies: TerminologiesProps = {
       sub: "pangngalan",
       desc: "Inilalagay sa itaas na bahagi ng tangkay ng tambo upang mapanatili ang ayos nito.",
       img: "/images/gakod.jpg",
-      voice: "/audio/GAKOD.m4a",
+      voice: "/audio/GAKOD NEW.m4a",
     },
     {
       title: "Gunting",
