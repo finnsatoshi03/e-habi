@@ -115,13 +115,6 @@ export const Terminologies: TerminologiesProps = {
       voice: "/audio/GAKOD.m4a",
     },
     {
-      title: "Grímpa",
-      sub: "pangngalan",
-      desc: "Matulis na bahagi ng dahon ng tambo.",
-      img: "",
-      voice: "/audio/GRIMPA.m4a",
-    },
-    {
       title: "Gunting",
       sub: "pangngalan",
       desc: "Gamit sa pagputol ng sinulid, plastic rattan, o tambo",
@@ -135,7 +128,7 @@ export const Terminologies: TerminologiesProps = {
       sub: "pangngalan",
       desc: "Mahigpit na pagtatali ng walis tambo.",
       img: "",
-      voice: "/audio/IPIT.m4a",
+      voice: "/audio/HIKIT.m4a",
     },
   ],
   Ii: [
