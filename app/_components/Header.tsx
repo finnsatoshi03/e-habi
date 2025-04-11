@@ -319,13 +319,13 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
         >
           <h1
             ref={titleRef}
-            className={`${playfairDisplay.className} text-[length:clamp(100px,10vw,250px)] transition-all duration-300`}
+            className={`${playfairDisplay.className} text-[length:clamp(80px,10vw,250px)] transition-all duration-300`}
           >
             {title}
           </h1>
           <h2
             ref={subtitleRef}
-            className={`${libreBaskerville.className} text-[length:clamp(50px,5vw,120px)] transition-all duration-300`}
+            className={`${libreBaskerville.className} text-[length:clamp(30px,5vw,120px)] transition-all duration-300`}
           >
             {subtitle}
           </h2>
@@ -341,13 +341,13 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
           >
             <h1
               ref={secondTitleRef}
-              className={`${playfairDisplay.className} text-[length:clamp(100px,10vw,250px)] transition-all duration-300`}
+              className={`${playfairDisplay.className} text-[length:clamp(80px,10vw,250px)] transition-all duration-300`}
             >
               {secondTitle}
             </h1>
             <h2
               ref={secondSubtitleRef}
-              className={`${libreBaskerville.className} text-[length:clamp(50px,5vw,120px)] transition-all duration-300`}
+              className={`${libreBaskerville.className} text-[length:clamp(30px,5vw,120px)] transition-all duration-300`}
             >
               {secondSubtitle}
             </h2>
@@ -364,13 +364,13 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
           >
             <h1
               ref={ninthTitleRef}
-              className={`${playfairDisplay.className} text-[length:clamp(100px,10vw,250px)] transition-all duration-300`}
+              className={`${playfairDisplay.className} text-[length:clamp(80px,10vw,250px)] transition-all duration-300`}
             >
               {secondTitle}
             </h1>
             <h2
               ref={ninthSubtitleRef}
-              className={`${libreBaskerville.className} text-[length:clamp(50px,5vw,120px)] transition-all duration-300`}
+              className={`${libreBaskerville.className} text-[length:clamp(30px,5vw,120px)] transition-all duration-300`}
             >
               {secondSubtitle}
             </h2>

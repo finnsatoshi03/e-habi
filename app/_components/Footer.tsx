@@ -88,7 +88,7 @@ const Footer = ({
               </ul>
             </nav>
           </div>
-          <div className="col-start-1 row-start-3">
+          <div className="col-start-1 row-start-3 md:text-left text-center">
             <p>&#169; 2025 E-Habi. All rights reserved.</p>
           </div>
         </div>

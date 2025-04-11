@@ -31,6 +31,7 @@ export const useScrollAnimations = () => {
   const fifthSectionTextRef = useRef(null);
   const fifthSectionLineRef = useRef(null);
   const fifthSectionBottomLineRef = useRef(null);
+  const fifthSectionLineRef2 = useRef(null);
   const fifthSectionTitleRef2 = useRef(null);
   const fifthSectionBoxRef2 = useRef(null);
   const fifthSectionNumberRef2 = useRef(null);
@@ -682,7 +683,8 @@ export const useScrollAnimations = () => {
       fifthSectionBoxRef2.current &&
       fifthSectionNumberRef2.current &&
       fifthSectionTextRef2.current &&
-      fifthSectionBottomLineRef2.current
+      fifthSectionBottomLineRef2.current &&
+      fifthSectionLineRef2.current
     ) {
       // Set initial states for fifth section
       gsap.set(fifthSectionBroomRef.current, {
@@ -713,6 +715,7 @@ export const useScrollAnimations = () => {
           fifthSectionLineRef.current,
           fifthSectionBottomLineRef.current,
           fifthSectionBottomLineRef2.current,
+          fifthSectionLineRef2.current,
         ],
         {
           scaleX: 0,
@@ -820,7 +823,7 @@ export const useScrollAnimations = () => {
         0.3,
       );
 
-      // Animate fifth section horizontal line
+      // Animate fifth section horizontal line (desktop)
       sectionTransitionTl.to(
         fifthSectionLineRef.current,
         {
@@ -925,6 +928,17 @@ export const useScrollAnimations = () => {
         0.9,
       );
 
+      // Animate fifth section horizontal line (mobile)
+      sectionTransitionTl.to(
+        fifthSectionLineRef2.current,
+        {
+          scaleX: 1,
+          duration: 1,
+          ease: "none",
+        },
+        0.5,
+      );
+
       // Add exit animation for fifth section elements
       ScrollTrigger.create({
         trigger: ".sixth-section",
@@ -940,6 +954,7 @@ export const useScrollAnimations = () => {
               fifthSectionNumberRef2.current,
               fifthSectionTextRef2.current,
               fifthSectionBottomLineRef2.current,
+              fifthSectionLineRef2.current,
             ],
             {
               opacity: 0,
@@ -958,6 +973,7 @@ export const useScrollAnimations = () => {
               fifthSectionNumberRef2.current,
               fifthSectionTextRef2.current,
               fifthSectionBottomLineRef2.current,
+              fifthSectionLineRef2.current,
             ],
             {
               opacity: 0,
@@ -974,6 +990,7 @@ export const useScrollAnimations = () => {
               fifthSectionNumberRef2.current,
               fifthSectionTextRef2.current,
               fifthSectionBottomLineRef2.current,
+              fifthSectionLineRef2.current,
             ],
             {
               opacity: 0,
@@ -992,6 +1009,7 @@ export const useScrollAnimations = () => {
               fifthSectionNumberRef2.current,
               fifthSectionTextRef2.current,
               fifthSectionBottomLineRef2.current,
+              fifthSectionLineRef2.current,
             ],
             {
               opacity: 1,
@@ -1010,6 +1028,7 @@ export const useScrollAnimations = () => {
               fifthSectionTextRef.current,
               fifthSectionBottomLineRef.current,
               fifthSectionTitleRef2.current,
+              fifthSectionLineRef2.current,
               fifthSectionNumberRef2.current,
               fifthSectionTextRef2.current,
               fifthSectionBottomLineRef2.current,
@@ -2893,6 +2912,7 @@ export const useScrollAnimations = () => {
     fifthSectionTextRef,
     fifthSectionLineRef,
     fifthSectionBottomLineRef,
+    fifthSectionLineRef2,
     fifthSectionTitleRef2,
     fifthSectionBoxRef2,
     fifthSectionNumberRef2,
@@ -2907,9 +2927,9 @@ export const useScrollAnimations = () => {
     seventhSectionBroomRef,
     seventhSectionTitleRef,
     seventhSectionBoxRef,
+    seventhSectionLineRef,
     seventhSectionNumberRef,
     seventhSectionTextRef,
-    seventhSectionLineRef,
     seventhSectionBottomLineRef,
     eighthSectionBroomRef,
     eighthSectionTitleRef,

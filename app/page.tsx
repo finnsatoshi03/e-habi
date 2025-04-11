@@ -55,6 +55,7 @@ export default function Home() {
     fifthSectionTextRef,
     fifthSectionLineRef,
     fifthSectionBottomLineRef,
+    fifthSectionLineRef2,
     fifthSectionTitleRef2,
     fifthSectionBoxRef2,
     fifthSectionNumberRef2,
@@ -155,7 +156,7 @@ export default function Home() {
         </div>
       </div>
       <div ref={secondSectionRef} className="second-section relative h-[100vh]">
-        <div className="absolute top-0 left-[10%] w-1/2 grid-cols-[1fr_auto_1fr] space-y-4 md:grid md:gap-8 md:space-y-0">
+        <div className="absolute top-[15%] md:top-0 left-[10%] w-1/2 grid-cols-[1fr_auto_1fr] space-y-4 md:grid md:gap-8 md:space-y-0">
           <p
             ref={firstParagraphRef}
             className="col-start-1 row-start-2 mt-[25vh] pr-8 text-left md:text-right"
@@ -181,10 +182,10 @@ export default function Home() {
       <div className="third-section relative h-[100vh]">
         <div
           ref={mapRef}
-          className="fixed right-0 bottom-0 w-[50rem] lg:right-1/2 lg:bottom-0 lg:block lg:w-[75rem]"
+          className="fixed right-0 -bottom-10 w-[50rem] lg:right-1/2 lg:bottom-0 lg:block lg:w-[75rem]"
         >
           <Image src={map} alt="map" className="relative w-full object-cover" />
-          <div className="third-section-text mb-20 grid w-2/3 grid-cols-2 gap-4 lg:fixed lg:-right-[30rem] lg:bottom-[12%] lg:mb-0">
+          <div className={`third-section-text mb-20 grid w-2/3 relative grid-cols-2 gap-4 lg:fixed lg:-right-[30rem] lg:bottom-[12%] lg:mb-0 ${isMobile && "left-[25%]"}`}>
             <p ref={thirdSectionFirstParagraphRef} className="col-start-2">
               Sa bayan ng San Lorenzo Ruiz, Camarines Norte, ang paggawa ng
               walis tambo ay hindi lamang simpleng kabuhayan bagkus isang
@@ -209,7 +210,7 @@ export default function Home() {
       <div className="fourth-section relative h-[100vh]">
         <div
           ref={fourthSectionBroomRef}
-          className="fixed -bottom-[40%] left-2/3 w-[30rem] rotate-90 md:bottom-0 md:left-[50%] md:w-[50rem] md:rotate-0"
+          className="fixed -bottom-[35%] left-[75%] w-[20rem] rotate-90 md:bottom-0 md:left-[50%] md:w-[50rem] md:rotate-0"
         >
           <Image
             src={broom}
@@ -254,7 +255,7 @@ export default function Home() {
             ></div>
           </div>
         </div>
-        <div className="fourth-section-image fixed top-[20%] left-[5%] grid w-[70vw] grid-cols-[auto_1fr] md:hidden lg:w-[60rem]">
+        <div className="fourth-section-image fixed top-[15%] left-[5%] grid w-[70vw] h-[60vh] grid-rows-[auto_auto_1fr] md:hidden lg:w-[60rem]">
           <p
             ref={fourthSectionTitleRef}
             className="col-start-1 w-fit uppercase"
@@ -263,7 +264,7 @@ export default function Home() {
           </p>
           <div
             ref={fourthSectionBoxRef}
-            className="row-start-2 h-[300px] w-[300px] border"
+            className="row-start-2 border h-[200px] w-[200px] md:h-[300px] md:w-[300px]"
           >
             <Image
               src={progress1}
@@ -271,8 +272,12 @@ export default function Home() {
               className="h-full w-full object-cover"
             />
           </div>
+          <div
+              ref={fourthSectionLineRef}
+              className="row-start-3 h-full w-[1px] ml-[5vw] bg-white"
+            ></div>
         </div>
-        <div className="fourth-section-text fixed top-[55%] left-[10%] grid w-2/3 grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4 md:hidden">
+        <div className="fourth-section-text fixed top-[50%] left-[17%] grid w-[80%] full h-[30vh] grid-rows-[auto_1fr] gap-x-8 gap-y-4 md:hidden">
           <p ref={fourthSectionNumberRef} className="col-start-1">
             01
           </p>
@@ -281,14 +286,14 @@ export default function Home() {
           </p>
           <div
             ref={fourthSectionBottomLineRef}
-            className="col-span-2 col-start-2 h-[1px] w-full bg-white"
+            className="col-start-2 h-full row-start-2 w-[1px] bg-white"
           ></div>
         </div>
       </div>
       <div className="fifth-section relative h-[100vh]">
         <div
           ref={fifthSectionBroomRef}
-          className="fixed -bottom-[40%] left-2/3 w-[30rem] rotate-90 md:bottom-0 md:left-[50%] md:w-[50rem] md:rotate-0"
+          className="fixed -bottom-[35%] left-[75%] w-[20rem] rotate-90 md:bottom-0 md:left-[50%] md:w-[50rem] md:rotate-0"
         >
           <Image
             src={broom}
@@ -306,7 +311,7 @@ export default function Home() {
             </p>
             <div
               ref={fifthSectionBoxRef}
-              className="row-start-2 h-[300px] w-[300px] border"
+              className="row-start-2 h-[200px] w-[200px] md:h-[300px] md:w-[300px] border"
             >
               <Image
                 src={progress2}
@@ -332,7 +337,7 @@ export default function Home() {
             ></div>
           </div>
         </div>
-        <div className="fifth-section-image fixed top-[20%] left-[5%] grid w-[70vw] grid-cols-[auto_1fr] md:hidden lg:w-[60rem]">
+        <div className="fifth-section-image fixed top-[15%] left-[5%] grid w-[70vw] h-[60vh] grid-rows-[auto_auto_1fr] md:hidden lg:w-[60rem]">
           <p
             ref={fifthSectionTitleRef2}
             className="col-start-1 w-fit uppercase"
@@ -341,7 +346,7 @@ export default function Home() {
           </p>
           <div
             ref={fifthSectionBoxRef2}
-            className="row-start-2 h-[300px] w-[300px] border"
+            className="row-start-2 h-[200px] w-[200px] md:h-[300px] md:w-[300px] border"
           >
             <Image
               src={progress2}
@@ -349,8 +354,9 @@ export default function Home() {
               className="h-full w-full object-cover"
             />
           </div>
+          <div ref={fifthSectionLineRef2} className="row-start-3 h-full w-[1px] ml-[5vw] bg-white"></div>
         </div>
-        <div className="fifth-section-text fixed top-[55%] left-[10%] grid w-full grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4 md:hidden">
+        <div className="fifth-section-text fixed top-[50%] left-[17%] grid w-[80%] full h-[30vh] grid-rows-[auto_1fr] gap-x-8 gap-y-4 md:hidden">
           <p ref={fifthSectionNumberRef2} className="col-start-1">
             02
           </p>
@@ -359,18 +365,18 @@ export default function Home() {
           </p>
           <div
             ref={fifthSectionBottomLineRef2}
-            className="col-span-2 col-start-2 h-[1px] w-full bg-white"
+            className="col-start-2 row-start-2 h-full w-[1px] bg-white"
           ></div>
         </div>
       </div>
       <div className="sixth-section relative h-[100vh]">
-        <div className="sixth-section-image fixed top-[20%] left-[5%] grid w-[60%] grid-cols-[auto_1fr] md:bottom-[27%] md:left-[6%]">
+        <div className={`sixth-section-image fixed h-fit left-[5%] grid w-[60%] grid-cols-[auto_1fr] md:bottom-[27%] md:left-[6%] ${isMobile && "top-[20%]"}`}>
           <p ref={sixthSectionTitleRef} className="col-start-1 w-fit uppercase">
             PAGHIHIMAY
           </p>
           <div
             ref={sixthSectionBoxRef}
-            className="row-start-2 h-[300px] w-[300px] border"
+            className="row-start-2 h-[200px] w-[200px] md:h-[300px] md:w-[300px] border col-start-1"
           >
             <Image
               src={progress3}
@@ -383,7 +389,7 @@ export default function Home() {
             className="row-start-2 mt-[10vh] hidden h-[1px] w-full bg-white md:block"
           ></div>
         </div>
-        <div className="sixth-section-text fixed top-[70%] left-[10%] grid h-fit w-2/3 grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4 md:bottom-[15%] md:left-[20%] md:w-1/2">
+        <div className={`sixth-section-text fixed left-[15%] grid h-[30vh] md:h-fit w-2/3 md:grid-rows-auto grid-rows-[auto_1fr] md:grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4 md:bottom-[15%] md:left-[20%] md:w-1/2 ${isMobile && "top-[50%]"}`}>
           <p ref={sixthSectionNumberRef} className="col-start-1 row-start-1">
             03
           </p>
@@ -392,21 +398,21 @@ export default function Home() {
           </p>
           <div
             ref={sixthSectionBottomLineRef}
-            className="col-span-2 col-start-2 row-start-2 h-[1px] w-full bg-white"
+            className="col-span-3 col-start-2 row-start-2 md:h-[1px] w-[1px] h-full md:w-full bg-white"
           ></div>
         </div>
       </div>
       <div className="seventh-section relative h-[100vh]">
         <div
           ref={seventhSectionBroomRef}
-          className={`fixed -right-1/3 w-[25rem] md:bottom-0 md:left-1/2 md:w-[20rem] md:-translate-x-1/2 ${isMobile && "top-0"}`}
+          className={`fixed w-[25rem] md:bottom-0 md:left-1/2 md:w-[20rem] md:-translate-x-1/2 ${isMobile && "-top-[20%] -right-[50%]"}`}
         >
           <Image
             src={broom}
             alt="broom"
             className="relative w-full object-cover"
           />
-          <div className="seventh-section-image fixed right-[30rem] bottom-[20rem] grid w-[30vw] grid-cols-[auto_1fr] md:right-[60%] md:bottom-[7rem] md:w-[40vw]">
+          <div className="seventh-section-image fixed right-[15rem] bottom-[20rem] grid w-[80vw] grid-cols-[auto_1fr] md:right-[60%] md:bottom-[7rem] md:w-[40vw]">
             <p
               ref={seventhSectionTitleRef}
               className="col-start-1 w-fit uppercase"
@@ -415,7 +421,7 @@ export default function Home() {
             </p>
             <div
               ref={seventhSectionBoxRef}
-              className="row-start-2 h-[300px] w-[300px] border"
+              className="row-start-2 h-[200px] w-[200px] md:h-[300px] md:w-[300px] border"
             >
               <Image
                 src={progress4_1}
@@ -428,7 +434,7 @@ export default function Home() {
               className="row-start-2 mt-[10vh] h-[1px] w-full bg-white"
             ></div>
           </div>
-          <div className="seventh-section-text fixed -right-[5rem] bottom-[15%] grid w-[50rem] grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4 md:-right-[20vw] md:w-[30vw] md:grid-cols-[1fr_1fr_auto] md:text-right lg:w-[30vw]">
+          <div className={`seventh-section-text fixed -right-[2rem] grid w-[35rem] grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4 md:-right-[20vw] md:w-[30vw] md:grid-cols-[1fr_1fr_auto] md:bottom-[15%] md:text-right lg:w-[30vw] ${isMobile && "top-[30%]"}`}>
             <p
               ref={seventhSectionNumberRef}
               className="col-start-1 row-start-1 md:col-start-3"
@@ -448,19 +454,19 @@ export default function Home() {
       <div className="eighth-section relative h-[100vh]">
         <div
           ref={eighthSectionBroomRef}
-          className={`fixed -right-1/3 w-[25rem] md:bottom-0 md:left-1/2 md:w-[25rem] md:-translate-x-1/2 ${isMobile && "top-0"}`}
+          className={`fixed w-[25rem] md:bottom-0 md:left-1/2 md:w-[25rem] md:-translate-x-1/2 ${isMobile && "-top-[20%] -right-[50%]"}`}
         >
           <Image src={broom} alt="broom" className="w-full object-cover" />
-          <div className="eighth-section-image fixed right-[30rem] bottom-[20rem] grid w-[30vw] grid-cols-[auto_1fr] md:-right-[30vw] md:bottom-[14%] md:w-[30vw] md:grid-cols-[1fr_1fr_auto] md:text-right lg:w-[40vw]">
+          <div className="eighth-section-image fixed right-[15rem] bottom-[16rem] grid w-[80vw] grid-cols-[auto_1fr] md:-right-[30vw] md:bottom-[14%] md:w-[30vw] md:grid-cols-[1fr_auto] md:text-right lg:w-[40vw]">
             <p
               ref={eighthSectionTitleRef}
-              className="col-start-2 w-fit uppercase md:justify-self-end"
+              className="col-start-1 md:col-start-2 w-fit uppercase md:justify-self-end"
             >
               pananahi
             </p>
             <div
               ref={eighthSectionBoxRef}
-              className="col-start-2 row-start-2 h-[300px] w-[300px] border"
+              className="col-start-1 md:col-start-2 row-start-2 h-[200px] w-[200px] md:h-[300px] md:w-[300px] border"
             >
               <Image
                 src={progress4_2}
@@ -470,10 +476,10 @@ export default function Home() {
             </div>
             <div
               ref={eighthSectionLineRef}
-              className="col-start-1 row-start-2 mt-[10vh] h-[1px] w-full bg-white"
+              className="col-start-2 md:col-start-1 row-start-2 mt-[10vh] h-[1px] w-full bg-white"
             ></div>
           </div>
-          <div className="eighth-section-text fixed -right-0 bottom-[15%] grid w-[50rem] grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4 md:right-[60%] md:bottom-[18%] md:w-[40vw]">
+          <div className={`eighth-section-text fixed -right-[2rem] bottom-[15%] h-fit grid w-[35rem] grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4 md:right-[60%] md:bottom-[18%] md:w-[40vw] ${isMobile && "top-[30%]"}`}>
             <p ref={eighthSectionNumberRef} className="col-start-1 row-start-1">
               04.2
             </p>
@@ -491,13 +497,13 @@ export default function Home() {
       <div className="ninth-section relative h-[100vh]">
         <div
           ref={ninthSectionBambooRef}
-          className="fixed top-0 -left-[25rem] w-[50vh] md:-left-[15rem] lg:-left-[10rem]"
+          className="fixed top-0 -left-[17rem] w-[50vh] md:-left-[15rem] lg:-left-[10rem]"
         >
           <Image src={bamboo} alt="bamboo" className="w-full object-cover" />
         </div>
         <div
           ref={ninthSectionBroomRef}
-          className="fixed top-0 -right-[15rem] w-[50vh] md:-right-[10rem]"
+          className="fixed top-0 -right-[12rem] w-[50vh] md:-right-[10rem]"
         >
           <Image src={broom} alt="broom" className="w-full object-cover" />
         </div>
@@ -537,11 +543,11 @@ export default function Home() {
           </div>
           <div
             ref={finalSectionGridRef}
-            className="grid grid-cols-2 gap-4 xl:grid-cols-4"
+            className="grid md:grid-cols-2 gap-4 xl:grid-cols-4"
           >
             <div>
               <p className="grid-title uppercase">Pagtatak</p>
-              <div className="grid-box row-start-2 h-[200px] w-[200px] border md:h-[300px] md:w-[300px]">
+              <div className="grid-box row-start-2 border md h-[200px] w-[200px] md:h-[300px] md:md:w-[300px]">
                 <Image
                   src={progress5_1}
                   alt="Pagtatak ng Walis Tambo"
@@ -551,7 +557,7 @@ export default function Home() {
             </div>
             <div>
               <p className="grid-title uppercase">Pagtatak</p>
-              <div className="grid-box row-start-2 h-[200px] w-[200px] border md:h-[300px] md:w-[300px]">
+              <div className="grid-box row-start-2 h-[200px] w-[200px] border md:h-[300px] md:md:w-[300px]">
                 <Image
                   src={progress5_2}
                   alt="Pagtatak ng Walis Tambo"
@@ -561,7 +567,7 @@ export default function Home() {
             </div>
             <div>
               <p className="grid-title uppercase">Pagpapaganda</p>
-              <div className="grid-box row-start-2 h-[200px] w-[200px] border md:h-[300px] md:w-[300px]">
+              <div className="grid-box row-start-2 h-[200px] w-[200px] border md:h-[300px] md:md:w-[300px]">
                 <Image
                   src={progress6}
                   alt="Pagpapaganda ng Walis Tambo"
@@ -571,7 +577,7 @@ export default function Home() {
             </div>
             <div>
               <p className="grid-title uppercase">Pagdala sa pamilihan</p>
-              <div className="grid-box row-start-2 h-[200px] w-[200px] border md:h-[300px] md:w-[300px]">
+              <div className="grid-box row-start-2 h-[200px] w-[200px] border md:h-[300px] md:md:w-[300px]">
                 <Image
                   src={progress7}
                   alt="Pagdala sa pamilihan ng Walis Tambo"
@@ -596,7 +602,7 @@ export default function Home() {
           </div>
           <div
             ref={beliefsSectionBroomRef}
-            className="transform-origin-center fixed -bottom-[90%] left-1/2 w-[50rem] -translate-x-1/2 rotate-[90deg] md:-bottom-[76.5rem] md:w-[63rem]"
+            className="transform-origin-center fixed -bottom-[110%] left-2/3 md:left-1/2 w-[50rem] -translate-x-1/2 rotate-[90deg] md:-bottom-[76.5rem] md:w-[63rem]"
           >
             <Image src={broom} alt="broom" className="w-full object-cover" />
           </div>
@@ -610,7 +616,7 @@ export default function Home() {
           <Image src={feet} alt="feet" className="w-full object-cover" />
         </div>
         <div className="flex h-full w-full flex-col items-end justify-center gap-8 pr-20">
-          <div className="flex w-1/4 flex-col items-end gap-4 text-right">
+          <div className="flex w-2/3 md:w-1/4 flex-col items-end gap-4 text-right">
             <p ref={beliefsSecondSectionNumberRef}>02</p>
             <div
               ref={beliefsSecondSectionLineRef}
@@ -624,7 +630,7 @@ export default function Home() {
       </div>
       <div className="beliefs-third-section relative h-[100vh]">
         <div className="flex h-full w-full flex-col items-start justify-center gap-8 pl-20">
-          <div className="flex w-1/4 flex-col items-start gap-4 text-left">
+          <div className="flex w-2/3 md:w-1/4 flex-col items-start gap-4 text-left">
             <p ref={beliefsThirdSectionNumberRef}>03</p>
             <div
               ref={beliefsThirdSectionLineRef}
