@@ -596,7 +596,7 @@ export const Title = forwardRef<HTMLDivElement>(
         <h1 className={`${playfairDisplay.className} text-6xl`}> E </h1>
         <div className="flex flex-col justify-center text-lg">
           <h1 className={`${playfairDisplay.className}`}>HABI</h1>
-          <h1 className={`${libreBaskerville.className}`}>Glossary</h1>
+          <h1 className={`${libreBaskerville.className}`}>Rehistro</h1>
         </div>
       </div>
     );

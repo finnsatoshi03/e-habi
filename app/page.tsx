@@ -105,7 +105,10 @@ export default function Home() {
   } = useScrollAnimations();
 
   return (
-    <div ref={parentRef} className="relative overflow-x-hidden overflow-y-auto bg-[#ae7437] text-white">
+    <div
+      ref={parentRef}
+      className="relative overflow-x-hidden overflow-y-auto bg-[#ae7437] text-white"
+    >
       <div className="relative h-screen">
         <Header
           title="E-HABI"
@@ -175,19 +178,31 @@ export default function Home() {
         >
           <Image src={map} alt="map" className="relative w-full object-cover" />
           <div className="third-section-text mb-20 grid w-2/3 grid-cols-2 gap-4 lg:fixed lg:-right-[25rem] lg:bottom-[15%] lg:mb-0">
-            <p ref={thirdSectionFirstParagraphRef} className="col-start-2">
-              Sa San Lorenzo Ruiz, ang paggawa ng walis tambo ay hindi lang
-              simpleng kabuhayan—ito ay isang sining at pamana
+            <p ref={thirdSectionFirstParagraphRef} className="col-start-2 text-sm">
+              Isa sa pangunahing hanapbuhay sa bayan ng San Lorenzo Ruiz, ang
+              paggawa ng walis tambo. Nagbibigay oportunidad ang kabuhayang ito
+              sa mga manggagawa na kumita at matustusan ang kanilang
+              pang-araw-araw na pangangailangan sa buhay. Malaking bahagi ang
+              ginagampanan ng walis tambo sa buhay ng mga tao at manggagawa sa
+              bayan ng San Lorenzo Ruiz, sapagkat hindi lamang ito isang
+              simpleng kagamitan sa paglilinis, bagkus isang simbolo ng kanilang
+              kasipagan, kasanayan, at mayamang kultura at pagkakakilanlan.
             </p>
             <div
               ref={horizontalLineRef}
               className="col-span-2 h-[1px] w-full bg-white"
             ></div>
-            <p ref={thirdSectionSecondParagraphRef} className="col-start-2">
-              Nagbibigay ito ng oportunidad sa mga manggagawa upang kumita at
-              mabuhay, habang ipinapakita ang kanilang sipag, husay, at kultura.
-              Ang tradisyong ito ay naipapasa mula henerasyon hanggang
-              henerasyon, patuloy na nagpapatibay sa pagkakakilanlan ng bayan.
+            <p ref={thirdSectionSecondParagraphRef} className="col-start-2 text-sm">
+              Mahalagang bahagi ng kultura at identidad ng San Lorenzo Ruiz ang
+              pagkakaroon ng matibay at magandang produkto ng walis tambo. Ang
+              paggawa ng walis tambo ay naka- ugat na sa kanilang buhay na
+              nagsisilbing daluyan ng kanilang pagkakakilanlan at kultura mula
+              noon hanggang ngayong kasalukuyan. Ang kabuhayang ito ay isang
+              kasanayan na naipapasa mula sa isang henerasyon patungo sa
+              susunod. Sa pamamagitan ng pagpapanatili at pagpapayabong ng
+              industriyang ito, hindi lamang napapanatili ang kabuhayan ng mga
+              mamamayan sa bayan bagkus naipapamana rin ang yaman ng kanilang
+              kultura, kasanayan at kasaysayan.
             </p>
           </div>
         </div>
@@ -292,7 +307,7 @@ export default function Home() {
       <div className="sixth-section relative h-[100vh]">
         <div className="sixth-section-image fixed bottom-[27%] left-[6%] grid w-[60%] grid-cols-[auto_1fr]">
           <p ref={sixthSectionTitleRef} className="col-start-1 w-fit uppercase">
-            pagsusuri
+            paghihimay
           </p>
           <div
             ref={sixthSectionBoxRef}
@@ -466,7 +481,7 @@ export default function Home() {
             className="grid grid-cols-2 gap-4 xl:grid-cols-4"
           >
             <div>
-              <p className="grid-title uppercase">Pag tatak</p>
+              <p className="grid-title uppercase">Pagtatak</p>
               <div className="grid-box row-start-2 h-[200px] w-[200px] border md:h-[300px] md:w-[300px]">
                 <Image
                   src={progress5_1}
@@ -476,7 +491,7 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <p className="grid-title uppercase">Pag tatak</p>
+              <p className="grid-title uppercase">Pagtatak</p>
               <div className="grid-box row-start-2 h-[200px] w-[200px] border md:h-[300px] md:w-[300px]">
                 <Image
                   src={progress5_2}
@@ -486,7 +501,7 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <p className="grid-title uppercase">Pag papaganda</p>
+              <p className="grid-title uppercase">Pagpapaganda</p>
               <div className="grid-box row-start-2 h-[200px] w-[200px] border md:h-[300px] md:w-[300px]">
                 <Image
                   src={progress6}
@@ -496,7 +511,7 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <p className="grid-title uppercase">Pag dala sa pamilihan</p>
+              <p className="grid-title uppercase">Pagdala sa pamilihan</p>
               <div className="grid-box row-start-2 h-[200px] w-[200px] border md:h-[300px] md:w-[300px]">
                 <Image
                   src={progress7}
@@ -594,9 +609,13 @@ export default function Home() {
         </div>
       </div>
 
-      
       {/* footer */}
-      <Footer darkMode={false} callToAction callToActionText="GO TO E-REHISTRO" to="/e-rehistro" />
+      <Footer
+        darkMode={false}
+        callToAction
+        callToActionText="GO TO E-REHISTRO"
+        to="/e-rehistro"
+      />
     </div>
   );
 }

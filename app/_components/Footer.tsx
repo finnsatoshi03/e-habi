@@ -13,7 +13,7 @@ const Footer = ({ darkMode, callToAction, callToActionText = "GO TO E-REHISTRO",
 
     <>
       {callToAction && (
-        <div className="mt-8 flex items-end justify-center gap-4 px-20">
+        <div className="mt-8 z-50 flex items-end justify-center gap-4 px-20">
           <Link 
             href={to}
             className={`${playfairDisplay.className} text-[length:clamp(50px,7vw,180px)] leading-[1.2]`}
