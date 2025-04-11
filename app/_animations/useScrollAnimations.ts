@@ -31,6 +31,11 @@ export const useScrollAnimations = () => {
   const fifthSectionTextRef = useRef(null);
   const fifthSectionLineRef = useRef(null);
   const fifthSectionBottomLineRef = useRef(null);
+  const fifthSectionTitleRef2 = useRef(null);
+  const fifthSectionBoxRef2 = useRef(null);
+  const fifthSectionNumberRef2 = useRef(null);
+  const fifthSectionTextRef2 = useRef(null);
+  const fifthSectionBottomLineRef2 = useRef(null);
   const sixthSectionTitleRef = useRef(null);
   const sixthSectionBoxRef = useRef(null);
   const sixthSectionNumberRef = useRef(null);
@@ -672,7 +677,12 @@ export const useScrollAnimations = () => {
       fourthSectionLineRef.current &&
       fifthSectionLineRef.current &&
       fourthSectionBottomLineRef.current &&
-      fifthSectionBottomLineRef.current
+      fifthSectionBottomLineRef.current &&
+      fifthSectionTitleRef2.current &&
+      fifthSectionBoxRef2.current &&
+      fifthSectionNumberRef2.current &&
+      fifthSectionTextRef2.current &&
+      fifthSectionBottomLineRef2.current
     ) {
       // Set initial states for fifth section
       gsap.set(fifthSectionBroomRef.current, {
@@ -689,6 +699,9 @@ export const useScrollAnimations = () => {
           fifthSectionTitleRef.current,
           fifthSectionTextRef.current,
           fifthSectionNumberRef.current,
+          fifthSectionTitleRef2.current,
+          fifthSectionTextRef2.current,
+          fifthSectionNumberRef2.current,
         ],
         {
           opacity: 0,
@@ -696,12 +709,20 @@ export const useScrollAnimations = () => {
         },
       );
       gsap.set(
-        [fifthSectionLineRef.current, fifthSectionBottomLineRef.current],
+        [
+          fifthSectionLineRef.current,
+          fifthSectionBottomLineRef.current,
+          fifthSectionBottomLineRef2.current,
+        ],
         {
           scaleX: 0,
           transformOrigin: "left center",
         },
       );
+      gsap.set(fifthSectionBoxRef2.current, {
+        opacity: 0,
+        scale: 0.8,
+      });
 
       // Create timeline for section transition animations with improved ScrollTrigger config
       const sectionTransitionTl = gsap.timeline({
@@ -775,9 +796,21 @@ export const useScrollAnimations = () => {
         0.2,
       );
 
-      // Animate fifth section title
+      // Animate fifth section title (desktop)
       sectionTransitionTl.to(
         fifthSectionTitleRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "back.out(1.2)",
+        },
+        0.3,
+      );
+
+      // Animate fifth section title (mobile)
+      sectionTransitionTl.to(
+        fifthSectionTitleRef2.current,
         {
           opacity: 1,
           y: 0,
@@ -798,7 +831,7 @@ export const useScrollAnimations = () => {
         0.5,
       );
 
-      // Animate fifth section box
+      // Animate fifth section box (desktop)
       sectionTransitionTl.to(
         fifthSectionBoxRef.current,
         {
@@ -810,7 +843,19 @@ export const useScrollAnimations = () => {
         0.6,
       );
 
-      // Animate fifth section number
+      // Animate fifth section box (mobile)
+      sectionTransitionTl.to(
+        fifthSectionBoxRef2.current,
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.5,
+          ease: "power1.out",
+        },
+        0.6,
+      );
+
+      // Animate fifth section number (desktop)
       sectionTransitionTl.to(
         fifthSectionNumberRef.current,
         {
@@ -822,7 +867,19 @@ export const useScrollAnimations = () => {
         0.7,
       );
 
-      // Animate fifth section text
+      // Animate fifth section number (mobile)
+      sectionTransitionTl.to(
+        fifthSectionNumberRef2.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "back.out(1.2)",
+        },
+        0.7,
+      );
+
+      // Animate fifth section text (desktop)
       sectionTransitionTl.to(
         fifthSectionTextRef.current,
         {
@@ -834,9 +891,32 @@ export const useScrollAnimations = () => {
         0.8,
       );
 
-      // Animate fifth section bottom line
+      // Animate fifth section text (mobile)
+      sectionTransitionTl.to(
+        fifthSectionTextRef2.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "back.out(1.2)",
+        },
+        0.8,
+      );
+
+      // Animate fifth section bottom line (desktop)
       sectionTransitionTl.to(
         fifthSectionBottomLineRef.current,
+        {
+          scaleX: 1,
+          duration: 0.8,
+          ease: "none",
+        },
+        0.9,
+      );
+
+      // Animate fifth section bottom line (mobile)
+      sectionTransitionTl.to(
+        fifthSectionBottomLineRef2.current,
         {
           scaleX: 1,
           duration: 0.8,
@@ -852,34 +932,74 @@ export const useScrollAnimations = () => {
         end: "top 30%",
         scrub: 0.8,
         onEnter: () => {
-          gsap.to(fifthSectionBoxRef.current, {
-            opacity: 0,
-            scale: 0.8,
-            duration: 0.5,
-            ease: "power2.inOut",
-          });
+          gsap.to(
+            [
+              fifthSectionBoxRef.current,
+              fifthSectionBoxRef2.current,
+              fifthSectionTitleRef2.current,
+              fifthSectionNumberRef2.current,
+              fifthSectionTextRef2.current,
+              fifthSectionBottomLineRef2.current,
+            ],
+            {
+              opacity: 0,
+              scale: 0.8,
+              duration: 0.5,
+              ease: "power2.inOut",
+            },
+          );
         },
         onLeave: () => {
-          gsap.set(fifthSectionBoxRef.current, {
-            opacity: 0,
-            scale: 0.8,
-          });
+          gsap.set(
+            [
+              fifthSectionBoxRef.current,
+              fifthSectionBoxRef2.current,
+              fifthSectionTitleRef2.current,
+              fifthSectionNumberRef2.current,
+              fifthSectionTextRef2.current,
+              fifthSectionBottomLineRef2.current,
+            ],
+            {
+              opacity: 0,
+              scale: 0.8,
+            },
+          );
         },
         onEnterBack: () => {
-          gsap.to(fifthSectionBoxRef.current, {
-            opacity: 0,
-            scale: 0.8,
-            duration: 0.5,
-            ease: "power2.inOut",
-          });
+          gsap.to(
+            [
+              fifthSectionBoxRef.current,
+              fifthSectionBoxRef2.current,
+              fifthSectionTitleRef2.current,
+              fifthSectionNumberRef2.current,
+              fifthSectionTextRef2.current,
+              fifthSectionBottomLineRef2.current,
+            ],
+            {
+              opacity: 0,
+              scale: 0.8,
+              duration: 0.5,
+              ease: "power2.inOut",
+            },
+          );
         },
         onLeaveBack: () => {
-          gsap.to(fifthSectionBoxRef.current, {
-            opacity: 1,
-            scale: 1,
-            duration: 0.5,
-            ease: "power2.inOut",
-          });
+          gsap.to(
+            [
+              fifthSectionBoxRef.current,
+              fifthSectionBoxRef2.current,
+              fifthSectionTitleRef2.current,
+              fifthSectionNumberRef2.current,
+              fifthSectionTextRef2.current,
+              fifthSectionBottomLineRef2.current,
+            ],
+            {
+              opacity: 1,
+              scale: 1,
+              duration: 0.5,
+              ease: "power2.inOut",
+            },
+          );
 
           // Ensure all fifth section elements are visible when scrolling back
           gsap.to(
@@ -889,6 +1009,10 @@ export const useScrollAnimations = () => {
               fifthSectionNumberRef.current,
               fifthSectionTextRef.current,
               fifthSectionBottomLineRef.current,
+              fifthSectionTitleRef2.current,
+              fifthSectionNumberRef2.current,
+              fifthSectionTextRef2.current,
+              fifthSectionBottomLineRef2.current,
             ],
             {
               opacity: 1,
@@ -2769,6 +2893,11 @@ export const useScrollAnimations = () => {
     fifthSectionTextRef,
     fifthSectionLineRef,
     fifthSectionBottomLineRef,
+    fifthSectionTitleRef2,
+    fifthSectionBoxRef2,
+    fifthSectionNumberRef2,
+    fifthSectionTextRef2,
+    fifthSectionBottomLineRef2,
     sixthSectionTitleRef,
     sixthSectionBoxRef,
     sixthSectionNumberRef,

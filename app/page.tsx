@@ -24,7 +24,7 @@ import progress7 from "@/public/images/progress/7.jpg";
 import Footer from "./_components/Footer";
 import { Header } from "./_components/Header";
 import { useScrollAnimations } from "./_animations/useScrollAnimations";
-
+import { useMobile } from "./hooks/useMobile";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
@@ -55,6 +55,11 @@ export default function Home() {
     fifthSectionTextRef,
     fifthSectionLineRef,
     fifthSectionBottomLineRef,
+    fifthSectionTitleRef2,
+    fifthSectionBoxRef2,
+    fifthSectionNumberRef2,
+    fifthSectionTextRef2,
+    fifthSectionBottomLineRef2,
     sixthSectionTitleRef,
     sixthSectionBoxRef,
     sixthSectionLineRef,
@@ -103,6 +108,8 @@ export default function Home() {
     beliefsThirdSectionBroom4Ref,
     beliefsThirdSectionBroom5Ref,
   } = useScrollAnimations();
+
+  const { isMobile } = useMobile();
 
   return (
     <div
@@ -326,11 +333,14 @@ export default function Home() {
           </div>
         </div>
         <div className="fifth-section-image fixed top-[20%] left-[5%] grid w-[70vw] grid-cols-[auto_1fr] md:hidden lg:w-[60rem]">
-          <p ref={fifthSectionTitleRef} className="col-start-1 w-fit uppercase">
+          <p
+            ref={fifthSectionTitleRef2}
+            className="col-start-1 w-fit uppercase"
+          >
             pagpapatuyo
           </p>
           <div
-            ref={fifthSectionBoxRef}
+            ref={fifthSectionBoxRef2}
             className="row-start-2 h-[300px] w-[300px] border"
           >
             <Image
@@ -341,14 +351,14 @@ export default function Home() {
           </div>
         </div>
         <div className="fifth-section-text fixed top-[55%] left-[10%] grid w-full grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4 md:hidden">
-          <p ref={fifthSectionNumberRef} className="col-start-1">
+          <p ref={fifthSectionNumberRef2} className="col-start-1">
             02
           </p>
-          <p ref={fifthSectionTextRef} className="col-start-2">
+          <p ref={fifthSectionTextRef2} className="col-start-2">
             Binibilad sa araw o tinutuyo gamit ang mahinang apoy kapag maulan.
           </p>
           <div
-            ref={fifthSectionBottomLineRef}
+            ref={fifthSectionBottomLineRef2}
             className="col-span-2 col-start-2 h-[1px] w-full bg-white"
           ></div>
         </div>
@@ -373,23 +383,23 @@ export default function Home() {
             className="row-start-2 mt-[10vh] hidden h-[1px] w-full bg-white md:block"
           ></div>
         </div>
-        <div className="sixth-section-text fixed top-[55%] left-[10%] grid w-2/3 grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4 md:bottom-[15%] md:left-[20%] md:w-1/2">
-          <p ref={sixthSectionNumberRef} className="col-start-1">
+        <div className="sixth-section-text fixed top-[70%] left-[10%] grid h-fit w-2/3 grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4 md:bottom-[15%] md:left-[20%] md:w-1/2">
+          <p ref={sixthSectionNumberRef} className="col-start-1 row-start-1">
             03
           </p>
-          <p ref={sixthSectionTextRef} className="col-start-2">
+          <p ref={sixthSectionTextRef} className="col-start-2 row-start-1">
             Pinipili ang tamang haba at kapal ng tambo.
           </p>
           <div
             ref={sixthSectionBottomLineRef}
-            className="col-span-2 col-start-2 h-[1px] w-full bg-white"
+            className="col-span-2 col-start-2 row-start-2 h-[1px] w-full bg-white"
           ></div>
         </div>
       </div>
       <div className="seventh-section relative h-[100vh]">
         <div
           ref={seventhSectionBroomRef}
-          className="fixed top-0 -right-1/3 w-[25rem] md:bottom-0 md:left-1/2 md:w-[20rem] md:-translate-x-1/2"
+          className={`fixed -right-1/3 w-[25rem] md:bottom-0 md:left-1/2 md:w-[20rem] md:-translate-x-1/2 ${isMobile && "top-0"}`}
         >
           <Image
             src={broom}
@@ -430,7 +440,7 @@ export default function Home() {
             </p>
             <div
               ref={seventhSectionBottomLineRef}
-              className="col-span-2 col-start-3 row-start-2 h-[1px] w-full bg-white md:col-start-2 md:row-start-auto"
+              className="col-span-2 col-start-2 row-start-3 h-[1px] w-full bg-white md:col-start-1 md:row-start-auto"
             ></div>
           </div>
         </div>
@@ -438,10 +448,10 @@ export default function Home() {
       <div className="eighth-section relative h-[100vh]">
         <div
           ref={eighthSectionBroomRef}
-          className="fixed top-0 -right-1/3 w-[25rem] md:bottom-0 md:left-1/2 md:w-[25rem] md:-translate-x-1/2"
+          className={`fixed -right-1/3 w-[25rem] md:bottom-0 md:left-1/2 md:w-[25rem] md:-translate-x-1/2 ${isMobile && "top-0"}`}
         >
           <Image src={broom} alt="broom" className="w-full object-cover" />
-          <div className="eighth-section-image fixed right-[30rem] bottom-[20rem] grid w-[30vw] grid-cols-[auto_1fr] md:-right-[26vw] md:bottom-[14%] md:w-[30vw] md:grid-cols-[1fr_1fr_auto] md:text-right lg:w-[40vw]">
+          <div className="eighth-section-image fixed right-[30rem] bottom-[20rem] grid w-[30vw] grid-cols-[auto_1fr] md:-right-[30vw] md:bottom-[14%] md:w-[30vw] md:grid-cols-[1fr_1fr_auto] md:text-right lg:w-[40vw]">
             <p
               ref={eighthSectionTitleRef}
               className="col-start-2 w-fit uppercase md:justify-self-end"
