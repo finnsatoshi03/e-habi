@@ -299,7 +299,7 @@ export default function Home() {
       <div className="sixth-section relative h-[100vh]">
         <div className="sixth-section-image fixed bottom-[27%] left-[6%] grid w-[60%] grid-cols-[auto_1fr]">
           <p ref={sixthSectionTitleRef} className="col-start-1 w-fit uppercase">
-            pagsusuri
+            PAGHIHIMAY
           </p>
           <div
             ref={sixthSectionBoxRef}
@@ -307,7 +307,7 @@ export default function Home() {
           >
             <Image
               src={progress3}
-              alt="Pagsusuri ng Walis Tambo"
+              alt="PAGHIHIMAY  ng Walis Tambo"
               className="h-full w-full object-cover"
             />
           </div>
@@ -473,7 +473,7 @@ export default function Home() {
             className="grid grid-cols-2 gap-4 xl:grid-cols-4"
           >
             <div>
-              <p className="grid-title uppercase">Pag tatak</p>
+              <p className="grid-title uppercase">Pagtatak</p>
               <div className="grid-box row-start-2 h-[200px] w-[200px] border md:h-[300px] md:w-[300px]">
                 <Image
                   src={progress5_1}
@@ -483,7 +483,7 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <p className="grid-title uppercase">Pag tatak</p>
+              <p className="grid-title uppercase">Pagtatak</p>
               <div className="grid-box row-start-2 h-[200px] w-[200px] border md:h-[300px] md:w-[300px]">
                 <Image
                   src={progress5_2}
@@ -493,7 +493,7 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <p className="grid-title uppercase">Pag papaganda</p>
+              <p className="grid-title uppercase">Pagpapaganda</p>
               <div className="grid-box row-start-2 h-[200px] w-[200px] border md:h-[300px] md:w-[300px]">
                 <Image
                   src={progress6}
@@ -503,7 +503,7 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <p className="grid-title uppercase">Pag dala sa pamilihan</p>
+              <p className="grid-title uppercase">Pagdala sa pamilihan</p>
               <div className="grid-box row-start-2 h-[200px] w-[200px] border md:h-[300px] md:w-[300px]">
                 <Image
                   src={progress7}
