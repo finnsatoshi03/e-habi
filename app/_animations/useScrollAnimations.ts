@@ -2055,12 +2055,6 @@ export const useScrollAnimations = () => {
         id: "final-section-cleanup",
         onEnter: () => {
           // Ensure all elements are in their final state
-          gsap.set(eighthSectionBroomRef.current, {
-            x: "100%",
-            y: "45%",
-            opacity: 0,
-            scale: 0.5,
-          });
 
           gsap.set(ninthSectionBroomRef.current, {
             opacity: 0,
@@ -2698,7 +2692,6 @@ export const useScrollAnimations = () => {
             each: 0.1,
             from: "start",
           },
-          ease: "power2.inOut",
         },
         0.3,
       );

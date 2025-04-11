@@ -2,6 +2,7 @@ import { Didact_Gothic } from "next/font/google";
 import "./_styles/globals.css";
 import { Metadata } from "next";
 import LenisWrapper from "./_components/LenisWrapper";
+import ScrollRestoration from "./_components/ScrollRestoration";
 
 const didactGothic = Didact_Gothic({
   variable: "--font-didact-gothic",
@@ -69,6 +70,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${didactGothic.variable} antialiased`}>
+        <ScrollRestoration />
         <LenisWrapper>{children}</LenisWrapper>
       </body>
     </html>
