@@ -105,7 +105,10 @@ export default function Home() {
   } = useScrollAnimations();
 
   return (
-    <div ref={parentRef} className="relative overflow-x-hidden overflow-y-auto bg-[#ae7437] text-white">
+    <div
+      ref={parentRef}
+      className="relative overflow-x-hidden overflow-y-auto bg-[#ae7437] text-white"
+    >
       <div className="relative h-screen">
         <Header
           title="E-HABI"
@@ -174,20 +177,24 @@ export default function Home() {
           className="fixed right-0 bottom-0 w-[50rem] lg:right-1/2 lg:bottom-0 lg:block lg:w-[75rem]"
         >
           <Image src={map} alt="map" className="relative w-full object-cover" />
-          <div className="third-section-text mb-20 grid w-2/3 grid-cols-2 gap-4 lg:fixed lg:-right-[25rem] lg:bottom-[15%] lg:mb-0">
+          <div className="third-section-text mb-20 grid w-2/3 grid-cols-2 gap-4 lg:fixed lg:-right-[30rem] lg:bottom-[12%] lg:mb-0">
             <p ref={thirdSectionFirstParagraphRef} className="col-start-2">
-              Sa San Lorenzo Ruiz, ang paggawa ng walis tambo ay hindi lang
-              simpleng kabuhayan—ito ay isang sining at pamana
+              Sa bayan ng San Lorenzo Ruiz, Camarines Norte, ang paggawa ng
+              walis tambo ay hindi lamang simpleng kabuhayan bagkus isang
+              simbolo ng sining at pamanang kultura.
             </p>
             <div
               ref={horizontalLineRef}
               className="col-span-2 h-[1px] w-full bg-white"
             ></div>
             <p ref={thirdSectionSecondParagraphRef} className="col-start-2">
-              Nagbibigay ito ng oportunidad sa mga manggagawa upang kumita at
-              mabuhay, habang ipinapakita ang kanilang sipag, husay, at kultura.
-              Ang tradisyong ito ay naipapasa mula henerasyon hanggang
-              henerasyon, patuloy na nagpapatibay sa pagkakakilanlan ng bayan.
+              Nagbibigay oportunidad ang kabuhayang ito sa mga manggagawa na
+              kumita at matustusan ang kanilang pang-araw-araw na
+              pangangailangan sa buhay, habang naipapakita ang kanilang sipag,
+              husay, at kasanayan. Ang paggawa ng walis tambo ay isang
+              kasanayang patuloy na naipapasa mula sa isang henerasyon patungo
+              sa susunod, na kung saan nagsisilbing daluyan ng kanilang
+              pagkakakilanlan at identidad bilang isang bayan.
             </p>
           </div>
         </div>
@@ -594,9 +601,13 @@ export default function Home() {
         </div>
       </div>
 
-      
       {/* footer */}
-      <Footer darkMode={false} callToAction callToActionText="GO TO E-REHISTRO" to="/e-rehistro" />
+      <Footer
+        darkMode={false}
+        callToAction
+        callToActionText="GO TO E-REHISTRO"
+        to="/e-rehistro"
+      />
     </div>
   );
 }

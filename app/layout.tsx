@@ -12,7 +12,7 @@ const didactGothic = Didact_Gothic({
 export const metadata: Metadata = {
   title: "E-Habi | Traditional Filipino Walis Tambo",
   description:
-    "E-Habi is your comprehensive platform about Walis Tambo, the traditional Filipino broom. Learn about its authentic crafting process, cultural beliefs, traditions associated with its making, and explore our e-glossary of terminologies. Test your knowledge with our optional interactive quiz!",
+    "E-Habi is your comprehensive platform about Walis Tambo, the traditional Filipino broom. Learn about its authentic crafting process, cultural beliefs, traditions associated with its making, and explore our e-rehistro of terminologies. Test your knowledge with our optional interactive quiz!",
   keywords: [
     "Walis Tambo",
     "Filipino broom",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "E-Habi | Traditional Filipino Walis Tambo",
     description:
-      "Discover the rich cultural heritage of Walis Tambo - how it's made, traditional beliefs, and practices. Includes an e-glossary and interactive quiz.",
+      "Discover the rich cultural heritage of Walis Tambo - how it's made, traditional beliefs, and practices. Includes an e-rehistro and interactive quiz.",
     url: "https://e-habi.com",
     siteName: "E-Habi",
     locale: "en_US",

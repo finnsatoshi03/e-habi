@@ -95,7 +95,7 @@ type SecondHeaderProps = {
 
 const splitTextWithImgDescription = (
   parent: HTMLElement | null,
-  text: string
+  text: string,
 ) => {
   if (!parent) return [];
 
@@ -247,7 +247,7 @@ const splitText = (parent: HTMLElement | null, text: string) => {
 export const FirstHeader = forwardRef<HTMLDivElement, FirstHeaderProps>(
   (
     { title1, title2, subtitle, className },
-    ref: ForwardedRef<HTMLDivElement>
+    ref: ForwardedRef<HTMLDivElement>,
   ) => {
     const titleRef = useRef<HTMLHeadingElement>(null);
     const subtitleRef = useRef<HTMLHeadingElement>(null);
@@ -258,8 +258,7 @@ export const FirstHeader = forwardRef<HTMLDivElement, FirstHeaderProps>(
       const subtitleChars = splitText(subtitleRef.current, subtitle);
 
       if (titleRef.current && subtitleRef.current) {
-        
-        const ctx = gsap.context(() => {          
+        const ctx = gsap.context(() => {
           gsap.set([...titleChars1, ...titleChars2, ...subtitleChars], {
             display: "inline-block",
             position: "relative",
@@ -330,7 +329,7 @@ export const FirstHeader = forwardRef<HTMLDivElement, FirstHeaderProps>(
                   y: `-${self.progress * 100}%`,
                   opacity: 1 - self.progress,
                   duration: 0.5,
-                }
+                },
               );
             },
           });
@@ -345,24 +344,20 @@ export const FirstHeader = forwardRef<HTMLDivElement, FirstHeaderProps>(
         <div
           ref={ref}
           className={cn(
-            "flex flex-col justify-center items-center h-full p-6 mix-blend-difference fixed top-0 w-full z-50 transition-all duration-300 ease-out will-change-transform",
-            className
+            "fixed top-0 z-50 flex h-full w-full flex-col items-center justify-center p-6 mix-blend-difference transition-all duration-300 ease-out will-change-transform",
+            className,
           )}
         >
           <div className="flex items-center">
             <h1
               ref={titleRef}
-              className={`${playfairDisplay.className}
-              text-[length:clamp(100px,10vw,250px)] transition-all 
-              duration-300 flex `}
+              className={`${playfairDisplay.className} flex text-[length:clamp(100px,10vw,250px)] transition-all duration-300`}
             >
               {title1}-
             </h1>
             <h1
               ref={titleRef}
-              className={`${playfairDisplay.className}
-              text-[length:clamp(100px,10vw,250px)] transition-all 
-              duration-300 flex italic font-bold`}
+              className={`${playfairDisplay.className} flex text-[length:clamp(100px,10vw,250px)] font-bold italic transition-all duration-300`}
             >
               {title2}
             </h1>
@@ -376,7 +371,7 @@ export const FirstHeader = forwardRef<HTMLDivElement, FirstHeaderProps>(
         </div>
       </>
     );
-  }
+  },
 );
 
 FirstHeader.displayName = "FirstHeader";
@@ -390,7 +385,7 @@ export const SecondHeader = forwardRef<HTMLDivElement, SecondHeaderProps>(
       if (secondTitleRef.current && secondTitle) {
         const secondTitleChars = splitTextWithImgDescription(
           secondTitleRef.current,
-          secondTitle
+          secondTitle,
         );
 
         gsap.set(secondHeaderRef.current, {
@@ -495,112 +490,105 @@ export const SecondHeader = forwardRef<HTMLDivElement, SecondHeaderProps>(
         <div
           ref={secondHeaderRef}
           className={cn(
-            "flex flex-col justify-center items-center h-full p-6 mix-blend-difference fixed top-0 w-full z-50 transition-all duration-300 ease-out will-change-transform",
-            className
+            "fixed top-0 z-50 flex h-full w-full flex-col items-center justify-center p-6 mix-blend-difference transition-all duration-300 ease-out will-change-transform",
+            className,
           )}
         >
           <h1
             ref={secondTitleRef}
-            className={`${playfairDisplayBlack.className} 
-              text-[length:clamp(100px,10vw,250px)] transition-all duration-300`}
+            className={`${playfairDisplayBlack.className} text-[length:clamp(100px,10vw,250px)] transition-all duration-300`}
           >
             {secondTitle}
           </h1>
         </div>
       </>
     );
-  }
+  },
 );
 
 SecondHeader.displayName = "SecondHeader";
 
-export const Title = forwardRef<HTMLDivElement>(
-  ({}) => {
-    const headerRef = useRef<HTMLDivElement>(null);
-    
-    useEffect(() => {
-      if (headerRef.current) {
-        
-        gsap.set(headerRef.current, {
-          opacity: 0,
-          x: '-100',
-        });
-      }
-      if (headerRef.current) {
-        const ctx = gsap.context(() => {
-          ScrollTrigger.create({
-            trigger: ".third-section",
-            start: "top 80%",
-            end: "top 30%",
-            scrub: 0.6,
-            onUpdate: (self) => {
-              if (headerRef.current) {
-                gsap.to(headerRef.current, {
-                  x: 0,
-                  y: 0,
-                  opacity: self.progress,
-                  scale: 1,
-                  duration: 0.5,
-                  zIndex: 51,
-                });
-                
-              }
-            },
-          });
-       
-          //   trigger: ".third-section",
-          //   start: "top 80%",
-          //   end: "top 30%",
-          //   scrub: 0.6,
-          //   onUpdate: (self) => {
-          //     if (secondTitleRef.current) {
-          //       const secondTitleChars =
-          //         secondTitleRef.current.querySelectorAll("span");
+export const Title = forwardRef<HTMLDivElement>(({}) => {
+  const headerRef = useRef<HTMLDivElement>(null);
 
-          //       gsap.to(secondTitleChars, {
-          //         x: 0,
-          //         opacity: 1 - self.progress,
-          //         duration: 0.5,
-          //         stagger: 0.05,
-          //       });
-
-          //       const tooltipElements =
-          //         secondTitleRef.current.querySelectorAll(".char-tooltip");
-
-          //       tooltipElements.forEach((el) => {
-          //         gsap.to(el, {
-          //           opacity: 0,
-          //           display: "block",
-          //           duration: 0.5,
-          //           ease: "power2.out",
-          //         });
-          //       });
-          //     }
-
-          //     gsap.to(secondHeaderRef.current, {
-          //       y: `-${self.progress * 100}%`,
-          //       opacity: 1 - self.progress,
-          //       duration: 0.5,
-          //     });
-          //   },
-          // });
+  useEffect(() => {
+    if (headerRef.current) {
+      gsap.set(headerRef.current, {
+        opacity: 0,
+        x: "-100",
+      });
+    }
+    if (headerRef.current) {
+      const ctx = gsap.context(() => {
+        ScrollTrigger.create({
+          trigger: ".third-section",
+          start: "top 80%",
+          end: "top 30%",
+          scrub: 0.6,
+          onUpdate: (self) => {
+            if (headerRef.current) {
+              gsap.to(headerRef.current, {
+                x: 0,
+                y: 0,
+                opacity: self.progress,
+                scale: 1,
+                duration: 0.5,
+                zIndex: 51,
+              });
+            }
+          },
         });
 
-        return () => ctx.revert(); // Clean up
-      }
-    }, []);
-    return (
-      <div
-        ref={headerRef} 
-        className="flex items-center">
-        <h1 className={`${playfairDisplay.className} text-6xl`}> E </h1>
-        <div className="flex flex-col justify-center text-lg">
-          <h1 className={`${playfairDisplay.className}`}>HABI</h1>
-          <h1 className={`${libreBaskerville.className}`}>Glossary</h1>
-        </div>
+        //   trigger: ".third-section",
+        //   start: "top 80%",
+        //   end: "top 30%",
+        //   scrub: 0.6,
+        //   onUpdate: (self) => {
+        //     if (secondTitleRef.current) {
+        //       const secondTitleChars =
+        //         secondTitleRef.current.querySelectorAll("span");
+
+        //       gsap.to(secondTitleChars, {
+        //         x: 0,
+        //         opacity: 1 - self.progress,
+        //         duration: 0.5,
+        //         stagger: 0.05,
+        //       });
+
+        //       const tooltipElements =
+        //         secondTitleRef.current.querySelectorAll(".char-tooltip");
+
+        //       tooltipElements.forEach((el) => {
+        //         gsap.to(el, {
+        //           opacity: 0,
+        //           display: "block",
+        //           duration: 0.5,
+        //           ease: "power2.out",
+        //         });
+        //       });
+        //     }
+
+        //     gsap.to(secondHeaderRef.current, {
+        //       y: `-${self.progress * 100}%`,
+        //       opacity: 1 - self.progress,
+        //       duration: 0.5,
+        //     });
+        //   },
+        // });
+      });
+
+      return () => ctx.revert(); // Clean up
+    }
+  }, []);
+  return (
+    <div ref={headerRef} className="flex items-center">
+      <h1 className={`${playfairDisplay.className} text-6xl`}> E </h1>
+      <div className="flex flex-col justify-center text-lg">
+        <h1 className={`${playfairDisplay.className}`}>HABI</h1>
+        <h1 className={`${libreBaskerville.className}`}>Rehistro</h1>
       </div>
-    );
-  }
-);
+    </div>
+  );
+});
 
 Title.displayName = "Title";

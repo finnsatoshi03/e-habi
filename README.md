@@ -6,7 +6,7 @@ An interactive web platform dedicated to preserving and sharing the cultural her
 
 ## About
 
-E-Habi is your comprehensive platform about Walis Tambo, the traditional Filipino broom. Learn about its authentic crafting process, cultural beliefs, traditions associated with its making, and explore our e-glossary of terminologies.
+E-Habi is your comprehensive platform about Walis Tambo, the traditional Filipino broom. Learn about its authentic crafting process, cultural beliefs, traditions associated with its making, and explore our e-rehistro of terminologies.
 
 ## Features
 
@@ -14,7 +14,7 @@ E-Habi is your comprehensive platform about Walis Tambo, the traditional Filipin
 - **Cultural Significance** - Explore beliefs and traditions associated with this iconic household item
 - **Interactive Animations** - Engaging user interface with smooth transitions and animations
 - **Responsive Design** - Optimized viewing experience across all device sizes
-- **E-Glossary** - Comprehensive list of terminologies related to traditional Filipino crafts
+- **E-Rehistro** - Comprehensive list of terminologies related to traditional Filipino crafts
 
 ## Technologies
 
