@@ -14,6 +14,7 @@ import { Terminologies } from "./constant";
 
 import broom from "@/public/images/broom.png";
 import Footer from "../_components/Footer";
+import { ScrollIndicator } from "../_components/ScrollIndicator";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,15 +50,16 @@ export default function EGlossaryPage() {
   }, []);
 
   return (
-    <div ref={parentRef} className="relative overflow-y-auto overflow-x-hidden">
+    <div ref={parentRef} className="relative overflow-x-hidden overflow-y-auto">
+      <ScrollIndicator />
       <div className="relative h-screen">
         <FirstHeader title1="E" title2="REHISTRO" subtitle="Ng Walis Tambo" />
       </div>
-      <div className="relative h-screen second-section z-0">
+      <div className="second-section relative z-0 h-screen">
         <SecondHeader secondTitle="TAMBO" />
       </div>
 
-      <div className="relative px-12 py-4 h-full w-full third-section">
+      <div className="third-section relative h-full w-full px-12 py-4">
         <div
           className="absolute h-full w-full"
           style={{
@@ -98,7 +100,12 @@ export default function EGlossaryPage() {
         ))}
       </div>
 
-      <Footer darkMode callToAction callToActionText="SIMULAN ANG QUIZ!" to="/activity" />
+      <Footer
+        darkMode
+        callToAction
+        callToActionText="SIMULAN ANG QUIZ!"
+        to="/activity"
+      />
     </div>
   );
 }
