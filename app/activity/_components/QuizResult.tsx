@@ -39,7 +39,7 @@ export default function QuizResult({
 
   const wrongAnswers = questions
     .map((q, i) =>
-      answers[i] !== q.correctAnswer ? { ...q, userAnswer: answers[i] } : null
+      answers[i] !== q.correctAnswer ? { ...q, userAnswer: answers[i] } : null,
     )
     .filter((q) => q !== null);
 
@@ -91,15 +91,15 @@ export default function QuizResult({
         <div className="mt-4 flex justify-center gap-2">
           <button
             onClick={onRestart}
-            className="bg-gray-500 text-white px-8 py-1 rounded-full text-sm hover:bg-gray-600"
+            className="rounded-full bg-gray-500 px-8 py-1 text-sm text-white hover:bg-gray-600"
           >
-            Take quiz again
+            Umulit sa Pagsusulit
           </button>
           <Link
             href="/"
-            className="bg-orange-500 text-white px-8 py-1 rounded-full text-sm hover:bg-orange-600"
+            className="rounded-full bg-orange-500 px-8 py-1 text-sm text-white hover:bg-orange-600"
           >
-            Go home
+            Pumunta sa Home
           </Link>
         </div>
       </div>
@@ -108,51 +108,51 @@ export default function QuizResult({
       <div className="grid grid-cols-[1fr_auto] gap-4">
         {/* Questions to Review - Order second on mobile */}
         <div className="">
-          <h3 className="text-2xl text-left mb-6 text-medium text-black">
+          <h3 className="text-medium mb-6 text-left text-2xl text-black">
             Questions to Review
           </h3>
-          <div className="space-y-4 max-h-[150px] overflow-y-auto pr-4">
-          {wrongAnswers.length > 0 ? (
-            wrongAnswers.map((q) => (
-              <div
-                key={q!.id}
-                className="flex justify-between items-start gap-4"
-              >
-                <p className="text-black max-w-[90%] break-words text-left">
-                  <span className="font-semibold">Question {q!.id}:</span>{" "}
-                  <span className="text-black/70">{q!.text}</span>
-                </p>
-                <button
-                  onClick={() =>
-                    handleReviewClick({
-                      id: q!.id,
-                      text: q!.text,
-                      correctAnswer: q!.correctAnswer,
-                      userAnswer: q!.userAnswer ?? null,
-                    })
-                  }
-                  className="bg-gray-300 inline-flex items-center gap-1 text-black px-4 py-1 text-sm rounded-full font-medium hover:bg-gray-400"
+          <div className="max-h-[150px] space-y-4 overflow-y-auto pr-4">
+            {wrongAnswers.length > 0 ? (
+              wrongAnswers.map((q) => (
+                <div
+                  key={q!.id}
+                  className="flex items-start justify-between gap-4"
                 >
-                  Review <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-            ))
-          ) : (
-            <p className="text-xl text-gray-500">No questions to review.</p>
-          )}
+                  <p className="max-w-[90%] text-left break-words text-black">
+                    <span className="font-semibold">Question {q!.id}:</span>{" "}
+                    <span className="text-black/70">{q!.text}</span>
+                  </p>
+                  <button
+                    onClick={() =>
+                      handleReviewClick({
+                        id: q!.id,
+                        text: q!.text,
+                        correctAnswer: q!.correctAnswer,
+                        userAnswer: q!.userAnswer ?? null,
+                      })
+                    }
+                    className="inline-flex items-center gap-1 rounded-full bg-gray-300 px-4 py-1 text-sm font-medium text-black hover:bg-gray-400"
+                  >
+                    Review <ArrowRight className="h-4 w-4" />
+                  </button>
+                </div>
+              ))
+            ) : (
+              <p className="text-xl text-gray-500">No questions to review.</p>
+            )}
           </div>
-          </div>
+        </div>
 
         {/* Quiz Summary - Order first on mobile */}
         <div className="">
-        <h3 className="text-2xl text-left mb-6 text-medium text-black">
+          <h3 className="text-medium mb-6 text-left text-2xl text-black">
             Questions Summary
           </h3>
           <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between">
               <p className="text-black">Number of Questions</p>
               <span
-                className="size-6 rounded-full flex items-center justify-center text-white text-center"
+                className="flex size-6 items-center justify-center rounded-full text-center text-white"
                 style={{ backgroundColor: "#A855F7" }}
               >
                 {total}
@@ -161,7 +161,7 @@ export default function QuizResult({
             <div className="flex items-center justify-between">
               <p className="text-black">Number of Correct</p>
               <span
-                className="size-6 rounded-full flex items-center justify-center text-black text-center"
+                className="flex size-6 items-center justify-center rounded-full text-center text-black"
                 style={{ backgroundColor: "#68FF46" }}
               >
                 {score}
@@ -170,7 +170,7 @@ export default function QuizResult({
             <div className="flex items-center justify-between">
               <p className="text-black">Number of Wrong</p>
               <span
-                className="size-6 rounded-full flex items-center justify-center text-white text-center"
+                className="flex size-6 items-center justify-center rounded-full text-center text-white"
                 style={{ backgroundColor: "#F32A23" }}
               >
                 {total - score}
@@ -182,31 +182,31 @@ export default function QuizResult({
 
       {/* Modal */}
       {isModalOpen && activeQuestion && (
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none">
-          <div className="bg-white rounded-lg p-8 w-full max-w-xl text-left shadow-lg pointer-events-auto">
-            <h2 className="text-2xl font-bold mb-4 text-black">
+        <div className="pointer-events-none fixed top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2 transform">
+          <div className="pointer-events-auto w-full max-w-xl rounded-lg bg-white p-8 text-left shadow-lg">
+            <h2 className="mb-4 text-2xl font-bold text-black">
               Question {activeQuestion.id}
             </h2>
-            <p className="text-lg mb-4 text-gray-800">{activeQuestion.text}</p>
-            <p className="text-md mb-2 text-green-600 font-semibold">
+            <p className="mb-4 text-lg text-gray-800">{activeQuestion.text}</p>
+            <p className="text-md mb-2 font-semibold text-green-600">
               ✅ Correct Answer: {activeQuestion.correctAnswer}
             </p>
             {activeQuestion.userAnswer &&
               activeQuestion.userAnswer !== "TIMEOUT" &&
               activeQuestion.userAnswer !== "INCORRECT" && (
-                <p className="text-md mb-2 text-red-600 font-medium">
+                <p className="text-md mb-2 font-medium text-red-600">
                   ❌ Your Answer: {activeQuestion.userAnswer}
                 </p>
               )}
             {activeQuestion.userAnswer === "TIMEOUT" && (
-              <p className="text-md mb-2 text-yellow-600 font-medium">
+              <p className="text-md mb-2 font-medium text-yellow-600">
                 ⏰ You ran out of time.
               </p>
             )}
             <div className="mt-6 text-right">
               <button
                 onClick={closeModal}
-                className="bg-orange-500 text-white px-6 py-2 rounded-md hover:bg-orange-600"
+                className="rounded-md bg-orange-500 px-6 py-2 text-white hover:bg-orange-600"
               >
                 Close
               </button>

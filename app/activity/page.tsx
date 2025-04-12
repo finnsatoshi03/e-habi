@@ -157,10 +157,10 @@ export default function ActivityPage() {
   const [score, setScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [answers, setAnswers] = useState<(string | null)[]>(
-    Array(questions.length).fill(null)
+    Array(questions.length).fill(null),
   );
   const [hasAnswered, setHasAnswered] = useState<boolean[]>(
-    Array(questions.length).fill(false)
+    Array(questions.length).fill(false),
   );
 
   useEffect(() => {
@@ -264,8 +264,8 @@ export default function ActivityPage() {
   const transitionDelay = isIdentification ? 100 : 700;
 
   return (
-    <div className="relative h-full flex flex-col bg-white">
-      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 pt-6 sm:pt-8 md:pt-10 pb-12 sm:pb-16 md:pb-20 flex-1 flex flex-col gap-6 sm:gap-8 md:gap-12">
+    <div className="relative flex h-full flex-col bg-white">
+      <div className="flex w-full flex-1 flex-col gap-6 px-4 pt-6 pb-12 sm:gap-8 sm:px-6 sm:pt-8 sm:pb-16 md:gap-12 md:px-8 md:pt-10 md:pb-20 lg:px-12 xl:px-16">
         {hasStarted && (
           <QuizHeader
             title="E-HABI"
@@ -275,23 +275,24 @@ export default function ActivityPage() {
           />
         )}
         {!hasStarted ? (
-          <div className="flex flex-col items-center justify-center flex-1 text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-4 sm:mb-6">
-              Welcome to E-HABI Quiz
+          <div className="flex flex-1 flex-col items-center justify-center text-center">
+            <h1 className="mb-4 text-3xl font-bold text-black sm:mb-6 sm:text-4xl md:text-5xl">
+              Pagsusulit para sa E-HABI
             </h1>
-            <p className="text-base md:text-xl text-gray-700 mb-6 sm:mb-10">
-              Test your knowledge about Walis Tambo! Click below to begin.
+            <p className="mb-6 text-base text-gray-700 sm:mb-10 md:text-xl">
+              Subukin ang iyong kaalaman tungkol sa Walis Tambo! I-click ang
+              button sa ibaba upang magsimula.
             </p>
             <button
               onClick={() => setHasStarted(true)}
-              className="bg-orange-500 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full text-lg sm:text-xl md:text-2xl font-semibold hover:bg-orange-600 transition"
+              className="rounded-full bg-orange-500 px-6 py-3 text-lg font-semibold text-white transition hover:bg-orange-600 sm:px-8 sm:py-4 sm:text-xl md:text-2xl"
             >
-              Start Quiz
+              Magsimula
             </button>
           </div>
         ) : !quizCompleted ? (
-          <div className="flex flex-col gap-4 h-[70vh]">
-            <div className="grid md:grid-cols-[1fr_auto] gap-4 mb-4">
+          <div className="flex h-[70vh] flex-col gap-4">
+            <div className="mb-4 grid gap-4 md:grid-cols-[1fr_auto]">
               <QuizProgress
                 current={currentQuestion + 1}
                 total={questions.length}
@@ -306,7 +307,7 @@ export default function ActivityPage() {
                 onIncorrect={handleIncorrect}
               />
             ) : (
-              <div className="flex flex-col gap-4 h-full">
+              <div className="flex h-full flex-col gap-4">
                 <QuizQuestion question={questions[currentQuestion].text} />
                 <QuizOptions
                   options={questions[currentQuestion].options || []}
@@ -317,19 +318,19 @@ export default function ActivityPage() {
               </div>
             )}
           </div>
-          ) : (
-              <>
-                <QuizResult
-                  score={score}
-                  total={questions.length}
-                  answers={answers}
-                  questions={questions}
-                  onRestart={handleRestart}
-              />
-            </>
-          )}
+        ) : (
+          <>
+            <QuizResult
+              score={score}
+              total={questions.length}
+              answers={answers}
+              questions={questions}
+              onRestart={handleRestart}
+            />
+          </>
+        )}
       </div>
-          {quizCompleted && <Footer darkMode />}
+      {quizCompleted && <Footer darkMode />}
     </div>
   );
 }

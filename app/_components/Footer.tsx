@@ -64,7 +64,7 @@ const Footer = ({
                   <Link href="/e-rehistro">E-Rehistro</Link>
                 </li>
                 <li>
-                  <Link href="/activity">Take Quiz</Link>
+                  <Link href="/activity">Pagsusulit</Link>
                 </li>
               </ul>
             </nav>
