@@ -86,6 +86,27 @@ export const useScrollAnimations = () => {
   const beliefsThirdSectionBroom5Ref = useRef(null);
 
   useLayoutEffect(() => {
+    // Configure ScrollTrigger for better performance
+    ScrollTrigger.config({
+      autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
+      // Limit the number of simultaneous animations
+      limitCallbacks: true,
+      // Sync all ScrollTrigger instances
+      syncInterval: 40,
+    });
+
+    // Enable batching for better performance
+    ScrollTrigger.batch(".animated-element", {
+      onEnter: (batch) =>
+        gsap.to(batch, {
+          opacity: 1,
+          y: 0,
+          stagger: 0.15,
+          overwrite: true,
+        }),
+      once: true,
+    });
+
     // Images animation
     if (handLeftRef.current && handRightRef.current && broomRef.current) {
       // Create a timeline for image animations with improved configuration
@@ -166,6 +187,7 @@ export const useScrollAnimations = () => {
         scaleY: 0,
         transformOrigin: "top center",
         height: "100%",
+        willChange: "transform",
       });
 
       gsap.set([firstParagraphRef.current, secondParagraphRef.current], {
@@ -180,6 +202,7 @@ export const useScrollAnimations = () => {
           start: "center 70%",
           end: "center center",
           scrub: 0.6,
+          fastScrollEnd: true,
         },
       });
 
@@ -197,6 +220,7 @@ export const useScrollAnimations = () => {
           start: "70% 70%",
           end: "bottom bottom",
           toggleActions: "play none none reverse",
+          fastScrollEnd: true,
         },
       });
 
@@ -232,6 +256,7 @@ export const useScrollAnimations = () => {
       gsap.set(mapRef.current, {
         opacity: 0,
         x: "-5%",
+        willChange: "transform, opacity",
       });
 
       // Create a timeline for third section animations with improved ScrollTrigger config
@@ -244,6 +269,7 @@ export const useScrollAnimations = () => {
           preventOverlaps: true,
           toggleActions: "play none none reverse",
           id: "third-section",
+          fastScrollEnd: true,
         },
       });
 
@@ -298,6 +324,7 @@ export const useScrollAnimations = () => {
           start: "top 80%",
           end: "top 30%",
           scrub: 0.8,
+          fastScrollEnd: true,
         },
       });
 
@@ -325,6 +352,7 @@ export const useScrollAnimations = () => {
             scale: 0.8,
           });
         },
+        fastScrollEnd: true,
       });
     }
 
@@ -341,11 +369,13 @@ export const useScrollAnimations = () => {
       gsap.set(textContainer, {
         opacity: 0,
         pointerEvents: "none", // Prevent interaction when invisible
+        willChange: "opacity",
       });
 
       gsap.set(horizontalLineRef.current, {
         scaleX: 0,
         transformOrigin: "left center",
+        willChange: "transform",
       });
 
       gsap.set(
@@ -392,6 +422,7 @@ export const useScrollAnimations = () => {
             duration: 0.5,
           });
         },
+        fastScrollEnd: true,
       });
 
       // Create a timeline for horizontal line drawing
@@ -401,6 +432,7 @@ export const useScrollAnimations = () => {
           start: "top 50%",
           end: "top 20%",
           scrub: 0.6,
+          fastScrollEnd: true,
         },
       });
 
@@ -417,6 +449,7 @@ export const useScrollAnimations = () => {
           trigger: ".third-section",
           start: "top 40%",
           toggleActions: "play none none reverse",
+          fastScrollEnd: true,
         },
       });
 
@@ -452,6 +485,7 @@ export const useScrollAnimations = () => {
           start: "top 80%",
           end: "top 30%",
           scrub: 0.8,
+          fastScrollEnd: true,
         },
       });
 
@@ -487,6 +521,7 @@ export const useScrollAnimations = () => {
         y: "-100vh",
         opacity: 0.3,
         scale: 0.8,
+        willChange: "transform, opacity",
       });
 
       gsap.set(
@@ -520,6 +555,7 @@ export const useScrollAnimations = () => {
           preventOverlaps: true,
           toggleActions: "play none none reverse",
           id: "fourth-section",
+          fastScrollEnd: true,
         },
       });
 
@@ -660,6 +696,7 @@ export const useScrollAnimations = () => {
             },
           );
         },
+        fastScrollEnd: true,
       });
     }
 
@@ -691,6 +728,7 @@ export const useScrollAnimations = () => {
         opacity: 0,
         y: -50,
         scale: 0.8,
+        willChange: "transform, opacity",
       });
       gsap.set(fifthSectionBoxRef.current, {
         opacity: 0,
@@ -737,6 +775,7 @@ export const useScrollAnimations = () => {
           preventOverlaps: true,
           toggleActions: "play none none reverse",
           id: "fifth-section",
+          fastScrollEnd: true,
         },
       });
 
@@ -1042,6 +1081,7 @@ export const useScrollAnimations = () => {
             },
           );
         },
+        fastScrollEnd: true,
       });
     }
 
@@ -1065,6 +1105,7 @@ export const useScrollAnimations = () => {
       gsap.set(sixthSectionBoxRef.current, {
         opacity: 0,
         scale: 0.8,
+        willChange: "transform, opacity",
       });
       gsap.set(
         [
@@ -1095,6 +1136,7 @@ export const useScrollAnimations = () => {
           preventOverlaps: true,
           toggleActions: "play none none reverse",
           id: "sixth-section",
+          fastScrollEnd: true,
         },
       });
 
@@ -1225,6 +1267,7 @@ export const useScrollAnimations = () => {
           preventOverlaps: true,
           toggleActions: "play none none reverse",
           id: "sixth-section-exit",
+          fastScrollEnd: true,
         },
       });
 
@@ -1289,6 +1332,7 @@ export const useScrollAnimations = () => {
             },
           );
         },
+        fastScrollEnd: true,
       });
 
       // Add a cleanup trigger to ensure lines stay hidden
@@ -1306,6 +1350,7 @@ export const useScrollAnimations = () => {
             },
           );
         },
+        fastScrollEnd: true,
       });
     }
 
@@ -1329,6 +1374,7 @@ export const useScrollAnimations = () => {
       gsap.set(seventhSectionBoxRef.current, {
         opacity: 0,
         scale: 0.8,
+        willChange: "transform, opacity",
       });
       gsap.set(
         [
@@ -1363,6 +1409,7 @@ export const useScrollAnimations = () => {
           preventOverlaps: true,
           toggleActions: "play none none reverse",
           id: "seventh-section",
+          fastScrollEnd: true,
         },
       });
 
@@ -1507,6 +1554,7 @@ export const useScrollAnimations = () => {
             },
           );
         },
+        fastScrollEnd: true,
       });
     }
 
@@ -1530,6 +1578,7 @@ export const useScrollAnimations = () => {
       gsap.set(eighthSectionBoxRef.current, {
         opacity: 0,
         scale: 0.8,
+        willChange: "transform, opacity",
       });
       gsap.set(
         [
@@ -1564,6 +1613,7 @@ export const useScrollAnimations = () => {
           preventOverlaps: true,
           toggleActions: "play none none reverse",
           id: "eighth-section",
+          fastScrollEnd: true,
         },
       });
 
@@ -1724,6 +1774,7 @@ export const useScrollAnimations = () => {
               },
             );
           },
+          fastScrollEnd: true,
         },
       });
 
@@ -1787,6 +1838,7 @@ export const useScrollAnimations = () => {
             },
           );
         },
+        fastScrollEnd: true,
       });
 
       // Add a cleanup trigger to ensure lines stay hidden
@@ -1804,6 +1856,7 @@ export const useScrollAnimations = () => {
             },
           );
         },
+        fastScrollEnd: true,
       });
     }
 
@@ -1821,11 +1874,13 @@ export const useScrollAnimations = () => {
       gsap.set(ninthSectionBambooRef.current, {
         opacity: 0,
         x: "-20%",
+        willChange: "transform, opacity",
       });
 
       gsap.set(ninthSectionBroomRef.current, {
         opacity: 0,
         x: "20%",
+        willChange: "transform, opacity",
       });
 
       gsap.set(
@@ -1855,6 +1910,7 @@ export const useScrollAnimations = () => {
           preventOverlaps: true,
           toggleActions: "play none none reverse",
           id: "ninth-section",
+          fastScrollEnd: true,
         },
       });
 
@@ -1971,6 +2027,7 @@ export const useScrollAnimations = () => {
             scaleX: 1,
           });
         },
+        fastScrollEnd: true,
       });
     }
 
@@ -1994,12 +2051,14 @@ export const useScrollAnimations = () => {
         {
           opacity: 0,
           y: 30,
+          willChange: "transform, opacity",
         },
       );
 
       gsap.set(finalSectionLineRef.current, {
         scaleX: 0,
         transformOrigin: "center center",
+        willChange: "transform",
       });
 
       // Set initial states for grid boxes
@@ -2262,6 +2321,7 @@ export const useScrollAnimations = () => {
             });
           }
         },
+        fastScrollEnd: true,
       });
     }
 
@@ -2278,17 +2338,20 @@ export const useScrollAnimations = () => {
         {
           opacity: 0,
           y: 30,
+          willChange: "transform, opacity",
         },
       );
 
       gsap.set(beliefsSectionLineRef.current, {
         scaleX: 0,
         transformOrigin: "center center",
+        willChange: "transform",
       });
 
       gsap.set(beliefsSectionBroomRef.current, {
         opacity: 0,
         scale: 0.5,
+        willChange: "transform, opacity",
       });
 
       // Create timeline for beliefs section animations
@@ -2395,6 +2458,7 @@ export const useScrollAnimations = () => {
             y: -20,
           });
         },
+        fastScrollEnd: true,
       });
     }
 
@@ -2418,18 +2482,21 @@ export const useScrollAnimations = () => {
         {
           opacity: 0,
           y: -50,
+          willChange: "transform, opacity",
         },
       );
 
       gsap.set(beliefsSecondSectionLineRef.current, {
         scaleX: 0,
         transformOrigin: "center center",
+        willChange: "transform",
       });
 
       gsap.set(beliefsSecondSectionFeetRef.current, {
         opacity: 0,
         y: -100,
         scale: 0.8,
+        willChange: "transform, opacity",
       });
 
       // Create timeline for beliefs second section animations
@@ -2555,6 +2622,7 @@ export const useScrollAnimations = () => {
             scaleX: 0,
           });
         },
+        fastScrollEnd: true,
       });
 
       // Add exit animation for beliefs second section
@@ -2567,6 +2635,7 @@ export const useScrollAnimations = () => {
           preventOverlaps: true,
           toggleActions: "play none none reverse",
           id: "beliefs-second-section-exit",
+          fastScrollEnd: true,
         },
       });
 
@@ -2595,6 +2664,7 @@ export const useScrollAnimations = () => {
             scale: 0.8,
           });
         },
+        fastScrollEnd: true,
       });
     }
 
@@ -2623,12 +2693,14 @@ export const useScrollAnimations = () => {
         {
           opacity: 0,
           x: -50,
+          willChange: "transform, opacity",
         },
       );
 
       gsap.set(beliefsThirdSectionLineRef.current, {
         scaleX: 0,
         transformOrigin: "left center",
+        willChange: "transform",
       });
 
       // Set initial states for brooms
@@ -2644,6 +2716,7 @@ export const useScrollAnimations = () => {
           opacity: 0,
           y: 100,
           scale: 0.8,
+          willChange: "transform, opacity",
         },
       );
 
@@ -2775,6 +2848,7 @@ export const useScrollAnimations = () => {
           preventOverlaps: true,
           toggleActions: "play none none reverse",
           id: "beliefs-third-section-exit",
+          fastScrollEnd: true,
         },
       });
 
@@ -2881,8 +2955,114 @@ export const useScrollAnimations = () => {
             },
           );
         },
+        fastScrollEnd: true,
       });
     }
+
+    // Add window resize handler to refresh ScrollTrigger
+    const handleResize = () => {
+      ScrollTrigger.refresh();
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Add cleanup function to handle ScrollTrigger instances
+    return () => {
+      // Remove resize event listener
+      window.removeEventListener("resize", handleResize);
+
+      // Kill all ScrollTrigger instances when component unmounts
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+
+      // Reset any elements that might have been transformed
+      const allRefs = [
+        parentRef,
+        handLeftRef,
+        handRightRef,
+        broomRef,
+        verticalLineRef,
+        firstParagraphRef,
+        secondParagraphRef,
+        mapRef,
+        secondSectionRef,
+        horizontalLineRef,
+        thirdSectionFirstParagraphRef,
+        thirdSectionSecondParagraphRef,
+        fourthSectionBroomRef,
+        fourthSectionTitleRef,
+        fourthSectionBoxRef,
+        fourthSectionLineRef,
+        fourthSectionNumberRef,
+        fourthSectionTextRef,
+        fourthSectionBottomLineRef,
+        fifthSectionBroomRef,
+        fifthSectionTitleRef,
+        fifthSectionBoxRef,
+        fifthSectionNumberRef,
+        fifthSectionTextRef,
+        fifthSectionLineRef,
+        fifthSectionBottomLineRef,
+        fifthSectionLineRef2,
+        fifthSectionTitleRef2,
+        fifthSectionBoxRef2,
+        fifthSectionNumberRef2,
+        fifthSectionTextRef2,
+        fifthSectionBottomLineRef2,
+        sixthSectionTitleRef,
+        sixthSectionBoxRef,
+        sixthSectionNumberRef,
+        sixthSectionTextRef,
+        sixthSectionLineRef,
+        sixthSectionBottomLineRef,
+        seventhSectionBroomRef,
+        seventhSectionTitleRef,
+        seventhSectionBoxRef,
+        seventhSectionLineRef,
+        seventhSectionNumberRef,
+        seventhSectionTextRef,
+        seventhSectionBottomLineRef,
+        eighthSectionBroomRef,
+        eighthSectionTitleRef,
+        eighthSectionBoxRef,
+        eighthSectionNumberRef,
+        eighthSectionTextRef,
+        eighthSectionLineRef,
+        eighthSectionBottomLineRef,
+        ninthSectionBroomRef,
+        ninthSectionBambooRef,
+        ninthSectionNumberRef,
+        ninthSectionFirstTextRef,
+        ninthSectionLineRef,
+        ninthSectionSecondTextRef,
+        finalSectionNumberRef,
+        finalSectionTitleRef,
+        finalSectionLineRef,
+        finalSectionTextRef,
+        finalSectionGridRef,
+        beliefsSectionNumberRef,
+        beliefsSectionLineRef,
+        beliefsSectionTextRef,
+        beliefsSectionBroomRef,
+        beliefsSecondSectionNumberRef,
+        beliefsSecondSectionLineRef,
+        beliefsSecondSectionTextRef,
+        beliefsSecondSectionFeetRef,
+        beliefsThirdSectionNumberRef,
+        beliefsThirdSectionLineRef,
+        beliefsThirdSectionTextRef,
+        beliefsThirdSectionBroom1Ref,
+        beliefsThirdSectionBroom2Ref,
+        beliefsThirdSectionBroom3Ref,
+        beliefsThirdSectionBroom4Ref,
+        beliefsThirdSectionBroom5Ref,
+      ];
+
+      allRefs.forEach((ref) => {
+        if (ref && ref.current) {
+          gsap.set(ref.current, { clearProps: "all" });
+        }
+      });
+    };
   }, []);
 
   return {

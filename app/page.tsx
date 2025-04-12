@@ -227,7 +227,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="fourth-section relative h-[100vh]">
+      <div className="fourth-section relative h-[100vh]" id="paano">
         <div
           ref={fourthSectionBroomRef}
           className="fixed -bottom-[35%] left-[75%] w-[20rem] rotate-90 md:bottom-0 md:left-[50%] md:w-[50rem] md:rotate-0"
@@ -619,7 +619,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="beliefs-section relative h-[100vh]">
+      <div className="beliefs-section relative h-[100vh]" id="paniniwala">
         <div className="flex h-full w-full flex-col items-center justify-center gap-8">
           <div className="flex w-1/3 flex-col items-center justify-center gap-4 text-center">
             <p ref={beliefsSectionNumberRef}>01</p>
