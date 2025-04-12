@@ -709,7 +709,7 @@ export default function Home() {
       <Footer
         darkMode={false}
         callToAction
-        callToActionText="GO TO E-REHISTRO"
+        callToActionText="PUMUNTA SA E-REHISTRO"
         to="/e-rehistro"
       />
     </div>

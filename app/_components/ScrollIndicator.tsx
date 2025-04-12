@@ -51,7 +51,7 @@ export const ScrollIndicator = () => {
             }}
           />
         </div>
-        <p className="text-xs uppercase">Scroll to enter</p>
+        <p className="text-xs uppercase">Pindutin pataas</p>
       </div>
     </motion.div>
   );

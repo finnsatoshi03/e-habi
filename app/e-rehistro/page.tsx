@@ -103,7 +103,7 @@ export default function EGlossaryPage() {
       <Footer
         darkMode
         callToAction
-        callToActionText="SIMULAN ANG QUIZ!"
+        callToActionText="SIMULAN ANG PAGSUSULIT!"
         to="/activity"
       />
     </div>

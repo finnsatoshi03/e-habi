@@ -11,7 +11,7 @@ const playfairDisplay = Playfair_Display({
 const Footer = ({
   darkMode,
   callToAction,
-  callToActionText = "GO TO E-REHISTRO",
+  callToActionText = "PUMUNTA SA E-REHISTRO",
   to = "/e-rehistro",
 }: {
   darkMode: boolean;
@@ -22,7 +22,7 @@ const Footer = ({
   return (
     <>
       {callToAction && (
-        <div className="mt-8 flex items-end justify-center gap-4 px-20">
+        <div className="relative z-20 mt-8 flex items-end justify-center gap-4 px-20">
           <Link
             href={to}
             className={`${playfairDisplay.className} text-[length:clamp(50px,7vw,180px)] leading-[1.2]`}
@@ -88,7 +88,7 @@ const Footer = ({
               </ul>
             </nav>
           </div>
-          <div className="col-start-1 row-start-3 md:text-left text-center">
+          <div className="col-start-1 row-start-3 text-center md:text-left">
             <p>&#169; 2025 E-Habi. All rights reserved.</p>
           </div>
         </div>
