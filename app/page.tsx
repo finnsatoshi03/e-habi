@@ -27,6 +27,8 @@ import { Header } from "./_components/Header";
 import { useScrollAnimations } from "./_animations/useScrollAnimations";
 import { useMobile } from "./hooks/useMobile";
 import { ScrollIndicator } from "./_components/ScrollIndicator";
+import BackgroundGradientAnimation from "./_components/BackgroundGradientAnimation";
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
@@ -117,8 +119,9 @@ export default function Home() {
   return (
     <div
       ref={parentRef}
-      className="relative overflow-x-hidden overflow-y-auto bg-[#ae7437] text-white"
+      className="relative overflow-x-hidden overflow-y-auto text-white"
     >
+      <BackgroundGradientAnimation />
       <ScrollIndicator />
       <div className="relative h-screen">
         <motion.div
