@@ -45,7 +45,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
       isNinthSection,
       isBeliefsSection,
     },
-    ref: ForwardedRef<HTMLDivElement>
+    ref: ForwardedRef<HTMLDivElement>,
   ) => {
     const titleRef = useRef<HTMLHeadingElement>(null);
     const subtitleRef = useRef<HTMLHeadingElement>(null);
@@ -73,7 +73,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
         const secondTitleChars = splitText(secondTitleRef.current, secondTitle);
         const secondSubtitleChars = splitText(
           secondSubtitleRef.current,
-          secondSubtitle
+          secondSubtitle,
         );
 
         // Set initial state for second header
@@ -166,7 +166,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
                     y: `-${self.progress * 100}%`,
                     opacity: 1 - self.progress,
                     duration: 0.5,
-                  }
+                  },
                 );
 
                 // Make second header appear from left
@@ -313,13 +313,13 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
         <div
           ref={ref}
           className={cn(
-            "flex flex-col p-6 text-white fixed top-0 w-full z-50 transition-all duration-300 ease-out will-change-transform text-right",
-            className
+            "fixed top-0 z-50 flex w-full flex-col p-6 text-right text-white transition-all duration-300 ease-out will-change-transform",
+            className,
           )}
         >
           <h1
             ref={titleRef}
-            className={`${playfairDisplay.className} text-[length:clamp(80px,10vw,250px)] transition-all duration-300`}
+            className={`${playfairDisplay.className} text-[length:clamp(70px,10vw,250px)] transition-all duration-300`}
           >
             {title}
           </h1>
@@ -335,13 +335,13 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
           <div
             ref={secondHeaderRef}
             className={cn(
-              "flex flex-col p-6 text-white fixed top-0 w-full z-50 transition-all duration-300 ease-out will-change-transform text-left",
-              className
+              "fixed top-0 z-50 flex w-full flex-col p-6 text-left text-white transition-all duration-300 ease-out will-change-transform",
+              className,
             )}
           >
             <h1
               ref={secondTitleRef}
-              className={`${playfairDisplay.className} text-[length:clamp(80px,10vw,250px)] transition-all duration-300`}
+              className={`${playfairDisplay.className} text-[length:clamp(70px,10vw,250px)] transition-all duration-300`}
             >
               {secondTitle}
             </h1>
@@ -358,13 +358,13 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
           <div
             ref={ninthHeaderRef}
             className={cn(
-              "flex flex-col p-6 text-white fixed top-0 w-full z-50 transition-all duration-300 ease-out will-change-transform text-center opacity-0",
-              className
+              "fixed top-0 z-50 flex w-full flex-col p-6 text-center text-white opacity-0 transition-all duration-300 ease-out will-change-transform",
+              className,
             )}
           >
             <h1
               ref={ninthTitleRef}
-              className={`${playfairDisplay.className} text-[length:clamp(80px,10vw,250px)] transition-all duration-300`}
+              className={`${playfairDisplay.className} text-[length:clamp(70px,10vw,250px)] transition-all duration-300`}
             >
               {secondTitle}
             </h1>
@@ -381,19 +381,19 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
           <div
             ref={beliefsHeaderRef}
             className={cn(
-              "flex flex-col p-6 text-white fixed top-0 w-full z-50 transition-all duration-300 ease-out will-change-transform text-center opacity-0",
-              className
+              "fixed top-0 z-50 flex w-full flex-col p-6 text-center text-white opacity-0 transition-all duration-300 ease-out will-change-transform",
+              className,
             )}
           >
             <h1
               ref={beliefsTitleRef}
-              className={`${playfairDisplay.className} text-[length:clamp(50px,15vw,180px)] leading-[1.2] whitespace-normal break-words transition-all duration-300`}
+              className={`${playfairDisplay.className} text-[length:clamp(50px,15vw,180px)] leading-[1.2] break-words whitespace-normal transition-all duration-300`}
             >
               {thirdTitle}
             </h1>
             <h2
               ref={beliefsSubtitleRef}
-              className={`${libreBaskerville.className} text-[length:clamp(40px,5vw,100px)] leading-[1.3] whitespace-normal break-words transition-all duration-300`}
+              className={`${libreBaskerville.className} text-[length:clamp(40px,5vw,100px)] leading-[1.3] break-words whitespace-normal transition-all duration-300`}
             >
               {thirdSubtitle}
             </h2>
@@ -401,7 +401,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
         )}
       </>
     );
-  }
+  },
 );
 
 Header.displayName = "Header";
