@@ -121,7 +121,7 @@ const splitTextWithImgDescription = (
       const { img, title, sub, desc } = characterData[char];
 
       const root = document.createElement("div");
-      root.className = "char-tooltip";
+      root.className = "char-tooltip w-[70px] h-[140px] md:w-[90px] md:h-[150px]";
       root.style.display = "none";
       root.style.opacity = "0";
       root.style.position = "absolute";
@@ -131,8 +131,6 @@ const splitTextWithImgDescription = (
       root.style.fontSize = "15px";
       root.style.letterSpacing = "0px";
       root.style.zIndex = "10";
-      root.style.width = "190px";
-      root.style.height = "150px";
 
       const descLine = document.createElement("div");
       descLine.className = "char-tooltip";
@@ -154,15 +152,15 @@ const splitTextWithImgDescription = (
       }
 
       const h1 = document.createElement("h1");
-      h1.className = `${playfairDisplay.className} font-bold`;
+      h1.className = `${playfairDisplay.className} font-bold text-[8px] md:text-md`;
       h1.textContent = title;
 
       const subSpan = document.createElement("h6");
-      subSpan.className = `${playfairDisplay.className} italic text-gray-700`;
+      subSpan.className = `${playfairDisplay.className} italic text-gray-700 text-[8px] md:text-md`;
       subSpan.textContent = sub;
 
       const p = document.createElement("h6");
-      p.className = `${didactGothic.className} text-md`;
+      p.className = `${didactGothic.className} md:text-md text-[8px] `;
       p.textContent = desc;
 
       root.appendChild(h1);
@@ -171,18 +169,16 @@ const splitTextWithImgDescription = (
 
       if (img) {
         const p = document.createElement("h6");
-        p.className = `${didactGothic.className} text-xs spacing-0`;
+        p.className = `${didactGothic.className} text-[8px] spacing-0`;
         p.textContent = title;
 
         const imgElement = document.createElement("div");
-        imgElement.className = "char-tooltip";
+        imgElement.className = "char-tooltip lg:w-[150px] lg:h-[150px] w-[50px] h-[50px]";
         imgElement.style.opacity = "0";
         imgElement.innerHTML = `
           <img src="${img}" className="w-full h-full border border-black" />`;
         imgElement.style.position = "absolute";
-        imgElement.style.left = "50%";
-        imgElement.style.width = "150px";
-        imgElement.style.height = "150px";
+        imgElement.style.left = "50%";        
         imgElement.style.transform = "translateX(-50%)";
 
         const imgLine = document.createElement("div");
@@ -351,20 +347,22 @@ export const FirstHeader = forwardRef<HTMLDivElement, FirstHeaderProps>(
           <div className="flex items-center">
             <h1
               ref={titleRef}
-              className={`${playfairDisplay.className} flex text-[length:clamp(100px,10vw,250px)] transition-all duration-300`}
+              className={`${playfairDisplay.className} flex text-[length:clamp(40px,5vw,100px)] lg:text-[length:clamp(100px,10vw,250px)] 
+              transition-all duration-300`}
             >
               {title1}-
             </h1>
             <h1
               ref={titleRef}
-              className={`${playfairDisplay.className} flex text-[length:clamp(100px,10vw,250px)] font-bold italic transition-all duration-300`}
+              className={`${playfairDisplay.className} flex text-[length:clamp(40px,5vw,100px)] lg:text-[length:clamp(100px,10vw,250px)] font-bold italic 
+              transition-all duration-300`}
             >
               {title2}
             </h1>
           </div>
           <h2
             ref={subtitleRef}
-            className={`${libreBaskerville.className} text-[length:clamp(50px,5vw,120px)] transition-all duration-300`}
+            className={`${libreBaskerville.className} text-[length:clamp(20px,5vw,120px)] transition-all duration-300`}
           >
             {subtitle}
           </h2>
@@ -420,7 +418,7 @@ export const SecondHeader = forwardRef<HTMLDivElement, SecondHeaderProps>(
                 const secondTitleChars =
                   secondTitleRef.current.querySelectorAll("span");
                 const middleIndex = Math.floor(secondTitleChars.length / 2);
-                const spreadAmount = self.progress * 80;
+                const spreadAmount = self.progress * (window.innerWidth <= 425 ? 45 : 80);
                 gsap.to(secondTitleChars, {
                   x: (index) => `${(index - middleIndex) * spreadAmount}px`,
                   duration: 0.5,
@@ -496,10 +494,14 @@ export const SecondHeader = forwardRef<HTMLDivElement, SecondHeaderProps>(
         >
           <h1
             ref={secondTitleRef}
-            className={`${playfairDisplayBlack.className} text-[length:clamp(100px,10vw,250px)] transition-all duration-300`}
+            className={`${playfairDisplayBlack.className} 
+              text-[length:clamp(24px,4vw,100px)] 
+              lg:text-[length:clamp(100px,10vw,250px)] 
+              transition-all duration-300 text-center break-words`}
           >
             {secondTitle}
           </h1>
+
         </div>
       </>
     );
@@ -538,43 +540,7 @@ export const Title = forwardRef<HTMLDivElement>(({}) => {
             }
           },
         });
-
-        //   trigger: ".third-section",
-        //   start: "top 80%",
-        //   end: "top 30%",
-        //   scrub: 0.6,
-        //   onUpdate: (self) => {
-        //     if (secondTitleRef.current) {
-        //       const secondTitleChars =
-        //         secondTitleRef.current.querySelectorAll("span");
-
-        //       gsap.to(secondTitleChars, {
-        //         x: 0,
-        //         opacity: 1 - self.progress,
-        //         duration: 0.5,
-        //         stagger: 0.05,
-        //       });
-
-        //       const tooltipElements =
-        //         secondTitleRef.current.querySelectorAll(".char-tooltip");
-
-        //       tooltipElements.forEach((el) => {
-        //         gsap.to(el, {
-        //           opacity: 0,
-        //           display: "block",
-        //           duration: 0.5,
-        //           ease: "power2.out",
-        //         });
-        //       });
-        //     }
-
-        //     gsap.to(secondHeaderRef.current, {
-        //       y: `-${self.progress * 100}%`,
-        //       opacity: 1 - self.progress,
-        //       duration: 0.5,
-        //     });
-        //   },
-        // });
+  
       });
 
       return () => ctx.revert(); // Clean up
