@@ -26,7 +26,7 @@ type AlphabetProps = {
 
 export const Alphabet = ({ alphabet }: AlphabetProps) => {
   return (
-    <h1 className={`${playfairDisplay.className} z-50 text-[220px] font-black`}>
+    <h1 className={`${playfairDisplay.className} z-50 lg:text-[220px] text-[155px] font-black`}>
       {alphabet}
     </h1>
   );
