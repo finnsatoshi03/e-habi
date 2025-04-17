@@ -3,9 +3,13 @@ import { useState, useEffect } from "react";
 /**
  * Custom hook to detect if the user is on a mobile device
  * @param breakpoint - Optional breakpoint in pixels (default: 768)
+ * @param useUserAgent - Whether to also check user agent for mobile detection (default: false)
  * @returns {Object} Object containing isMobile boolean and window width
  */
-export const useMobile = (breakpoint: number = 768) => {
+export const useMobile = (
+  breakpoint: number = 768,
+  useUserAgent: boolean = false,
+) => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [windowWidth, setWindowWidth] = useState<number>(0);
 
@@ -28,8 +32,8 @@ export const useMobile = (breakpoint: number = 768) => {
       const width = window.innerWidth;
       setWindowWidth(width);
 
-      // Consider device mobile if width is below breakpoint OR user agent indicates mobile
-      setIsMobile(width < breakpoint || checkUserAgent());
+      // Consider device mobile if width is below breakpoint OR (if useUserAgent is true) user agent indicates mobile
+      setIsMobile(width < breakpoint || (useUserAgent && checkUserAgent()));
     };
 
     // Initial check
@@ -40,7 +44,7 @@ export const useMobile = (breakpoint: number = 768) => {
 
     // Cleanup
     return () => window.removeEventListener("resize", updateMobileState);
-  }, [breakpoint]);
+  }, [breakpoint, useUserAgent]);
 
   return { isMobile, windowWidth };
 };

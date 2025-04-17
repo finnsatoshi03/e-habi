@@ -115,6 +115,7 @@ export default function Home() {
   } = useScrollAnimations();
 
   const { isMobile } = useMobile();
+  console.log(isMobile);
 
   return (
     <div
@@ -233,7 +234,7 @@ export default function Home() {
       <div className="fourth-section relative h-[100vh]" id="paano">
         <div
           ref={fourthSectionBroomRef}
-          className="fixed -bottom-[35%] left-[75%] w-[20rem] rotate-90 md:bottom-0 md:left-[50%] md:w-[50rem] md:rotate-0"
+          className="fixed -bottom-[35%] left-[75%] w-[20rem] rotate-90 md:rotate-0 lg:bottom-0 lg:left-[50%] lg:w-[50rem]"
         >
           <Image
             src={broom}
@@ -243,7 +244,7 @@ export default function Home() {
             }}
             className="relative w-full object-cover"
           />
-          <div className="fourth-section-image fixed right-[70%] bottom-[9%] hidden w-[70vw] grid-cols-[auto_1fr] md:grid lg:w-[60rem]">
+          <div className="fourth-section-image fixed right-[70%] hidden w-[70vw] grid-cols-[auto_1fr] lg:bottom-[7%] lg:grid xl:bottom-[9%] xl:w-[60rem]">
             <p
               ref={fourthSectionTitleRef}
               className="col-start-1 w-fit uppercase"
@@ -265,7 +266,7 @@ export default function Home() {
               className="row-start-2 mt-[10vh] h-[1px] w-full bg-white"
             ></div>
           </div>
-          <div className="fourth-section-text fixed bottom-[5%] -left-[35%] hidden w-2/3 grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4 md:grid">
+          <div className="fourth-section-text fixed bottom-[3%] -left-[35%] hidden w-2/3 grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4 lg:grid xl:bottom-[5%]">
             <p ref={fourthSectionNumberRef} className="col-start-1">
               01
             </p>
@@ -325,7 +326,7 @@ export default function Home() {
           />
 
           {/* fifth section */}
-          <div className="fifth-section-image fixed right-[60%] bottom-[9%] hidden w-[70vw] grid-cols-[auto_1fr] md:grid lg:w-[60rem]">
+          <div className="fifth-section-image fixed right-[60%] bottom-[7%] hidden w-[70vw] grid-cols-[auto_1fr] md:grid xl:bottom-[9%] xl:w-[60rem]">
             <p
               ref={fifthSectionTitleRef}
               className="col-start-1 w-fit uppercase"
@@ -347,7 +348,7 @@ export default function Home() {
               className="row-start-2 mt-[10vh] h-[1px] w-full bg-white"
             ></div>
           </div>
-          <div className="fifth-section-text fixed bottom-[5%] -left-[45%] hidden w-full grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4 md:grid">
+          <div className="fifth-section-text fixed bottom-[3%] -left-1/2 hidden w-full grid-cols-[auto_1fr_1fr] gap-x-8 gap-y-4 md:grid xl:bottom-[5%] xl:-left-[45%]">
             <p ref={fifthSectionNumberRef} className="col-start-1">
               02
             </p>
@@ -397,7 +398,7 @@ export default function Home() {
       </div>
       <div className="sixth-section relative h-[100vh]">
         <div
-          className={`sixth-section-image fixed left-[5%] grid h-fit w-[60%] grid-cols-[auto_1fr] md:bottom-[27%] md:left-[6%] ${isMobile && "top-[20%]"}`}
+          className={`sixth-section-image fixed bottom-[25%] left-[5%] grid h-fit w-[60%] grid-cols-[auto_1fr] xl:bottom-[27%] xl:left-[6%] ${isMobile && "top-[20%]"}`}
         >
           <p ref={sixthSectionTitleRef} className="col-start-1 w-fit uppercase">
             PAGHIHIMAY
@@ -418,7 +419,7 @@ export default function Home() {
           ></div>
         </div>
         <div
-          className={`sixth-section-text md:grid-rows-auto fixed left-[15%] grid h-[30vh] w-2/3 grid-rows-[auto_1fr] gap-x-8 gap-y-4 md:bottom-[15%] md:left-[20%] md:h-fit md:w-1/2 md:grid-cols-[auto_1fr_1fr] ${isMobile && "top-[50%]"}`}
+          className={`sixth-section-text md:grid-rows-auto fixed bottom-[10%] left-[15%] grid h-[30vh] w-2/3 grid-rows-[auto_1fr] gap-x-8 gap-y-4 md:left-[20%] md:h-fit md:w-1/2 md:grid-cols-[auto_1fr_1fr] xl:bottom-[15%] ${isMobile && "top-[50%]"}`}
         >
           <p ref={sixthSectionNumberRef} className="col-start-1 row-start-1">
             03
