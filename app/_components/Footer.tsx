@@ -53,7 +53,7 @@ const Footer = ({
                   <Link href="/">Home</Link>
                 </li>
                 <li>
-                  <Link href="#paano">Paano Ginagawa ang Walis Tambo</Link>
+                  <Link href="#paano">Proseso ng Paggawa ng Walis Tambo</Link>
                 </li>
                 <li>
                   <Link href="#paniniwala">
@@ -86,7 +86,7 @@ const Footer = ({
                   <Link href="/">Twitter</Link>
                 </li>
                 <li>
-                  <Link href="/">Connect with Developers</Link>
+                  <Link href="/">Makipag-ugnay sa mga Developers</Link>
                 </li>
               </ul>
             </nav>
