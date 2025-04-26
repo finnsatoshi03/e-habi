@@ -66,6 +66,9 @@ const Footer = ({
                 <li>
                   <Link href="/activity">Pagsusulit</Link>
                 </li>
+                <li>
+                  <Link href="/mananaliksik">Mananaliksik</Link>
+                </li>
               </ul>
             </nav>
             <nav>

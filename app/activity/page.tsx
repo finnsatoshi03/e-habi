@@ -265,12 +265,14 @@ export default function ActivityPage() {
 
   return (
     <div className="relative flex h-full flex-col bg-white">
-      <div className="flex w-full flex-1 flex-col gap-6 px-4 pt-6 pb-12 sm:gap-8 sm:px-6 sm:pt-8 sm:pb-16 md:gap-12 md:px-8 md:pt-10 md:pb-20 lg:px-12 xl:px-16">
+      <div className="flex min-h-0 w-full flex-1 flex-col gap-6 px-4 pt-6 pb-12 sm:gap-8 sm:px-6 sm:pt-8 sm:pb-16 md:gap-12 md:px-8 md:pt-10 md:pb-20 lg:px-12 xl:px-16">
         {hasStarted && (
           <QuizHeader
             title="E-HABI"
             instruction={
-              !quizCompleted ? "Complete the quiz to test your knowledge" : ""
+              !quizCompleted
+                ? "Basahin at unawain ang bawat tanong sa pagsusulit. Sagutan ito sa pamamagitan ng pagpili o pagbuo ng tamang sagot gamit ang mga letrang nasa kahon."
+                : ""
             }
           />
         )}

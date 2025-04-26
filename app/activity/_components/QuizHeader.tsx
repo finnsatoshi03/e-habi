@@ -17,15 +17,13 @@ export default function QuizHeader({
 }: QuizHeaderProps) {
   return (
     <header className="">
-      <div className="relative flex-wrap flex items-center w-full gap-4">
+      <div className="relative flex w-full flex-wrap items-center gap-4">
         <h1
-          className={`text-4xl font-bold text-black z-10 ${playfairDisplay.className}`}
+          className={`z-10 text-4xl font-bold text-black ${playfairDisplay.className}`}
         >
           {title}
         </h1>
-        <p className="lg:absolute left-1/2 lg:transform text-center lg:-translate-x-1/2 text-black text-xl lg:whitespace-nowrap">
-          {instruction}
-        </p>
+        <p className="w-full text-center text-xl text-black">{instruction}</p>
       </div>
     </header>
   );
